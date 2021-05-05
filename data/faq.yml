@@ -1,0 +1,100 @@
+version: "2.0"
+
+nlu:
+- intent: faq/contact_details
+  examples: |
+    - مهلا
+    - ما هي أرقام التواصل الخاصة بالمركز؟
+    - ما هو رقم الاتصال
+    - رقم الاتصال
+    - عدد
+    - كيف يمكنني الاتصال بك
+    - كيف لي أن أتصل بك
+    - هل يمكنني الحصول على رقم الاتصال الخاص بك
+    - اعطنى رقم هاتفك
+    - اريد رقم موبايلك
+    - كيف يمكنني الاتصال بك
+    - رقم الهاتف
+    - بيانات المتصل
+    - What are the contact numbers for the center?
+    - what is the contact number
+    - contact number
+    - number
+    - how do I call you
+    - how can I call you
+    - can I have your contact number
+    - Give me your phone number
+    - I want your phone number
+    - how do I get in touch with you
+    - phone number
+    - contact details
+
+- intent: faq/apply_study_seat
+  examples: |
+    - هل يمكن أن أتقدم بطلب الحصول على مقعد دراسي في إحدى مؤسسات التعليم العالي عن طريق المركز؟
+    - التقدم للحصول على مقعد في التعليم العالي
+    - هل يمكنني التقدم للحصول على التعليم العالي
+    - تعليم عالى
+    - مقعد في التعليم العالي
+    - تقدم بطلب للحصول على التعليم العالي
+    - أرغب في التقدم للحصول على التعليم العالي من خلال المعهد
+    - apply for a seat in a higher education
+    - can I apply for higher education
+    - higher education
+    - seat in higher education
+    - Apply for higher education
+    - I want to apply for higher education through the institute
+
+- intent: faq/can_register
+  examples: |
+    - متى أسجل طلبي في نظام المركز؟
+    - متى يمكنني تسجيل طلبي في نظام المركز؟
+    - تسجيل طلبي
+    - تسجيل التطبيق
+    - متى يمكنني التسجيل
+    - أرغب بالتسجيل
+    - تسجيل الطلب في نظام المركز
+    - متى يمكنني تسجيل الطلب في نظام المعهد
+    - When do I register my application in the center's system?
+    - When can I register my application in center's system
+    - register my application
+    - register application
+    - when can I register
+    - I want to register
+    - register application in center's system
+    - when can I register application in the institute system
+
+- intent: faq/how_submit
+  examples: |
+    - كيف يمكنني تقديم طلبي؟
+    - أرغب في تقديم طلبي
+    - تقديم طلب
+    - كيفية تقديم الطلب
+    - ساعدني في تقديم الطلب
+    - قدم الطلب
+    - How can I submit my application?
+    - I want to submit my application
+    - submit an application
+    - how to submit an application
+    - help me in submitting an application
+    - submit application
+
+- intent: faq/arrange_options
+  examples: |
+    - كيف أرتب خياراتي للبرامج الدراسية في نموذج الطلب؟
+    - ترتيب خياراتي لبرنامج الدراسة
+    - ترتيب برنامج الدراسة
+    - خيارات في استمارة الطلب
+    - ساعدني في ترتيب الخيارات في البرنامج الدراسي
+    - خيارات البرامج الدراسية في استمارة التقديم
+    - ترتيب خيارات البرنامج الدراسي
+    - How do I arrange my options of study programs in the application form?
+    - arrange my options of study program
+    - study program arrangement
+    - Options in application form
+    - help me in arranging the options in study program
+    - options of study programs in the application form
+    - study program options arrangement
+
+
+

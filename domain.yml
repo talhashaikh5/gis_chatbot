@@ -1,0 +1,56 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - faq
+
+responses:
+  utter_faq/contact_details:
+  - text: "رقم هاتف مركز الاتصالات: 24340900"
+
+  utter_faq/apply_study_seat:
+  - text: "إن كنت عمانيا يمكنك ذلك في حال حققت شروط التقدم الى مؤسسات التعليم العالي الحكومية أو البعثات أو المنح الداخلية في مؤسسات التعليم العالي الخاصة أو البعثات والمنح خارج السلطنة."
+
+  utter_faq/can_register:
+  - text: "سيبدأ المركز باستقبال طلبات التسجيل اعتباراً من01/05 ولغاية 01/07."
+
+  utter_faq/how_submit:
+  - text: "يمكنك التقدم بطلب الالتحاق باستخدام إحدى الوسائل التالية: الموقع الالكتروني للمركز، أو من خلال خدمة التسجيل عبر الرسائل النصية القصيرة، أو خدمة تطبيق الهواتف الذكية ولن تكون هناك أية طلبات ورقية."
+
+  utter_faq/arrange_options:
+  - text: "البرامج التي تمثل أفضل خياراتك يجب أن تكون في أعلى القائمة وتليها البرامج الأقل أولوية بالنسبة اليك."
+
+  utter_greet:
+  - text: "مهلا! كيف حالك؟"
+
+  utter_please_rephrase:
+  - text: "أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟"
+
+  utter_default:
+  - text: "آسف لم أفهم ذلك. هل يمكنك إعادة الصياغة؟"
+
+  utter_cheer_up:
+  - text: "Here is something to cheer you up:"
+    image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_did_that_help:
+  - text: "Did that help you?"
+
+  utter_happy:
+  - text: "Great, carry on!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
