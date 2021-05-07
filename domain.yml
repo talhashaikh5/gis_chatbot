@@ -60,9 +60,9 @@ responses:
   utter_default:
   - text: آسف لم أفهم ذلك. هل يمكنك إعادة الصياغة؟
   utter_ask_region:
-  - text: 'أين أنت تبحث عن؟ ١. محلى ٢. الدولية ملاحظة: اكتب ١ محليًا و ٢ دوليًا'
+  - text: 'Where are you looking for? \n 1. Local\n 2. International \n \nNote Type 1 for locally and 2 for internationally'
   utter_ask_graduate:
-  - text: 'عن أي برنامج تبحث عنه؟ 1. المرحلة الجامعية 2. خريج 3. بعد التخرج ملاحظة: اكتب 1 للطلاب الجامعيين و 2 للخريجين و 3 للدراسات العليا'
+  - text: 'What program are you looking for? \n 1. Undergraduate\n 2. Graduate\n 3. Postgraduate \n \nNote: Type 1 for undergraduates, 2 for graduates, and 3 for postgraduate studies'
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
     text: 'Here is something to cheer you up:'
@@ -80,8 +80,8 @@ actions:
 - utter_faq
 forms:
   scholarship_availability_form:
-    graduate:
-    - type: from_text
     region:
     - type: from_text
+    graduate:
+      - type: from_text 
 e2e_actions: []

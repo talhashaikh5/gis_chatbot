@@ -22,21 +22,21 @@ class ActionHelloWorld(Action):
         if graduate is not None:
             if graduate is "ug":
                 dispatcher.utter_message(
-                    text="هذه الكليات والجامعات متوفرة"
+                    text="These are colleges and universities"
                 )
                 dispatcher.utter_message(
                     text="National University of Science and Technology\nASharqiyah University\nMuscat University"
                 )
             elif graduate is "g":
                 dispatcher.utter_message(
-                    text="هذه الكليات والجامعات متوفرة"
+                    text="These are colleges and universities"
                 )
                 dispatcher.utter_message(
                     text="Global College of Engineering & Technology\nAl Musanna College\nOman Tourism College"
                 )
             else:
                 dispatcher.utter_message(
-                    text="هذه الكليات والجامعات متوفرة"
+                    text="These are colleges and universities"
                 )
                 dispatcher.utter_message(
                     text="Global College of Engineering & Technology\nAl Musanna College\nOman Tourism College"
@@ -56,7 +56,8 @@ class ValidateScholarshipAvailabilityForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate region value."""
-        text_of_last_user_message = tracker.latest_message.get("text")
+        text_of_last_user_message = tracker.latest_message.get("text").lower()
+
         local = ['محلي', 'local', '1', '١']
         international = ['دولي', 'international', '2', '٢']
         for item in local:
@@ -75,7 +76,7 @@ class ValidateScholarshipAvailabilityForm(FormValidationAction):
         domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate graduate value."""
-        text_of_last_user_message = tracker.latest_message.get("text")
+        text_of_last_user_message = tracker.latest_message.get("text").lower()
         ug = ['حت التخرج', 'الجامعية', 'under graduate', '1', 'undergraduate', '١']
         g = ['خريج', 'يتخرج', 'graduate', '2', '٢']
         pg = ['دراسات عليا', 'دراسات عليا', 'post graduate', 'post graduate', '3', '٣']
