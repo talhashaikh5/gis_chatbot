@@ -1,0 +1,10 @@
+[
+  {
+    "text": "عدد",
+    "intent_response_key_target": "faq/contact_details",
+    "intent_response_key_prediction": {
+      "name": "faq/apply_study_seat",
+      "confidence": 0.36496585607528687
+    }
+  }
+]

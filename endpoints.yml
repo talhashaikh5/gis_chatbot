@@ -10,8 +10,8 @@
 # Server which runs your custom actions.
 # https://rasa.com/docs/rasa/custom-actions
 
-#action_endpoint:
-#  url: "http://localhost:5055/webhook"
+action_endpoint:
+  url: "http://localhost:5055/webhook"
 
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
@@ -41,12 +41,11 @@
 #  password: password
 #  queue: queue
 
-tracker_store:
-    type: SQL
-    dialect: "sqlite"  # the dialect used to interact with the db
-    url: # (optional) host of the sql db, e.g. "localhost"
-    db: "rasa.db"  # path to your db
-    username:  # username used for authentication
-    password:  # password used for authentication
-    # query: # optional dictionary to be added as a query string
-      # driver: my-driver
+#tracker_store:
+#    type: SQL
+#    dialect: "mysql"  # the dialect used to interact with the db
+#    url:  "52.66.82.69:3306"
+#    db: "inertng5_wp460"
+#    username:  "root"
+#    password:  "Hotspot#0"
+

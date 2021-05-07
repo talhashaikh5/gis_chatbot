@@ -21,3 +21,20 @@ rules:
   steps:
   - intent: nlu_fallback
   - action: utter_please_rephrase
+
+- rule: scholarships Available form
+  steps:
+  - intent: available_university
+  - action: scholarship_availability_form
+  - active_loop: scholarship_availability_form
+
+- rule: deactivate scholarships available form
+  condition:
+  - active_loop: scholarship_availability_form
+  steps:
+  - action: scholarship_availability_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_scholarship_availability_form

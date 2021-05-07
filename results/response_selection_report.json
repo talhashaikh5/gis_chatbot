@@ -1,0 +1,52 @@
+{
+  "faq/arrange_options": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 14,
+    "confused_with": {}
+  },
+  "faq/can_register": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 16,
+    "confused_with": {}
+  },
+  "faq/how_submit": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 12,
+    "confused_with": {}
+  },
+  "faq/contact_details": {
+    "precision": 1.0,
+    "recall": 0.9583333333333334,
+    "f1-score": 0.9787234042553191,
+    "support": 24,
+    "confused_with": {
+      "faq/apply_study_seat": 1
+    }
+  },
+  "faq/apply_study_seat": {
+    "precision": 0.9285714285714286,
+    "recall": 1.0,
+    "f1-score": 0.962962962962963,
+    "support": 13,
+    "confused_with": {}
+  },
+  "accuracy": 0.9873417721518988,
+  "macro avg": {
+    "precision": 0.9857142857142858,
+    "recall": 0.9916666666666668,
+    "f1-score": 0.9883372734436564,
+    "support": 79
+  },
+  "weighted avg": {
+    "precision": 0.9882459312839059,
+    "recall": 0.9873417721518988,
+    "f1-score": 0.9874415217803315,
+    "support": 79
+  }
+}
