@@ -1,10 +1,26 @@
 [
   {
-    "text": "عدد",
-    "intent_response_key_target": "faq/contact_details",
+    "text": "أقل عدد من البرامج",
+    "intent_response_key_target": "faq/more_40",
     "intent_response_key_prediction": {
-      "name": "faq/apply_study_seat",
-      "confidence": 0.36496585607528687
+      "name": "faq/faq_24",
+      "confidence": 0.4960935115814209
+    }
+  },
+  {
+    "text": "برامج لذوي الإعاقة والضمان الاجتماعي",
+    "intent_response_key_target": "faq/faq_11",
+    "intent_response_key_prediction": {
+      "name": "faq/special_program",
+      "confidence": 0.5692952275276184
+    }
+  },
+  {
+    "text": "كيفية ترتيب البرامج الدراسية",
+    "intent_response_key_target": "faq/faq_17",
+    "intent_response_key_prediction": {
+      "name": "faq/arrange_options",
+      "confidence": 0.5289819240570068
     }
   }
 ]

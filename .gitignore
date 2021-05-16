@@ -5,6 +5,7 @@
 # Rasa
 rasa.*
 events.*
+results/
 
 
 # Byte-compiled / optimized / DLL files

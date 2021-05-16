@@ -1,52 +1,217 @@
 {
-  "faq/arrange_options": {
+  "faq/faq_16": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
-    "support": 14,
+    "support": 4,
     "confused_with": {}
   },
-  "faq/can_register": {
+  "faq/faq_12": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
-    "support": 16,
+    "support": 6,
+    "confused_with": {}
+  },
+  "faq/faq_21": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 5,
+    "confused_with": {}
+  },
+  "faq/diabled_student": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 7,
+    "confused_with": {}
+  },
+  "faq/faq_13": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 6,
+    "confused_with": {}
+  },
+  "faq/change_choice": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 5,
+    "confused_with": {}
+  },
+  "faq/faq_20": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 5,
+    "confused_with": {}
+  },
+  "faq/arrange_options": {
+    "precision": 0.9473684210526315,
+    "recall": 1.0,
+    "f1-score": 0.972972972972973,
+    "support": 18,
+    "confused_with": {}
+  },
+  "faq/forth_name": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 2,
+    "confused_with": {}
+  },
+  "faq/faq_24": {
+    "precision": 0.8333333333333334,
+    "recall": 1.0,
+    "f1-score": 0.9090909090909091,
+    "support": 5,
+    "confused_with": {}
+  },
+  "faq/more_40": {
+    "precision": 1.0,
+    "recall": 0.8571428571428571,
+    "f1-score": 0.923076923076923,
+    "support": 7,
+    "confused_with": {
+      "faq/faq_24": 1
+    }
+  },
+  "faq/faq_19": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4,
+    "confused_with": {}
+  },
+  "faq/faq_25": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 7,
+    "confused_with": {}
+  },
+  "faq/contact_details": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 24,
+    "confused_with": {}
+  },
+  "faq/faq_18": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 5,
+    "confused_with": {}
+  },
+  "faq/faq_11": {
+    "precision": 1.0,
+    "recall": 0.8,
+    "f1-score": 0.888888888888889,
+    "support": 5,
+    "confused_with": {
+      "faq/special_program": 1
+    }
+  },
+  "faq/non_omani_mother": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4,
+    "confused_with": {}
+  },
+  "faq/faq_23": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 6,
+    "confused_with": {}
+  },
+  "faq/civil_number": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 5,
+    "confused_with": {}
+  },
+  "faq/low_income": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 11,
+    "confused_with": {}
+  },
+  "faq/faq_17": {
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1-score": 0.8571428571428571,
+    "support": 4,
+    "confused_with": {
+      "faq/arrange_options": 1
+    }
+  },
+  "faq/special_program": {
+    "precision": 0.8571428571428571,
+    "recall": 1.0,
+    "f1-score": 0.923076923076923,
+    "support": 6,
     "confused_with": {}
   },
   "faq/how_submit": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
-    "support": 12,
+    "support": 16,
     "confused_with": {}
   },
-  "faq/contact_details": {
-    "precision": 1.0,
-    "recall": 0.9583333333333334,
-    "f1-score": 0.9787234042553191,
-    "support": 24,
-    "confused_with": {
-      "faq/apply_study_seat": 1
-    }
-  },
   "faq/apply_study_seat": {
-    "precision": 0.9285714285714286,
+    "precision": 1.0,
     "recall": 1.0,
-    "f1-score": 0.962962962962963,
+    "f1-score": 1.0,
     "support": 13,
     "confused_with": {}
   },
-  "accuracy": 0.9873417721518988,
+  "faq/wrong_village": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 7,
+    "confused_with": {}
+  },
+  "faq/can_register": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 17,
+    "confused_with": {}
+  },
+  "faq/trail_triage": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 7,
+    "confused_with": {}
+  },
+  "faq/faq_22": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 7,
+    "confused_with": {}
+  },
+  "accuracy": 0.9862385321100917,
   "macro avg": {
-    "precision": 0.9857142857142858,
-    "recall": 0.9916666666666668,
-    "f1-score": 0.9883372734436564,
-    "support": 79
+    "precision": 0.9870658789831722,
+    "recall": 0.9788265306122449,
+    "f1-score": 0.9812231955089098,
+    "support": 218
   },
   "weighted avg": {
-    "precision": 0.9882459312839059,
-    "recall": 0.9873417721518988,
-    "f1-score": 0.9874415217803315,
-    "support": 79
+    "precision": 0.9878997953599596,
+    "recall": 0.9862385321100917,
+    "f1-score": 0.9859265317980915,
+    "support": 218
   }
 }
