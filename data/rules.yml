@@ -38,3 +38,44 @@ rules:
       - requested_slot: null
       # The actions we want to run when the form is submitted.
   - action: action_submit_scholarship_availability_form
+
+
+- rule: local school form
+  steps:
+  - intent: local_school
+  - action: local_school_form
+  - active_loop: local_school_form
+
+- rule: deactivate local school form
+  condition:
+  - active_loop: local_school_form
+  steps:
+  - action: local_school_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_local_school_form
+
+
+- rule: deactivate search programform
+  condition:
+  - active_loop: search_program_code_form
+  steps:
+  - action: search_program_code_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_search_program_code_form
+
+- rule: deactivate search program country form
+  condition:
+  - active_loop: search_program_con_form
+  steps:
+  - action: search_program_con_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_search_program_con_form

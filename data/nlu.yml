@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -13,13 +12,9 @@ nlu:
     - مرحبا يا من هناك
     - هيا بنا
     - اهلا يا دودى
-    - صباح الخير
-    - مساء الخير
-    - مساء الخير
     - hey
     - how are you
     - hello
-
 - intent: goodbye
   examples: |
     - good afternoon
@@ -33,7 +28,6 @@ nlu:
     - see you around
     - bye bye
     - see you later
-
 - intent: affirm
   examples: |
     - yes
@@ -42,7 +36,6 @@ nlu:
     - of course
     - that sounds good
     - correct
-
 - intent: deny
   examples: |
     - no
@@ -52,7 +45,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: mood_great
   examples: |
     - perfect
@@ -69,7 +61,6 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -86,14 +77,12 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
 - intent: available_university
   examples: |
     - ما هي الجامعات أو الكليات المتاحة للمنح الدراسية؟
@@ -114,3 +103,28 @@ nlu:
     - scholarship is available in which colleges
     - scholarships
     - scholarship
+- intent: program_search
+  examples: |
+    - search Programs
+    - what different programs do u have
+    - program code
+    - i want to search program
+    - show me different programs
+    - Search Program
+- intent: choose_option
+  examples: |
+    - [1](choice)
+    - [2](choice)
+    - [3](choice)
+    - [4](choice)
+    - [5](choice)
+    - [6](choice)
+- intent: local_school
+  examples: |
+    - ما هي مدارس التعريب؟
+    - ما هي المدارس المحلية
+    - الرجاء اختيار المدارس المحلية
+    - أرني المدارس المحلية
+    - المدارس المحلية
+    - المدرسة المحلية
+    - مدارس التعريب
