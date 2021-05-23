@@ -8,6 +8,9 @@ import requests
 import json
 from .local_schools import *
 from .school_code import *
+from .country_code import *
+from .load_df import get_abroad_general_codes, get_oman_disability_codes, get_public_oman_gen_codes, \
+    get_private_oman_gen_codes
 
 
 class ActionHelloWorld(Action):
@@ -125,7 +128,7 @@ class ActionSubmitSearchProgramCode(Action):
                 )
                 return [AllSlotsReset()]
         dispatcher.utter_message(
-            text=f"Entered code on incorrect please enter correct code"
+            text=f"تم إدخال الرمز بشكل غير صحيح ، الرجاء إدخال الرمز الصحيح."
         )
         return [AllSlotsReset(), FollowupAction('search_program_code_form')]
 
@@ -144,12 +147,12 @@ class ValidateLocalSchoo(FormValidationAction):
         """Validate region value."""
         if slot_value in ["1", "2", "3", "4", "5", "6", "7", "8", "9", ]:
             print(slot_value)
-            wilaya = wilaya_list[int(slot_value)-1]
+            wilaya = wilaya_list[int(slot_value) - 1]
             text = "اختر الولاية من القائمة" \
                    "\n"
             for i in range(len(wilaya)):
                 try:
-                    text += f"{str(i+1)}." + wilaya[i+1][0] + "\n"
+                    text += f"{str(i + 1)}." + wilaya[i + 1][0] + "\n"
                 except:
                     pass
 
@@ -181,8 +184,8 @@ class ActionSubmitLocalSchoolForm(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         dispatcher.utter_message(
             text=wilaya_list[
-                int(tracker.get_slot("city_list"))-1
-            ][
+                int(tracker.get_slot("city_list")) - 1
+                ][
                 int(tracker.get_slot("wilaya_list"))
             ][1]
         )
@@ -193,7 +196,176 @@ class ValidateSearchProgramCon(FormValidationAction):
     def name(self) -> Text:
         return "validate_search_program_con_form"
 
-    def validate_select_country(
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+
+        if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
+                and tracker.get_slot("select_oman_institute_type") == "1":
+            return ["select_country", "select_oman_category",
+                    "select_oman_institute_type", "select_oman_public_college", "select_oman_stream"]
+        if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
+                and tracker.get_slot("select_oman_institute_type") == "2":
+            return ["select_country", "select_oman_category",
+                    "select_oman_institute_type", "select_oman_private_college", "select_oman_stream"]
+
+        if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1":
+            return ["select_country", "select_oman_category", "select_oman_general_program",
+                    "select_oman_institute_type"]
+
+        if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
+            return ["select_country", "select_oman_category", "select_oman_disability_program",
+                    "select_oman_disability_institute"]
+        if tracker.get_slot("select_country") == "1":
+            return ["select_country", "select_oman_category"]
+
+        if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "1":
+            return ["select_country", "select_abroad_category", "select_abroad_country", "select_study_stream"]
+        if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "2":
+            return ["select_country", "select_abroad_category"]
+        if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "3":
+            return ["select_country", "select_abroad_category"]
+        if tracker.get_slot("select_country") == "2":
+            return ["select_country", "select_abroad_category"]
+        return ["select_country"]
+
+    async def validate_select_oman_stream(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_stream": slot_value
+        }
+
+    async def validate_select_oman_public_college(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_public_college": slot_value
+        }
+
+    async def validate_select_oman_private_college(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_private_college": slot_value
+        }
+
+    async def validate_select_oman_category(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_category": slot_value
+        }
+
+    async def validate_select_abroad_category(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_abroad_category": slot_value
+        }
+
+    async def validate_select_abroad_country(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_abroad_country": slot_value
+        }
+
+    async def validate_select_oman_category(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_category": slot_value
+        }
+
+    async def validate_select_study_stream(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_study_stream": slot_value
+        }
+
+    async def validate_select_oman_institute_type(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_institute_type": slot_value
+        }
+
+    async def validate_select_oman_disability_institute(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_disability_institute": slot_value
+        }
+
+    async def validate_select_oman_disability_program(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_disability_program": slot_value
+        }
+
+    async def validate_select_oman_general_program(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        return {
+            "select_oman_general_program": slot_value
+        }
+
+    async def validate_select_country(
             self,
             slot_value: Any,
             dispatcher: CollectingDispatcher,
@@ -204,23 +376,10 @@ class ValidateSearchProgramCon(FormValidationAction):
         if slot_value.lower() in ["1", "2", "abroad", "oman"]:
             print("Slot select_country", slot_value)
             if slot_value.lower() in ["1", "oman"]:
-                dispatcher.utter_message(
-                    text="Choose program type:"
-                         "  1. General Program"
-                         "  2. Disability programs"
-                         "  3. Return to previous step"
-                )
                 return {
                     "select_country": "1"
                 }
             if slot_value.lower() in ["2", "abroad"]:
-                dispatcher.utter_message(
-                    text="Choose program type:"
-                         "  1. General Program"
-                         "  2. Direct Entry Program"
-                         "  3. Disability programs"
-                         "  4. Return to previous step"
-                )
                 return {
                     "select_country": "2"
                 }
@@ -235,10 +394,101 @@ class ActionSubmitSearchProgramConForm(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(
-            text="This is still under development type */restart* to restart conversation"
-        )
+        if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "2":
+            dispatcher.utter_message(
+                text="رمز البرنامج DE001    :اسم البرنامج:  Direct Entry Scholarship :المجال المعرفي: غير محدد :نوع "
+                     "البرنامج: بعثة خارجية   :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول "
+                     "مختلفة :فئة الطلبة : غير اعاقة "
+            )
+            return [AllSlotsReset()]
+        if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "3":
+            dispatcher.utter_message(
+                text="لدينا فقط برنامج الإعاقة في الأردن.:\n رمز البرنامج SE890    :اسم البرنامج:  البرنامج مخصص "
+                     "للطلبة "
+                     "ذوي الإعاقة السمعية فقط :المجال المعرفي: غير محدد :نوع البرنامج: بعثة خارجية   :اسم المؤسسة "
+                     "التعليمية : الجامعة الاردنية :بلد الدراسة : الاردن :فئة الطلبة : اعاقة "
+            )
+            return [AllSlotsReset()]
+        if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "1":
+            country = tracker.get_slot("select_abroad_country")
+            stream = tracker.get_slot("select_study_stream")
+            codes = get_abroad_general_codes(country, stream)
+            if not codes:
+                dispatcher.utter_message(
+                    text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
+                )
+                return [AllSlotsReset()]
+            else:
+                text = "قائمة بجميع البرامج"
+                for i in codes:
+                    text += "\n" + str(i)
+                text += "\n"
+                text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
+                dispatcher.utter_message(text=text)
+                return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+
+
+        if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
+            print("here 1")
+            disability = tracker.get_slot("select_oman_disability_program")
+            ins = tracker.get_slot("select_oman_disability_institute")
+            codes = get_oman_disability_codes(disability, ins)
+            if not codes:
+                dispatcher.utter_message(
+                    text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
+                )
+                return [AllSlotsReset()]
+            else:
+                text = "قائمة بجميع البرامج"
+                for i in codes:
+                    text += "\n" + str(i)
+                text += "\n"
+                text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
+                dispatcher.utter_message(text=text)
+                return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+
+        if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
+                and tracker.get_slot("select_oman_institute_type") == "1":
+            # Public csv call
+            college = tracker.get_slot("select_oman_public_college"),
+            stream = tracker.get_slot("select_oman_stream")
+            codes = get_public_oman_gen_codes(college=str(college), stream=str(stream))
+            if not codes:
+                dispatcher.utter_message(
+                    text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
+                )
+                return [AllSlotsReset()]
+            else:
+                text = "قائمة بجميع البرامج\n"
+                for i in codes:
+                    text += "\n" + str(i)
+                text += "\n"
+                text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل.\n"
+                dispatcher.utter_message(text=text)
+                return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+
+        if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
+                and tracker.get_slot("select_oman_institute_type") == "2":
+            # Public csv call
+            college = tracker.get_slot("select_oman_private_college"),
+            stream = tracker.get_slot("select_oman_stream")
+            codes = get_private_oman_gen_codes(college=str(college), stream=str(stream))
+            if not codes:
+                dispatcher.utter_message(
+                    text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
+                )
+                return [AllSlotsReset()]
+            else:
+                text = "قائمة بجميع البرامج"
+                for i in codes:
+                    text += "\n" + str(i)
+                text += "\n"
+                text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
+                dispatcher.utter_message(text=text)
+                return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+
         return [AllSlotsReset()]
+
 
 class ActionSelectProgramBy(Action):
     def name(self) -> Text:

@@ -73,7 +73,7 @@ stories:
   steps:
   - intent: program_search
   - action: utter_select_program_by
-- story: Story from Conversation ID 6a95fb65a2e247d5ba083c241875d420
+- story: Search Country
   steps:
   - intent: program_search
   - action: utter_select_program_by
@@ -96,7 +96,7 @@ stories:
   - slot_was_set:
     - select_country: '2'
   - action: action_submit_search_program_con_form
-- story: Story from Conversation ID 34aeada14dca454fa8442887889bdbcd
+- story: Search Code
   steps:
   - intent: program_search
   - action: utter_select_program_by
