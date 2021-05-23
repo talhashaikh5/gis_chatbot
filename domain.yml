@@ -281,9 +281,9 @@ responses:
       11. غير محدد
   utter_ask_select_oman_institute_type:
   - text: |-
-      Please choose type of institute:
-        1. Sultan qaboos
-        2. Applied
+      اختبار نوع المؤسسة التعليمية
+      1. مؤسسات التعليم العالي الحكومية
+      2. مؤسسات التعليم العالي الخاصة
   utter_greet:
   - text: مهلا! كيف حالك؟
   utter_please_rephrase:
