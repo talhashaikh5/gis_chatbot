@@ -214,7 +214,7 @@ class ValidateSearchProgramCon(FormValidationAction):
                     "select_oman_institute_type", "select_oman_private_college", "select_oman_stream"]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1":
-            return ["select_country", "select_oman_category", "select_oman_general_program",
+            return ["select_country", "select_oman_category", 
                     "select_oman_institute_type"]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
