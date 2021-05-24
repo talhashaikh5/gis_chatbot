@@ -517,7 +517,8 @@ class ActionSubmitSearchProgramConForm(Action):
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "1":
             # Public csv call
-            college = tracker.get_slot("select_oman_public_college"),
+            college = tracker.get_slot("select_oman_public_college")
+            print("Here 2 ",college, type(college))
             stream = tracker.get_slot("select_oman_stream")
             codes = get_public_oman_gen_codes(college=int(college), stream=int(stream))
             if not codes:
@@ -537,7 +538,7 @@ class ActionSubmitSearchProgramConForm(Action):
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "2":
             # Public csv call
-            college = tracker.get_slot("select_oman_private_college"),
+            college = tracker.get_slot("select_oman_private_college")
             stream = tracker.get_slot("select_oman_stream")
             codes = get_private_oman_gen_codes(college=int(college), stream=int(stream))
             if not codes:
