@@ -13,6 +13,7 @@ from .load_df import get_abroad_general_codes, get_oman_disability_codes, get_pu
     get_private_oman_gen_codes
 
 
+
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -214,7 +215,7 @@ class ValidateSearchProgramCon(FormValidationAction):
                     "select_oman_institute_type", "select_oman_private_college", "select_oman_stream"]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1":
-            return ["select_country", "select_oman_category", 
+            return ["select_country", "select_oman_category",
                     "select_oman_institute_type"]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
@@ -240,8 +241,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
+        if slot_value in options_list:
+            return {
+                "select_oman_stream": slot_value
+            }
         return {
-            "select_oman_stream": slot_value
+            "select_oman_category": None
         }
 
     async def validate_select_oman_public_college(
@@ -251,8 +257,17 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [
+            "1", "2", "3", "4", "5", "6", "7",
+            "8", "9", "10", "11", "12", "13", "14",
+            "15","16","17","18","19","20"
+                        ]
+        if slot_value in options_list:
+            return {
+                "select_oman_public_college": slot_value
+            }
         return {
-            "select_oman_public_college": slot_value
+            "select_oman_public_college": None
         }
 
     async def validate_select_oman_private_college(
@@ -262,8 +277,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
+                        "18", "19",
+                        "20", "21", "22", "23", "24", "25", "26", "27", "27", "28"]
+
+        if slot_value is options_list:
+            return {
+                "select_oman_private_college": slot_value
+            }
         return {
-            "select_oman_private_college": slot_value
+            "select_oman_private_college": None
         }
 
     async def validate_select_oman_category(
@@ -273,8 +296,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = ["1","2"]
+        if slot_value in options_list:
+            return {
+                "select_oman_category": slot_value
+            }
         return {
-            "select_oman_category": slot_value
+            "select_oman_category": None
         }
 
     async def validate_select_abroad_category(
@@ -284,8 +312,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = ["1","2","3"]
+        if slot_value in options_list:
+            return {
+                "select_abroad_category": slot_value
+            }
         return {
-            "select_abroad_category": slot_value
+            "select_abroad_category": None
         }
 
     async def validate_select_abroad_country(
@@ -295,8 +328,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 16))]
+        if slot_value in options_list:
+            return {
+                "select_abroad_country": slot_value
+            }
         return {
-            "select_abroad_country": slot_value
+            "select_abroad_country": None
         }
 
     async def validate_select_oman_category(
@@ -306,8 +344,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 3))]
+        if slot_value in options_list:
+            return {
+                "select_oman_category": slot_value
+            }
         return {
-            "select_oman_category": slot_value
+            "select_oman_category": None
         }
 
     async def validate_select_study_stream(
@@ -317,8 +360,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 3))]
+        if slot_value in options_list:
+            return {
+                "select_study_stream": slot_value
+            }
         return {
-            "select_study_stream": slot_value
+            "select_study_stream": None
         }
 
     async def validate_select_oman_institute_type(
@@ -328,8 +376,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 3))]
+        if slot_value in options_list:
+            return {
+                "select_oman_institute_type": slot_value
+            }
         return {
-            "select_oman_institute_type": slot_value
+            "select_oman_institute_type": None
         }
 
     async def validate_select_oman_disability_institute(
@@ -339,8 +392,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 4))]
+        if slot_value in options_list:
+            return {
+                "select_oman_disability_institute": slot_value
+            }
         return {
-            "select_oman_disability_institute": slot_value
+            "select_oman_disability_institute": None
         }
 
     async def validate_select_oman_disability_program(
@@ -350,8 +408,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 4))]
+        if slot_value in options_list:
+            return {
+                "select_oman_disability_program": slot_value
+            }
         return {
-            "select_oman_disability_program": slot_value
+            "select_oman_disability_program": None
         }
 
     async def validate_select_oman_general_program(
@@ -361,8 +424,13 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 3))]
+        if slot_value in options_list:
+            return {
+                "select_oman_general_program": slot_value
+            }
         return {
-            "select_oman_general_program": slot_value
+            "select_oman_general_program": None
         }
 
     async def validate_select_country(
@@ -427,7 +495,6 @@ class ActionSubmitSearchProgramConForm(Action):
                 dispatcher.utter_message(text=text)
                 return [AllSlotsReset(), FollowupAction('search_program_code_form')]
 
-
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
             print("here 1")
             disability = tracker.get_slot("select_oman_disability_program")
@@ -452,7 +519,7 @@ class ActionSubmitSearchProgramConForm(Action):
             # Public csv call
             college = tracker.get_slot("select_oman_public_college"),
             stream = tracker.get_slot("select_oman_stream")
-            codes = get_public_oman_gen_codes(college=str(college), stream=str(stream))
+            codes = get_public_oman_gen_codes(college=int(college), stream=int(stream))
             if not codes:
                 dispatcher.utter_message(
                     text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
@@ -472,7 +539,7 @@ class ActionSubmitSearchProgramConForm(Action):
             # Public csv call
             college = tracker.get_slot("select_oman_private_college"),
             stream = tracker.get_slot("select_oman_stream")
-            codes = get_private_oman_gen_codes(college=str(college), stream=str(stream))
+            codes = get_private_oman_gen_codes(college=int(college), stream=int(stream))
             if not codes:
                 dispatcher.utter_message(
                     text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
