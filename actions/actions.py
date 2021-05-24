@@ -1,7 +1,7 @@
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker, FormValidationAction
-from rasa_sdk.events import EventType, FollowupAction, AllSlotsReset
+from rasa_sdk.events import EventType, FollowupAction, AllSlotsReset, Restarted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 import requests
@@ -400,7 +400,7 @@ class ActionSubmitSearchProgramConForm(Action):
                      "البرنامج: بعثة خارجية   :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول "
                      "مختلفة :فئة الطلبة : غير اعاقة "
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "3":
             dispatcher.utter_message(
                 text="لدينا فقط برنامج الإعاقة في الأردن.:\n رمز البرنامج SE890    :اسم البرنامج:  البرنامج مخصص "
@@ -408,7 +408,7 @@ class ActionSubmitSearchProgramConForm(Action):
                      "ذوي الإعاقة السمعية فقط :المجال المعرفي: غير محدد :نوع البرنامج: بعثة خارجية   :اسم المؤسسة "
                      "التعليمية : الجامعة الاردنية :بلد الدراسة : الاردن :فئة الطلبة : اعاقة "
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "1":
             country = tracker.get_slot("select_abroad_country")
             stream = tracker.get_slot("select_study_stream")
@@ -417,11 +417,11 @@ class ActionSubmitSearchProgramConForm(Action):
                 dispatcher.utter_message(
                     text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
                 )
-                return [AllSlotsReset()]
+                return [AllSlotsReset(), Restarted()]
             else:
                 text = "قائمة بجميع البرامج"
                 for i in codes:
-                    text += "\n" + str(i)
+                    text += " \n" + str(i)
                 text += "\n"
                 text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
                 dispatcher.utter_message(text=text)
@@ -437,11 +437,11 @@ class ActionSubmitSearchProgramConForm(Action):
                 dispatcher.utter_message(
                     text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
                 )
-                return [AllSlotsReset()]
+                return [AllSlotsReset(), Restarted()]
             else:
                 text = "قائمة بجميع البرامج"
                 for i in codes:
-                    text += "\n" + str(i)
+                    text += " \n" + str(i)
                 text += "\n"
                 text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
                 dispatcher.utter_message(text=text)
@@ -457,11 +457,11 @@ class ActionSubmitSearchProgramConForm(Action):
                 dispatcher.utter_message(
                     text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
                 )
-                return [AllSlotsReset()]
+                return [AllSlotsReset(), Restarted()]
             else:
                 text = "قائمة بجميع البرامج\n"
                 for i in codes:
-                    text += "\n" + str(i)
+                    text += " \n" + str(i)
                 text += "\n"
                 text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل.\n"
                 dispatcher.utter_message(text=text)
@@ -477,7 +477,7 @@ class ActionSubmitSearchProgramConForm(Action):
                 dispatcher.utter_message(
                     text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
                 )
-                return [AllSlotsReset()]
+                return [AllSlotsReset(), Restarted()]
             else:
                 text = "قائمة بجميع البرامج"
                 for i in codes:

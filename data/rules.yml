@@ -57,6 +57,10 @@ rules:
       # The actions we want to run when the form is submitted.
   - action: action_submit_local_school_form
 
+- rule: Search Program
+  steps:
+  - intent: program_search
+  - action: utter_select_program_by
 
 - rule: deactivate search programform
   condition:

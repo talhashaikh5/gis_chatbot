@@ -111,6 +111,8 @@ nlu:
     - i want to search program
     - show me different programs
     - Search Program
+    - search program
+    - Search Programs
 - intent: choose_option
   examples: |
     - [1](choice)
