@@ -13,7 +13,6 @@ from .load_df import get_abroad_general_codes, get_oman_disability_codes, get_pu
     get_private_oman_gen_codes
 
 
-
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -164,7 +163,7 @@ class ValidateLocalSchoo(FormValidationAction):
             return {"city_list": slot_value}
         return {"city_list": None}
 
-    def validate_wilaya_list(
+    async def validate_wilaya_list(
             self,
             slot_value: Any,
             dispatcher: CollectingDispatcher,
@@ -172,7 +171,16 @@ class ValidateLocalSchoo(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate region value."""
-        if slot_value in ["1", "2", "3", "4", "5", "6", "7", "8", "9", ]:
+        if slot_value.lower() == "back":
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index('wilaya_list') - 1]
+            return {
+                last_slot: None,
+                "wilaya_list": None
+            }
+        if slot_value in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
             return {"wilaya_list": slot_value}
 
 
@@ -241,6 +249,15 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index('select_oman_stream') - 1]
+            return {
+                last_slot: None,
+                "select_oman_stream": None
+            }
         options_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
         if slot_value in options_list:
             return {
@@ -257,11 +274,20 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index('select_oman_public_college') - 1]
+            return {
+                last_slot: None,
+                "select_oman_public_college": None
+            }
         options_list = [
             "1", "2", "3", "4", "5", "6", "7",
             "8", "9", "10", "11", "12", "13", "14",
-            "15","16","17","18","19","20"
-                        ]
+            "15", "16", "17", "18", "19", "20"
+        ]
         if slot_value in options_list:
             return {
                 "select_oman_public_college": slot_value
@@ -277,6 +303,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            current_slot = "select_oman_private_college"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         options_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
                         "18", "19",
                         "20", "21", "22", "23", "24", "25", "26", "27", "27", "28"]
@@ -296,7 +332,17 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
-        options_list = ["1","2"]
+        if slot_value.lower() == "back":
+            current_slot = "select_oman_category"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
+        options_list = ["1", "2"]
         if slot_value in options_list:
             return {
                 "select_oman_category": slot_value
@@ -312,7 +358,17 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
-        options_list = ["1","2","3"]
+        if slot_value.lower() == "back":
+            current_slot = "select_abroad_category"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
+        options_list = ["1", "2", "3"]
         if slot_value in options_list:
             return {
                 "select_abroad_category": slot_value
@@ -328,6 +384,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            current_slot = "select_abroad_category"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         options_list = [str(i) for i in list(range(1, 16))]
         if slot_value in options_list:
             return {
@@ -344,6 +410,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            current_slot = "select_oman_category"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         options_list = [str(i) for i in list(range(1, 3))]
         if slot_value in options_list:
             return {
@@ -360,7 +436,17 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
-        options_list = [str(i) for i in list(range(1, 3))]
+        if slot_value.lower() == "back":
+            current_slot = "select_study_stream"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
+        options_list = [str(i) for i in list(range(1, 12))]
         if slot_value in options_list:
             return {
                 "select_study_stream": slot_value
@@ -376,6 +462,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            current_slot = "select_oman_institute_type"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         options_list = [str(i) for i in list(range(1, 3))]
         if slot_value in options_list:
             return {
@@ -392,6 +488,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            current_slot = "select_oman_disability_institute"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         options_list = [str(i) for i in list(range(1, 4))]
         if slot_value in options_list:
             return {
@@ -408,6 +514,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            current_slot = "select_oman_disability_program"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         options_list = [str(i) for i in list(range(1, 4))]
         if slot_value in options_list:
             return {
@@ -424,6 +540,16 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "back":
+            current_slot = "select_oman_general_program"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         options_list = [str(i) for i in list(range(1, 3))]
         if slot_value in options_list:
             return {
@@ -518,7 +644,7 @@ class ActionSubmitSearchProgramConForm(Action):
                 and tracker.get_slot("select_oman_institute_type") == "1":
             # Public csv call
             college = tracker.get_slot("select_oman_public_college")
-            print("Here 2 ",college, type(college))
+            print("Here 2 ", college, type(college))
             stream = tracker.get_slot("select_oman_stream")
             codes = get_public_oman_gen_codes(college=int(college), stream=int(stream))
             if not codes:
