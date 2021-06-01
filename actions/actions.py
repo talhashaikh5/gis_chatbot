@@ -818,42 +818,37 @@ class ActionSubmitSearchProgramConForm(Action):
                     return [AllSlotsReset()]
 
 
-            # print("Here 2 ", college, type(college))
-            # stream = tracker.get_slot("select_oman_stream")
-            # codes = get_public_oman_gen_codes(college=int(college), stream=int(stream))
-            # if not codes:
-            #     dispatcher.utter_message(
-            #         text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
-            #     )
-            #     return [AllSlotsReset(), Restarted()]
-            # else:
-            #     text = "قائمة بجميع البرامج\n"
-            #     for i in codes:
-            #         text += " \n" + str(i)
-            #     text += "\n"
-            #     text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل.\n"
-            #     dispatcher.utter_message(text=text)
-            #     return [AllSlotsReset(), FollowupAction('search_program_code_form')]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "2":
             # Public csv call
             college = tracker.get_slot("select_oman_private_college")
             stream = tracker.get_slot("select_oman_stream")
-            codes = get_private_oman_gen_codes(college=int(college), stream=int(stream))
-            if not codes:
-                dispatcher.utter_message(
-                    text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
-                )
-                return [AllSlotsReset(), Restarted()]
-            else:
-                text = "قائمة بجميع البرامج"
-                for i in codes:
-                    text += "\n" + str(i)
-                text += "\n"
-                text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
-                dispatcher.utter_message(text=text)
-                return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+            program_code = tracker.get_slot("select_program_code")
+
+            print("college_option = ", college)
+            print("stream_option = ", stream)
+            print("program_code = ", program_code)
+
+            exact_program = "NA001"
+            for col in private_college.private_college:
+                if str(col["college_option"]) == college:
+                    for strm in col["streams_available"]:
+                        if str(strm["stream_option"]) == stream:
+                            for prg in strm["program_code"]:
+                                if str(prg["program_option"]) == program_code:
+                                    exact_program = prg["program_code"]
+                                    break
+                            break
+                    break
+            print("exact_program = ", exact_program)
+
+            for program in school_codes:
+                if program["code"].lower() == exact_program.lower():
+                    dispatcher.utter_message(
+                        text=program["details"]
+                    )
+                    return [AllSlotsReset()]
 
         return [AllSlotsReset()]
 
