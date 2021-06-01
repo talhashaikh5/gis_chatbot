@@ -34,6 +34,11 @@ intents:
 entities:
 - choice
 slots:
+  select_program_code:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   select_oman_stream:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -337,77 +342,6 @@ responses:
        1. UK
        2. USA 
        3. Canada
-  utter_ask_select_oman_public_college:
-  - text: |-
-      يرجى الاختيار من الكليات التالية:
-      1. الكلية الفنية العسكرية
-      2. كلية البريمي المهنية
-      3. الكلية المهنية بالسيب
-      4. كلية شناص المهنية
-      5. كلية صحم المهنية
-      6. كلية صلالة المهنية
-      7. كلية صور المهنية
-      8. الكلية المهنية بعبري
-      9. الكلية المهنية لعلوم البحار بالخابورة
-      10. الجامعة التكنولوجية والعلوم التطبيقية
-      11. جامعة السلطان قابوس
-      12. كلية علوم الطب الشرعي
-      13. كلية عمان للعلوم الصحية فرع محافظة الداخلية
-      14. كلية عمان للعلوم الصحية فرع محافظة الظاهرة
-      15. كلية عمان للعلوم الصحية فرع محافظة جنوب الباطنة
-      16. كلية عمان للعلوم الصحية فرع محافظة جنوب الشرقية
-      17. كلية عمان للعلوم الصحية فرع محافظة شمال الباطنة
-      18. كلية عمان للعلوم الصحية فرع محافظة شمال الشرقية
-      19. كلية عمان للعلوم الصحية فرع محافظة ظفار
-      20. كلية عمان للعلوم الصحية فرع محافظة مسقط
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
-  utter_ask_select_oman_private_college:
-  - text: |-
-      يرجى الاختيار من بين الكليات التالية:
-      1. الجامعة العربية المفتوحة
-      2. الجامعات والكليات الأهلية
-      3. الجامعة الألمانية للتكنولوجيا في عمان
-      4. الجامعة الوطنية للعلوم والتكنولوجيا
-      5. الكلية الحديثة للأعمال والعلوم
-      6. الكلية العالمية للهندسة والتكنولوجيا
-      7. الكلية العلمية للتصميم
-      8. الكلية الوطنية لتكنولوجيا السيارات
-      9. جامعة البريمي
-      10. الجامعة الشرقية
-      11. جامعة صحار
-      12. جامعة ظفار
-      13. جامعة مسقط
-      14. جامعة نزوى
-      15. كلية البريمي
-      16. كلية بيان
-      17. كلية الخليج
-      18. كلية الدراسات المصرفية والمالية
-      19. الكلية الدولية للهندسة والإدارة
-      20. كلية الزهراء للبنات
-      21. كلية الشرق الأوسط
-      22. كلية عمان البحرية الدولية
-      23. عمان كلية طب الأسنان
-      24. كلية عمان للإدارة والتكنولوجيا
-      25. كلية عمان للسياحة
-      26. كلية مجان
-      27. كلية مسقط
-      28- معهد العلوم الطبوغرافية (الهيئة الوطنية للمساحة / وزارة الدفاع).
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
-  utter_ask_select_oman_stream:
-  - text: |-
-      يرجى الاختيار من التخصصات التالية:
-      1. الهندسة والتقنيات ذات الصلة
-      2. الإدارة والمعاملات التجارية
-      3. الزراعة والبيئة والعلوم المرتبطة بها
-      4. العلوم الطبيعية والفيزيائية
-      5. الفنون الإبداعية
-      6. التعليم
-      7. الصحة
-      8. تقنية المعلومات
-      9. المجتمع والثقافة
-      10. الدين والفلسفة
-      11. العمارة والبناء (للكليات الخاصة فقط)
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
 actions:
 - validate_scholarship_availability_form
 - validate_search_program_code_form
@@ -417,6 +351,10 @@ actions:
 - action_submit_scholarship_availability_form
 - action_submit_search_program_code_form
 - action_submit_local_school_form
+- action_ask_select_oman_public_college
+- action_ask_select_oman_private_college
+- action_ask_select_oman_stream
+- action_ask_select_program_code
 - utter_faq
 forms:
   scholarship_availability_form:
@@ -436,30 +374,28 @@ forms:
     - type: from_text
     select_oman_category:
     - type: from_text
-    select_study_stream:
-    - type: from_text
-    select_oman_institute_type:
+    select_oman_disability_institute:
     - type: from_text
     select_oman_disability_program:
     - type: from_text
-    select_oman_disability_institute:
-    - type: from_text
     select_oman_general_program:
     - type: from_text
-    select_oman_public_college:
+    select_oman_institute_type:
     - type: from_text
     select_oman_private_college:
     - type: from_text
+    select_oman_public_college:
+    - type: from_text
     select_oman_stream:
     - type: from_text
-
-
-
+    select_study_stream:
+    - type: from_text
+    select_program_code:
+    - type: from_text
   local_school_form:
     city_list:
     - entity: choice
       type: from_entity
     wilaya_list:
     - type: from_text
-
 e2e_actions: []

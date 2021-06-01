@@ -6,6 +6,9 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 import requests
 import json
+
+from . import private_college, public_college
+from .college_data import college_data
 from .local_schools import *
 from .school_code import *
 from .country_code import *
@@ -216,11 +219,13 @@ class ValidateSearchProgramCon(FormValidationAction):
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "1":
             return ["select_country", "select_oman_category",
-                    "select_oman_institute_type", "select_oman_public_college", "select_oman_stream"]
+                    "select_oman_institute_type", "select_oman_public_college", "select_oman_stream",
+                    "select_program_code"]
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "2":
             return ["select_country", "select_oman_category",
-                    "select_oman_institute_type", "select_oman_private_college", "select_oman_stream"]
+                    "select_oman_institute_type", "select_oman_private_college", "select_oman_stream",
+                    "select_program_code"]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1":
             return ["select_country", "select_oman_category",
@@ -313,11 +318,9 @@ class ValidateSearchProgramCon(FormValidationAction):
                 last_slot: None,
                 current_slot: None
             }
-        options_list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17",
-                        "18", "19",
-                        "20", "21", "22", "23", "24", "25", "26", "27", "27", "28"]
+        options_list = [str(i) for i in list(range(1, 29))]
 
-        if slot_value is options_list:
+        if str(slot_value) in options_list:
             return {
                 "select_oman_private_college": slot_value
             }
@@ -446,7 +449,9 @@ class ValidateSearchProgramCon(FormValidationAction):
                 last_slot: None,
                 current_slot: None
             }
+
         options_list = [str(i) for i in list(range(1, 12))]
+
         if slot_value in options_list:
             return {
                 "select_study_stream": slot_value
@@ -581,6 +586,147 @@ class ValidateSearchProgramCon(FormValidationAction):
         return {"select_country": None}
 
 
+class AskForSelectOmanPublicCollegeAction(Action):
+    def name(self) -> Text:
+        return "action_ask_select_oman_public_college"
+
+    def run(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        if tracker.get_slot("select_oman_institute_type") == "1":  # select Public School
+            institute_type = "public"
+            colleges = []
+            for college in public_college.public_college:
+                if college["college_type"] == "public":
+                    colleges.append((str(college["college_option"]), college["college_name"]))
+            print("Collge list", colleges)
+
+            options_list = ""
+            for col in colleges:
+                options_list += "{}. {}\n".format(col[0], col[1])
+            dispatcher.utter_message(text=f"Please Choose From below options: "
+                                          f"{options_list}")
+        return []
+
+
+class AskForSelectOmanPrivateCollegeAction(Action):
+    def name(self) -> Text:
+        return "action_ask_select_oman_private_college"
+
+    def run(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        if tracker.get_slot("select_oman_institute_type") == "2":  # select Public School
+            institute_type = "public"
+            colleges = []
+            for college in private_college.private_college:
+                if college["college_type"] == "private":
+                    colleges.append((str(college["college_option"]), college["college_name"]))
+            print("Collge list", colleges)
+
+            options_list = ""
+            for col in colleges:
+                options_list += "{}. {}\n".format(col[0], col[1])
+            dispatcher.utter_message(text=f"Please Choose From below Colleges: \n"
+                                          f"{options_list}")
+        return []
+
+
+class AskForSelectProgramCode(Action):
+    def name(self) -> Text:
+        return "action_ask_select_program_code"
+
+    def run(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        if tracker.get_slot("select_oman_institute_type") == "1":  # select Public School
+            institute_type = "public"
+            college_data1 = public_college.public_college
+        elif tracker.get_slot("select_oman_institute_type") == "2":
+            institute_type = "private"
+            college_data1 = private_college.private_college
+        else:
+            return []
+        print("institute_type = ", institute_type)
+
+        college_option = tracker.get_slot("select_oman_public_college") or \
+                         tracker.get_slot("select_oman_private_college")
+        print("college_option = ", college_option)
+
+        college = {}
+        for item in college_data1:
+            print("item = ", item["college_type"], item["college_option"])
+            if item["college_type"] == institute_type and str(item["college_option"]) == college_option:
+                college = item
+                break
+        print("college = ", college)
+
+        streams = []
+        for stream in college["streams_available"]:
+            streams.append((str(stream["stream_option"]), stream["stream_name"]))
+        print("Stream List", streams)
+
+        stream_option = tracker.get_slot("select_oman_stream")
+        print("stream_option = ", stream_option)
+        program_codes = []
+        for stream in college["streams_available"]:
+            if str(stream["stream_option"]) == stream_option:
+                for prg in stream["program_code"]:
+                    program_codes.append((str(prg["program_option"]), prg["program_code"]))
+                break
+        print("Program List", program_codes)
+
+        options_list = ""
+        for prg in program_codes:
+            options_list += "{}. {}\n".format(prg[0], prg[1])
+        dispatcher.utter_message(text=f"Please Choose From below Program Code: \n"
+                                      f"{options_list}")
+        return []
+
+
+class AskForSelectOmanStream(Action):
+    def name(self) -> Text:
+        return "action_ask_select_oman_stream"
+
+    def run(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+
+        if tracker.get_slot("select_oman_institute_type") == "1":  # select Public School
+            institute_type = "public"
+            college_data1 = public_college.public_college
+        elif tracker.get_slot("select_oman_institute_type") == "2":
+            institute_type = "private"
+            college_data1 = private_college.private_college
+        else:
+            return []
+        print("institute_type = ", institute_type)
+
+        college_option = tracker.get_slot("select_oman_public_college") or \
+                         tracker.get_slot("select_oman_private_college")
+        print("college_option = ", college_option)
+
+        college = {}
+        for item in college_data1:
+            print("item = ", item["college_type"], item["college_option"])
+            if item["college_type"] == institute_type and str(item["college_option"]) == college_option:
+                college = item
+                break
+        print("college = ", college)
+
+        streams = []
+        for stream in college["streams_available"]:
+            streams.append((str(stream["stream_option"]), stream["stream_name"]))
+        print("Stream List", streams)
+
+        options_list = ""
+        for strm in streams:
+            options_list += "{}. {}\n".format(strm[0], strm[1])
+        dispatcher.utter_message(text=f"Please Choose From below streams available: \n"
+                                      f"{options_list}")
+        return []
+
+
 class ActionSubmitSearchProgramConForm(Action):
     def name(self) -> Text:
         return "action_submit_search_program_con_form"
@@ -644,22 +790,50 @@ class ActionSubmitSearchProgramConForm(Action):
                 and tracker.get_slot("select_oman_institute_type") == "1":
             # Public csv call
             college = tracker.get_slot("select_oman_public_college")
-            print("Here 2 ", college, type(college))
             stream = tracker.get_slot("select_oman_stream")
-            codes = get_public_oman_gen_codes(college=int(college), stream=int(stream))
-            if not codes:
-                dispatcher.utter_message(
-                    text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
-                )
-                return [AllSlotsReset(), Restarted()]
-            else:
-                text = "قائمة بجميع البرامج\n"
-                for i in codes:
-                    text += " \n" + str(i)
-                text += "\n"
-                text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل.\n"
-                dispatcher.utter_message(text=text)
-                return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+            program_code = tracker.get_slot("select_program_code")
+
+            print("college_option = ", college)
+            print("stream_option = ", stream)
+            print("program_code = ", program_code)
+
+            exact_program = "NA001"
+            for col in public_college.public_college:
+                if str(col["college_option"]) == college:
+                    for strm in col["streams_available"]:
+                        if str(strm["stream_option"]) == stream:
+                            for prg in strm["program_code"]:
+                                if str(prg["program_option"]) == program_code:
+                                    exact_program = prg["program_code"]
+                                    break
+                            break
+                    break
+            print("exact_program = ", exact_program)
+
+            for program in school_codes:
+                if program["code"].lower() == exact_program.lower():
+                    dispatcher.utter_message(
+                        text=program["details"]
+                    )
+                    return [AllSlotsReset()]
+
+
+            # print("Here 2 ", college, type(college))
+            # stream = tracker.get_slot("select_oman_stream")
+            # codes = get_public_oman_gen_codes(college=int(college), stream=int(stream))
+            # if not codes:
+            #     dispatcher.utter_message(
+            #         text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
+            #     )
+            #     return [AllSlotsReset(), Restarted()]
+            # else:
+            #     text = "قائمة بجميع البرامج\n"
+            #     for i in codes:
+            #         text += " \n" + str(i)
+            #     text += "\n"
+            #     text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل.\n"
+            #     dispatcher.utter_message(text=text)
+            #     return [AllSlotsReset(), FollowupAction('search_program_code_form')]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "2":

@@ -115,3 +115,14 @@ stories:
   - slot_was_set:
     - code_number: SE625
   - action: action_submit_search_program_code_form
+- story: Search Program 2
+  steps:
+  - intent: program_search
+  - action: utter_select_program_by
+  - intent: choose_option
+  - slot_was_set:
+    - choice: '2'
+  - action: search_program_con_form
+  - active_loop: search_program_con_form
+  - slot_was_set:
+    - requested_slot: select_country

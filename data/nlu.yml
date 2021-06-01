@@ -15,6 +15,7 @@ nlu:
     - hey
     - how are you
     - hello
+    - heloo from oman
 - intent: goodbye
   examples: |
     - good afternoon
