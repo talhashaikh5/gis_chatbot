@@ -7,7 +7,7 @@ from rasa_sdk.types import DomainDict
 import requests
 import json
 
-from . import private_college, public_college
+from . import private_college, public_college, omandisable
 from .college_data import college_data
 from .local_schools import *
 from .school_code import *
@@ -233,7 +233,7 @@ class ValidateSearchProgramCon(FormValidationAction):
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
             return ["select_country", "select_oman_category", "select_oman_disability_program",
-                    "select_oman_disability_institute"]
+                    "select_oman_disability_institute", "select_oman_disability_program_code"]
         if tracker.get_slot("select_country") == "1":
             return ["select_country", "select_oman_category"]
 
@@ -727,6 +727,72 @@ class AskForSelectOmanStream(Action):
         return []
 
 
+class ActionForSelectOmanDisabilityInstitute(Action):
+    def name(self) -> Text:
+        return "action_ask_select_oman_disability_institute"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        disability_type_option = tracker.get_slot("select_oman_disability_program")
+        if disability_type_option == "1":
+            disability_type = "physical"
+        elif disability_type_option == "2":
+            disability_type = "visual"
+        else:
+            disability_type = "hearing"
+        colleges = []
+        for data in omandisable.oman_disable:
+            if data["disability_type"] == disability_type:
+                for col in data["colleges_available"]:
+                    colleges.append((str(col["college_option"]),str(col["college_name"])))
+                break
+
+        options_list = ""
+        for coll in colleges:
+            options_list += "{}. {}\n".format(coll[0], coll[1])
+        dispatcher.utter_message(text=f"Please Choose From below colleges available: \n"
+                                      f"{options_list}")
+        return []
+
+
+class ActionForSelectOmanDisabilityProgramCode(Action):
+    def name(self) -> Text:
+        return "action_ask_select_oman_disability_program_code"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        disability_type_option = tracker.get_slot("select_oman_disability_program")
+        college_option = tracker.get_slot("select_oman_disability_institute")
+        if disability_type_option == "1":
+            disability_type = "physical"
+        elif disability_type_option == "2":
+            disability_type = "visual"
+        else:
+            disability_type = "hearing"
+
+        programs = []
+        for data in omandisable.oman_disable:
+            if data["disability_type"] == disability_type:
+                for col in data["colleges_available"]:
+                    if college_option == str(col["college_option"]):
+                        for prg in col["program_code"]:
+                            programs.append((str(prg["program_option"]), prg["program_code"]))
+                        break
+                break
+
+        options_list = ""
+        for prgm in programs:
+            options_list += "{}. {}\n".format(prgm[0], prgm[1])
+        dispatcher.utter_message(text=f"Please Choose From below Programs available: \n"
+                                      f"{options_list}")
+
+        return []
+
+
+
+
 class ActionSubmitSearchProgramConForm(Action):
     def name(self) -> Text:
         return "action_submit_search_program_con_form"
@@ -769,22 +835,52 @@ class ActionSubmitSearchProgramConForm(Action):
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
             print("here 1")
-            disability = tracker.get_slot("select_oman_disability_program")
-            ins = tracker.get_slot("select_oman_disability_institute")
-            codes = get_oman_disability_codes(disability, ins)
-            if not codes:
-                dispatcher.utter_message(
-                    text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
-                )
-                return [AllSlotsReset(), Restarted()]
+            disability_type_option = tracker.get_slot("select_oman_disability_program")
+            college_option = tracker.get_slot("select_oman_disability_institute")
+            code_option = tracker.get_slot("select_oman_disability_program_code")
+            print("disability_type_option = ", disability_type_option)
+            print("college_option = ",college_option)
+            print("code_option = ", code_option)
+
+            if disability_type_option == "1":
+                disability_type = "physical"
+            elif disability_type_option == "2":
+                disability_type = "visual"
             else:
-                text = "قائمة بجميع البرامج"
-                for i in codes:
-                    text += " \n" + str(i)
-                text += "\n"
-                text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
-                dispatcher.utter_message(text=text)
-                return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+                disability_type = "hearing"
+
+            progm_code = ""
+            for data in omandisable.oman_disable:
+                if data["disability_type"] == disability_type:
+                    for col in data["colleges_available"]:
+                        if college_option == str(col["college_option"]):
+                            for prg in col["program_code"]:
+                                if str(prg["program_option"]) == code_option:
+                                    progm_code = prg["program_code"]
+                            break
+                    break
+            print("progm_code = ", progm_code)
+            for program in school_codes:
+                if program["code"].lower() == progm_code.lower():
+                    dispatcher.utter_message(
+                        text=program["details"]
+                    )
+            return [AllSlotsReset()]
+
+            # codes = get_oman_disability_codes(disability, ins)
+            # if not codes:
+            #     dispatcher.utter_message(
+            #         text="لم يتم العثور على برامج للاختيارات المحددة ، للبحث مرة أخرى اكتب Search Program"
+            #     )
+            #     return [AllSlotsReset(), Restarted()]
+            # else:
+            #     text = "قائمة بجميع البرامج"
+            #     for i in codes:
+            #         text += " \n" + str(i)
+            #     text += "\n"
+            #     text += "الرجاء إدخال رقم رمز البرنامج للحصول على التفاصيل."
+            #     dispatcher.utter_message(text=text)
+            #     return [AllSlotsReset(), FollowupAction('search_program_code_form')]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "1":

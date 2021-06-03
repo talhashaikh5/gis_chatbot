@@ -6,6 +6,7 @@
 rasa.*
 events.*
 results/
+models/
 
 
 # Byte-compiled / optimized / DLL files

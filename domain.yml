@@ -34,6 +34,11 @@ intents:
 entities:
 - choice
 slots:
+  select_oman_disability_program_code:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   select_program_code:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -250,13 +255,13 @@ responses:
       2. الإعاقة البصرية
       3. ضعف السمع والنطق
       الرجاء كتابة "back" للعودة إلى القائمة السابقة.
-  utter_ask_select_oman_disability_institute:
-  - text: |-
-      اختبر المؤسسة التعليمية
-      1. جامعة السلطان قابوس
-      2. جامعة التكنولوجيا والعلوم التطبيقية
-      3. كلية علوم الطب الشرعي
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
+#  utter_ask_select_oman_disability_institute:
+#  - text: |-
+#      اختبر المؤسسة التعليمية
+#      1. جامعة السلطان قابوس
+#      2. جامعة التكنولوجيا والعلوم التطبيقية
+#      3. كلية علوم الطب الشرعي
+#      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
   utter_ask_select_abroad_country:
   - text: |-
       اختبر بلد الدراسة
@@ -355,6 +360,8 @@ actions:
 - action_ask_select_oman_private_college
 - action_ask_select_oman_stream
 - action_ask_select_program_code
+- action_ask_select_oman_disability_program_code
+- action_ask_select_oman_disability_institute
 - utter_faq
 forms:
   scholarship_availability_form:
@@ -391,6 +398,8 @@ forms:
     select_study_stream:
     - type: from_text
     select_program_code:
+    - type: from_text
+    select_oman_disability_program_code:
     - type: from_text
   local_school_form:
     city_list:
