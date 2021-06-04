@@ -34,6 +34,11 @@ intents:
 entities:
 - choice
 slots:
+  select_abroad_program_code:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   select_oman_disability_program_code:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -234,79 +239,54 @@ responses:
       اختبر من القائمة نوع البرنامج
       1. البرامج العامة
       2. برامج لذوي الإعاقة
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
   utter_ask_select_abroad_category:
   - text: |-
       تحقق من قائمة نوع البرنامج
       1. البرامج العامة
       2. برنامج القبول المباشر
       3. برامج لذوي الإعاقة
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
   utter_ask_select_oman_general_program:
   - text: |-
       اختبر من القائمة نوع البرنامج
       1. البرامج العامة
       2. برامج لذوي الإعاقة
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
   utter_ask_select_oman_disability_program:
   - text: |-
       حدد نوع الإعاقة
       1. ضعف الحركة
       2. الإعاقة البصرية
       3. ضعف السمع والنطق
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
-#  utter_ask_select_oman_disability_institute:
-#  - text: |-
-#      اختبر المؤسسة التعليمية
-#      1. جامعة السلطان قابوس
-#      2. جامعة التكنولوجيا والعلوم التطبيقية
-#      3. كلية علوم الطب الشرعي
-#      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
-  utter_ask_select_abroad_country:
-  - text: |-
-      اختبر بلد الدراسة
-      1. استراليا
-      2. الإمارات العربية المتحدة
-      3. البحران
-      4. ألمانيا
-      5. المملكة المتحدة
-      6. الولايات المتحدة
-      7. جمهورية أيرلندا
-      8. دول مختلفة
-      9. فرنسا
-      10. قبرص
-      11. كندا
-      13. ماليزيا
-      14. نيوزيلندا
-      15. الهولندية
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
-  utter_ask_select_study_stream:
-  - text: |-
-      اختبار من قائمة التخصص العام
-      1. العلوم الطبيعية والفيزيائية
-      2. الإدارة والمعاملات التجارية
-      3. التعليم
-      4. المجتمع والثقافة
-      5. الهندسة والتقنيات ذات الصلة
-      6. الزراعة والبيئة والعلوم المرتبطة بها
-      7. الصحة
-      8. الفنون الإبداعية
-      9. العمارة والبناء
-      10. تكنولوجيا المعلومات
-      11. غير محدد
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
   utter_ask_select_oman_institute_type:
   - text: |-
       اختبار نوع المؤسسة التعليمية
       1. مؤسسات التعليم العالي الحكومية
       2. مؤسسات التعليم العالي الخاصة
-      الرجاء كتابة "back" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
   utter_greet:
   - text: مهلا! كيف حالك؟
   utter_please_rephrase:
   - text: أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟
   utter_default:
-  - text: آسف لم أفهم ذلك. هل يمكنك إعادة الصياغة؟
+  - text: |-
+      للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
+
+
+
+      هاتف رقم
+
+      24340900
+
+      البريد الالكتروني
+
+      public.services@mohe.gov.om
+
+      تويتر
+
+      @HEAC_INFO
   utter_ask_region:
   - text: Where are you looking for? \n 1. Local\n 2. International \n \nNote Type 1 for locally and 2 for internationally
   utter_ask_graduate:
@@ -362,6 +342,9 @@ actions:
 - action_ask_select_program_code
 - action_ask_select_oman_disability_program_code
 - action_ask_select_oman_disability_institute
+- action_ask_select_abroad_program_code
+- action_ask_select_study_stream
+- action_ask_select_abroad_country
 - utter_faq
 forms:
   scholarship_availability_form:
@@ -400,6 +383,8 @@ forms:
     select_program_code:
     - type: from_text
     select_oman_disability_program_code:
+    - type: from_text
+    select_abroad_program_code:
     - type: from_text
   local_school_form:
     city_list:
