@@ -83,3 +83,20 @@ rules:
       - requested_slot: null
       # The actions we want to run when the form is submitted.
   - action: action_submit_search_program_con_form
+
+- rule: main_menu form
+  steps:
+  - intent: greet
+  - action: main_menu_form
+  - active_loop: main_menu_form
+
+- rule: deactivate scholarships available form
+  condition:
+  - active_loop: main_menu_form
+  steps:
+  - action: main_menu_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_main_menu_form

@@ -1,7 +1,7 @@
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker, FormValidationAction
-from rasa_sdk.events import EventType, FollowupAction, AllSlotsReset, Restarted
+from rasa_sdk.events import EventType, FollowupAction, AllSlotsReset, Restarted, UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 import requests
@@ -14,6 +14,8 @@ from .school_code import *
 from .country_code import *
 from .load_df import get_abroad_general_codes, get_oman_disability_codes, get_public_oman_gen_codes, \
     get_private_oman_gen_codes
+
+senders_maintain = {}
 
 
 class ActionHelloWorld(Action):
@@ -1233,3 +1235,303 @@ class ActionSelectProgramBy(Action):
             return [AllSlotsReset(), FollowupAction('search_program_code_form')]
         if text_of_last_user_message == "2":
             return [AllSlotsReset(), FollowupAction('search_program_con_form')]
+
+
+class ValidateMainMenuForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_main_menu_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        if tracker.get_slot("main_menu") == "7":
+            return ["main_menu"]
+        return ["main_menu", "sub_menu"]
+
+    async def validate_main_menu(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 8))]
+        if slot_value in options_list:
+            return {
+                "main_menu": slot_value
+            }
+        return {
+            "main_menu": None
+        }
+
+    async def validate_sub_menu(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        # Back Code
+        if slot_value.lower() == "0":
+            current_slot = "sub_menu"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
+
+        main_menu_option = tracker.get_slot("main_menu")
+        main_sub = {
+            "1": 6,
+            "2": 5,
+            "3": 3,
+            "4": 5,
+            "5": 4,
+            "6": 2,
+        }
+        options_list = [str(i) for i in list(range(1, main_sub[main_menu_option] + 1))]
+        if slot_value in options_list:
+            return {
+                "sub_menu": slot_value
+            }
+        return {
+            "sub_menu": None
+        }
+
+
+class AskForSubMenu(Action):
+    def name(self) -> Text:
+        return "action_ask_sub_menu"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> list:
+
+        main_menu_option = tracker.get_slot("main_menu")
+        if main_menu_option == "1":
+            dispatcher.utter_message(
+                text="""الرجاء الاختيار من القائمة الفرعية أدناه
+1. مواعيد التسجيل
+2. البرامج المقدمة
+3. جامعات القبول المباشر
+4. مدارس التوطين / الامتياز التجاري
+5. التواصل مع المؤسسات
+6. أسئلة حول التسجيل
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+                """
+            )
+        elif main_menu_option == "2":
+            dispatcher.utter_message(
+                text="""الرجاء الاختيار من القائمة الفرعية أدناه
+1. مواعيد لتعديل الرغبات
+2. البرامج المقدمة
+3. جامعات القبول المباشر
+4. مدارس التوطين / الامتياز التجاري
+5. أسئلة حول تعديل الرغبات
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+                """
+            )
+        elif main_menu_option == "3":
+            dispatcher.utter_message(
+                text="""الرجاء الاختيار من القائمة الفرعية أدناه
+1. مواعيد الامتحانات والمقابلات
+2. التواصل مع المؤسسات
+3. أسئلة حول الامتحانات والمقابلات
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+                """
+            )
+        elif main_menu_option == "4":
+            dispatcher.utter_message(
+                text="""الرجاء الاختيار من القائمة الفرعية أدناه
+1. مواعيد الفرز
+2. نتائج الفرز
+3. البرامج الدراسية وبأسعار تنافسية
+4. أكمل عملية التسجيل
+5. أسئلة حول الفحص
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+                """
+            )
+        elif main_menu_option == "5":
+            dispatcher.utter_message(
+                text="""الرجاء الاختيار من القائمة الفرعية أدناه
+1. مواعيد الفرز
+2. نتائج الفرز
+3. البرامج الدراسية وبأسعار تنافسية
+4. أكمل عملية التسجيل
+5. أسئلة حول الفحص
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+                """
+            )
+        elif main_menu_option == "6":
+            dispatcher.utter_message(
+                text="""الرجاء الاختيار من القائمة الفرعية أدناه
+1. كيفية التقدم للحصول على خدمات الدعم
+2. أسئلة حول خدمات الدعم
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+                """
+            )
+        return []
+
+
+class ActionSubmitMainMenuForm(Action):
+    def name(self) -> Text:
+        return "action_submit_main_menu_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        main_menu_option = tracker.get_slot("main_menu")
+        sub_menu_option = tracker.get_slot("sub_menu")
+
+        print(20 * "-")
+        print("In action_submit_main_menu_form")
+        print("main_menu_option: ", main_menu_option)
+        print("sub_menu_option: ", sub_menu_option)
+        print(20 * "-")
+
+        # Others
+        if main_menu_option == "7":
+            dispatcher.utter_message(
+                text="""أدخل شروط البحث الخاصة بك
+                """
+            )
+            return [AllSlotsReset()]
+
+        # Simple Messages
+        if sub_menu_option == "1":
+            if main_menu_option == "1":
+                dispatcher.utter_message(
+                    text="تبدأ فترة التسجيل من الأول من مايو حتى الأول من يوليو 2021"
+                )
+            elif main_menu_option == "2":
+                dispatcher.utter_message(
+                    text="تبدأ مرحلة ضبط الرغبات في الأول من أغسطس وتستمر حتى"
+                )
+            elif main_menu_option == "3":
+                dispatcher.utter_message(
+                    text="سيتم تحديد مواعيد المقابلة في وقت لاحق"
+                )
+            elif main_menu_option == "4":
+                dispatcher.utter_message(
+                    text="سيتم تحديد تواريخ الفرز في وقت لاحق"
+                )
+            elif main_menu_option == "5":
+                dispatcher.utter_message(
+                    text="سيتم تحديد تواريخ الفرز في وقت لاحق"
+                )
+            elif main_menu_option == "6":
+                dispatcher.utter_message(
+                    text="سيتم تحديد تواريخ الفرز في وقت لاحق"
+                )
+            return [AllSlotsReset()]
+
+        # Linking SEARCH programs CON
+        if main_menu_option in ["1", "2"] and sub_menu_option == "2":
+            return [AllSlotsReset(), FollowupAction("search_program_con_form")]
+
+        # Linking SEARCH programs COde
+        if main_menu_option in ["4", "5"] and sub_menu_option == "3":
+            return [AllSlotsReset(), FollowupAction("search_program_code_form")]
+
+        # result
+        if main_menu_option in ["4", "5"] and sub_menu_option == "4":
+            dispatcher.utter_message(
+                text="سوف يتم عرض النتائج لاحقا بعد ظهور نتائج الفرز"
+            )
+            return [AllSlotsReset()]
+
+        # faq
+        if main_menu_option == "1" and sub_menu_option == "6":
+            dispatcher.utter_message(
+                text="""اكتب مفردات البحث  (يجب ان تكون كلمة " تسجيل " من بينها)"""
+            )
+            return [AllSlotsReset()]
+        if main_menu_option == "2" and sub_menu_option == "5":
+            dispatcher.utter_message(
+                text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " تعديل الرغبات " من بينها)"""
+            )
+            return [AllSlotsReset()]
+        if main_menu_option == "3" and sub_menu_option == "3":
+            dispatcher.utter_message(
+                text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " المقابلات والاختبارات " من بينها)"""
+            )
+            return [AllSlotsReset()]
+        if main_menu_option in ["4", "5"] and sub_menu_option == "5":
+            dispatcher.utter_message(
+                text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " الفرز " من بينها)"""
+            )
+            return [AllSlotsReset()]
+        if main_menu_option == "6" and sub_menu_option == "2":
+            dispatcher.utter_message(
+                text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " الخدمات المساندة " من بينها)"""
+            )
+            return [AllSlotsReset()]
+
+        # institute Search
+        if main_menu_option in ["1","3"] and sub_menu_option in ["5", "2"]:
+            dispatcher.utter_message(
+                text=""" اكتب اسم المؤسسة التعليمية"""
+            )
+            return [AllSlotsReset()]
+        # Direct Entry program
+        if main_menu_option in ["1", "2"] and sub_menu_option == "3":
+            dispatcher.utter_message(
+                text="رمز البرنامج DE001 :اسم البرنامج: Direct Entry Scholarship :المجال المعرفي: غير محدد :نوع "
+                     "البرنامج: بعثة خارجية :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول مختلفة "
+                     ":فئة الطلبة : غير اعاقة "
+            )
+            return [AllSlotsReset()]
+        if main_menu_option in ["1", "2"] and sub_menu_option == "4":
+            return [AllSlotsReset(), FollowupAction("local_school_form")]
+
+        dispatcher.utter_message(text="End Of main_menu")
+
+        return [AllSlotsReset()]
+
+
+class ActionDefaultFallback(Action):
+    def name(self) -> Text:
+        return "action_default_fallback"
+
+    def run(
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        # tell the user they are being passed to a customer service agent
+        sender = tracker.sender_id
+
+        try:
+            number_of_fallback = senders_maintain["sender"]
+            senders_maintain["sender"] = senders_maintain["sender"] + 1
+        except:
+            senders_maintain["sender"] = 0
+            number_of_fallback = 0
+
+        if number_of_fallback == 3:
+            senders_maintain["sender"] = 0
+            dispatcher.utter_message(
+                text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
+هاتف رقم
+24340900
+البريد الالكتروني
+public.services@mohe.gov.om
+تويتر
+@HEAC_INFO
+
+                """
+            )
+        else:
+            dispatcher.utter_message(
+                text="أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟"
+            )
+
+        return [UserUtteranceReverted()]
