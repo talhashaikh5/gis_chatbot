@@ -100,3 +100,46 @@ stories:
   - active_loop: search_program_con_form
   - slot_was_set:
     - requested_slot: select_country
+- story: main_menu form 1
+  steps:
+  - intent: choose_option
+    entities:
+    - choice: '1'
+  - slot_was_set:
+    - choice: '1'
+  - action: main_menu_form
+  - active_loop: main_menu_form
+- story: 5de5af2b-bf51-4f48-b060-e38332c2bb57
+  steps:
+  - intent: choose_option
+    user: |-
+      [1](choice)
+  - slot_was_set:
+    - choice: '1'
+  - action: main_menu_form
+  - active_loop: main_menu_form
+  - slot_was_set:
+    - requested_slot: main_menu
+  - slot_was_set:
+    - choice: '2'
+  - slot_was_set:
+    - main_menu: '2'
+  - slot_was_set:
+    - requested_slot: sub_menu
+  - slot_was_set:
+    - choice: '1'
+  - slot_was_set:
+    - sub_menu: '1'
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_main_menu_form
+  - intent: choose_option
+    user: |-
+      [1](choice)
+  - slot_was_set:
+    - choice: '1'
+  - action: main_menu_form
+  - active_loop: main_menu_form

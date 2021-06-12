@@ -16,6 +16,22 @@ nlu:
     - how are you
     - hello
     - heloo from oman
+    - hi
+    - hiiiiiiii
+    - hiii
+    - 1
+    - one
+    - 1
+    - main menu
+    - take me to main menu
+    - 1
+    - 1
+    - 1
+    - 1
+    - one
+    - واحد
+    - ١
+
 - intent: goodbye
   examples: |
     - good afternoon

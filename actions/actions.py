@@ -201,7 +201,10 @@ class ActionSubmitLocalSchoolForm(Action):
                 int(tracker.get_slot("city_list")) - 1
                 ][
                 int(tracker.get_slot("wilaya_list"))
-            ][1]
+            ][1] + """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي 
+            واسم المؤسسة ورمز البرنامج لعرض الوصف """ + "\nhttps://apps.heac.gov.om:888/SearchEngine/faces"
+                                                        "/programsearchengine.jsf " + """\nاكتب 1 للعودة إلى القائمة 
+                                                        الرئيسية ، أو اكتب "خروج" للخروج من المحادثة """
         )
         return [AllSlotsReset()]
 
@@ -1250,6 +1253,8 @@ class ValidateMainMenuForm(FormValidationAction):
     ) -> List[Text]:
         if tracker.get_slot("main_menu") == "7":
             return ["main_menu"]
+        if tracker.get_slot("main_menu") == "6":
+            return ["main_menu", "sub_menu", "desired_service"]
         return ["main_menu", "sub_menu"]
 
     async def validate_main_menu(
@@ -1266,6 +1271,22 @@ class ValidateMainMenuForm(FormValidationAction):
             }
         return {
             "main_menu": None
+        }
+
+    async def validate_desired_service(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        options_list = [str(i) for i in list(range(1, 4))]
+        if slot_value in options_list:
+            return {
+                "desired_service": slot_value
+            }
+        return {
+            "desired_service": None
         }
 
     async def validate_sub_menu(
@@ -1293,7 +1314,7 @@ class ValidateMainMenuForm(FormValidationAction):
             "2": 5,
             "3": 3,
             "4": 5,
-            "5": 4,
+            "5": 5,
             "6": 2,
         }
         options_list = [str(i) for i in list(range(1, main_sub[main_menu_option] + 1))]
@@ -1304,6 +1325,22 @@ class ValidateMainMenuForm(FormValidationAction):
         return {
             "sub_menu": None
         }
+
+
+class AskForDesiredService(Action):
+    def name(self) -> Text:
+        return "action_ask_desired_service"
+
+    def run (self, dispatcher: CollectingDispatcher,
+             tracker: Tracker,
+             domain: Dict[Text, Any]) -> list:
+        dispatcher.utter_message(
+            text="""اختر الخدمة المطلوبة
+1. التظلمات 
+2. اساءة الاختيار 
+3. استعادة مقعد"""
+        )
+        return []
 
 
 class AskForSubMenu(Action):
@@ -1371,11 +1408,10 @@ class AskForSubMenu(Action):
             )
         elif main_menu_option == "6":
             dispatcher.utter_message(
-                text="""الرجاء الاختيار من القائمة الفرعية أدناه
-1. كيفية التقدم للحصول على خدمات الدعم
-2. أسئلة حول خدمات الدعم
-الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
-                """
+                text="""اختر واحد من ما يلي
+1. مواعيد الخدمات المساندة
+2. طريقة التقدم للخدمات المساندة 
+3. اسئلة عن الخدمات المساندة"""
             )
         return []
 
@@ -1434,7 +1470,7 @@ class ActionSubmitMainMenuForm(Action):
 
         # Linking SEARCH programs CON
         if main_menu_option in ["1", "2"] and sub_menu_option == "2":
-            return [AllSlotsReset(), FollowupAction("search_program_con_form")]
+            return [AllSlotsReset(), FollowupAction("utter_select_program_by")]
 
         # Linking SEARCH programs COde
         if main_menu_option in ["4", "5"] and sub_menu_option == "3":
@@ -1468,14 +1504,19 @@ class ActionSubmitMainMenuForm(Action):
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " الفرز " من بينها)"""
             )
             return [AllSlotsReset()]
-        if main_menu_option == "6" and sub_menu_option == "2":
+        if main_menu_option == "6" and sub_menu_option == "3":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " الخدمات المساندة " من بينها)"""
             )
             return [AllSlotsReset()]
+        if main_menu_option in ["4", "5"] and sub_menu_option == "2":
+            dispatcher.utter_message(
+                text="""سوف يتم لاحقا عرض نتائج الفرز"""
+            )
+            return [AllSlotsReset()]
 
         # institute Search
-        if main_menu_option in ["1","3"] and sub_menu_option in ["5", "2"]:
+        if main_menu_option in ["1", "3"] and sub_menu_option in ["5", "2"]:
             dispatcher.utter_message(
                 text=""" اكتب اسم المؤسسة التعليمية"""
             )
@@ -1490,6 +1531,24 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset()]
         if main_menu_option in ["1", "2"] and sub_menu_option == "4":
             return [AllSlotsReset(), FollowupAction("local_school_form")]
+
+        # Desired Options:
+        if main_menu_option == "6" and sub_menu_option == "2":
+            opt = tracker.get_slot("desired_service")
+            if opt == "1":
+                dispatcher.utter_message(
+                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل "
+                )
+            elif opt == "2":
+                dispatcher.utter_message(
+                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل "
+                )
+            else:
+                dispatcher.utter_message(
+                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل "
+                )
+
+            return [AllSlotsReset()]
 
         dispatcher.utter_message(text="End Of main_menu")
 
@@ -1516,7 +1575,7 @@ class ActionDefaultFallback(Action):
             senders_maintain["sender"] = 0
             number_of_fallback = 0
 
-        if number_of_fallback == 3:
+        if number_of_fallback == 1:
             senders_maintain["sender"] = 0
             dispatcher.utter_message(
                 text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
