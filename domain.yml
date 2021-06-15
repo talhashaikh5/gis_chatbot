@@ -5,6 +5,8 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: false
 intents:
+- exit:
+    use_entities: false
 - greet:
     use_entities: true
 - goodbye:
@@ -184,7 +186,8 @@ responses:
       4. النوع الأول
       5. الفرز الثاني
       6. خدمات الدعم
-      7. أخرى
+      7.  مؤشرات واحصاءات
+      8. اخرى
   utter_faq/contact_details:
   - text: 'رقم هاتف مركز الاتصالات: 24340900'
   utter_faq/apply_study_seat:
@@ -274,33 +277,33 @@ responses:
       اختبر من القائمة نوع البرنامج
       1. البرامج العامة
       2. برامج لذوي الإعاقة
-      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
   utter_ask_select_abroad_category:
   - text: |-
       تحقق من قائمة نوع البرنامج
       1. البرامج العامة
       2. برنامج القبول المباشر
       3. برامج لذوي الإعاقة
-      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
   utter_ask_select_oman_general_program:
   - text: |-
       اختبر من القائمة نوع البرنامج
       1. البرامج العامة
       2. برامج لذوي الإعاقة
-      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
   utter_ask_select_oman_disability_program:
   - text: |-
       حدد نوع الإعاقة
       1. ضعف الحركة
       2. الإعاقة البصرية
       3. ضعف السمع والنطق
-      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
   utter_ask_select_oman_institute_type:
   - text: |-
       اختبار نوع المؤسسة التعليمية
       1. مؤسسات التعليم العالي الحكومية
       2. مؤسسات التعليم العالي الخاصة
-      الرجاء كتابة "0" للعودة إلى القائمة السابقة.
+      الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
   utter_greet:
   - text: مهلا! كيف حالك؟
   utter_please_rephrase:
@@ -631,57 +634,81 @@ actions:
 - action_submit_main_menu_form
 - action_default_fallback
 - action_ask_desired_service
+- action_exit
 - utter_faq
 forms:
   main_menu_form:
     main_menu:
     - type: from_text
+      not_intent: exit
     sub_menu:
     - type: from_text
+      not_intent: exit
     desired_service:
     - type: from_text
+      not_intent: exit
   scholarship_availability_form:
     graduate:
     - type: from_text
+      not_intent: exit
     region:
     - type: from_text
+      not_intent: exit
   search_program_code_form:
     code_number:
     - type: from_text
+      not_intent: exit
   search_program_con_form:
     select_abroad_category:
     - type: from_text
+      not_intent: exit
     select_abroad_country:
     - type: from_text
+      not_intent: exit
     select_country:
     - type: from_text
+      not_intent: exit
     select_oman_category:
     - type: from_text
+      not_intent: exit
     select_oman_disability_institute:
     - type: from_text
+      not_intent: exit
     select_oman_disability_program:
     - type: from_text
+      not_intent: exit
     select_oman_general_program:
     - type: from_text
+      not_intent: exit
     select_oman_institute_type:
     - type: from_text
+      not_intent: exit
     select_oman_private_college:
     - type: from_text
+      not_intent: exit
     select_oman_public_college:
     - type: from_text
+      not_intent: exit
     select_oman_stream:
     - type: from_text
+      not_intent: exit
     select_study_stream:
     - type: from_text
+      not_intent: exit
     select_program_code:
     - type: from_text
+      not_intent: exit
     select_oman_disability_program_code:
     - type: from_text
+      not_intent: exit
     select_abroad_program_code:
     - type: from_text
+      not_intent: exit
   local_school_form:
     city_list:
     - type: from_text
+      not_intent: exit
     wilaya_list:
     - type: from_text
+      not_intent: exit
 e2e_actions: []

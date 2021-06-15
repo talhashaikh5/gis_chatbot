@@ -126,16 +126,19 @@ class ActionSubmitSearchProgramCode(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         code_from_user = tracker.get_slot('code_number').lower()
+        a = """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي واسم 
+        المؤسسة ورمز البرنامج لعرض الوصف https://apps.heac.gov.om:888/Sear """
+        b = """اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
         for program in school_codes:
             if program["code"].lower() == code_from_user:
                 dispatcher.utter_message(
-                    text=program["details"]
+                    text=program["details"] + "\n \n " + a + " \n \n" + b
                 )
                 return [AllSlotsReset()]
         dispatcher.utter_message(
             text=f"تم إدخال الرمز بشكل غير صحيح ، الرجاء إدخال الرمز الصحيح."
         )
-        return [AllSlotsReset(), FollowupAction('search_program_code_form')]
+        return [AllSlotsReset(), Restarted(), FollowupAction('search_program_code_form')]
 
 
 class ValidateLocalSchoo(FormValidationAction):
@@ -198,15 +201,13 @@ class ActionSubmitLocalSchoolForm(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         dispatcher.utter_message(
             text=wilaya_list[
-                int(tracker.get_slot("city_list")) - 1
-                ][
-                int(tracker.get_slot("wilaya_list"))
-            ][1] + """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي 
-            واسم المؤسسة ورمز البرنامج لعرض الوصف """ + "\nhttps://apps.heac.gov.om:888/SearchEngine/faces"
-                                                        "/programsearchengine.jsf " + """\nاكتب 1 للعودة إلى القائمة 
-                                                        الرئيسية ، أو اكتب "خروج" للخروج من المحادثة """
+                     int(tracker.get_slot("city_list")) - 1
+                     ][
+                     int(tracker.get_slot("wilaya_list"))
+                 ][1] + """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي 
+            واسم المؤسسة ورمز البرنامج لعرض الوصف """
         )
-        return [AllSlotsReset()]
+        return [AllSlotsReset(), Restarted()]
 
 
 class ValidateSearchProgramCon(FormValidationAction):
@@ -494,7 +495,7 @@ class ValidateSearchProgramCon(FormValidationAction):
         for item in abroad_college.abroad_country:
             countries.append((str(item["country_option"]), item["country"]))
 
-        options_list = [str(i) for i in list(range(1, len(countries)+1))]
+        options_list = [str(i) for i in list(range(1, len(countries) + 1))]
         if slot_value in options_list:
             return {
                 "select_abroad_country": slot_value
@@ -554,7 +555,7 @@ class ValidateSearchProgramCon(FormValidationAction):
                 for item1 in item["streams_available"]:
                     streams.append((str(item1["stream_option"]), item1["stream_name"]))
                 break
-        options_list = [str(i) for i in list(range(1, len(streams)+1))]
+        options_list = [str(i) for i in list(range(1, len(streams) + 1))]
 
         if slot_value in options_list:
             return {
@@ -620,7 +621,7 @@ class ValidateSearchProgramCon(FormValidationAction):
                 for col in data["colleges_available"]:
                     colleges.append((str(col["college_option"]), str(col["college_name"])))
                 break
-        options_list = [str(i) for i in list(range(1, len(colleges)+1))]
+        options_list = [str(i) for i in list(range(1, len(colleges) + 1))]
         if slot_value in options_list:
             return {
                 "select_oman_disability_institute": slot_value
@@ -690,7 +691,7 @@ class ValidateSearchProgramCon(FormValidationAction):
                             programs.append((str(prg["program_option"]), prg["program_code"]))
                         break
                 break
-        options_list = [str(i) for i in list(range(1, len(programs)+1))]
+        options_list = [str(i) for i in list(range(1, len(programs) + 1))]
         if slot_value in options_list:
             return {
                 "select_oman_disability_program_code": slot_value
@@ -1089,11 +1090,15 @@ class ActionSubmitSearchProgramConForm(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        a = """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي واسم 
+                المؤسسة ورمز البرنامج لعرض الوصف https://apps.heac.gov.om:888/Sear """
+        b = """اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+        ab = f"\n \n{a}\n \n{b}"
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "2":
             dispatcher.utter_message(
                 text="رمز البرنامج DE001    :اسم البرنامج:  Direct Entry Scholarship :المجال المعرفي: غير محدد :نوع "
                      "البرنامج: بعثة خارجية   :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول "
-                     "مختلفة :فئة الطلبة : غير اعاقة "
+                     "مختلفة :فئة الطلبة : غير اعاقة " + ab
             )
             return [AllSlotsReset(), Restarted()]
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "3":
@@ -1101,7 +1106,7 @@ class ActionSubmitSearchProgramConForm(Action):
                 text="لدينا فقط برنامج الإعاقة في الأردن.:\n رمز البرنامج SE890    :اسم البرنامج:  البرنامج مخصص "
                      "للطلبة "
                      "ذوي الإعاقة السمعية فقط :المجال المعرفي: غير محدد :نوع البرنامج: بعثة خارجية   :اسم المؤسسة "
-                     "التعليمية : الجامعة الاردنية :بلد الدراسة : الاردن :فئة الطلبة : اعاقة "
+                     "التعليمية : الجامعة الاردنية :بلد الدراسة : الاردن :فئة الطلبة : اعاقة " + ab
             )
             return [AllSlotsReset(), Restarted()]
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "1":
@@ -1122,9 +1127,9 @@ class ActionSubmitSearchProgramConForm(Action):
             for program in school_codes:
                 if program["code"].lower() == program_code.lower():
                     dispatcher.utter_message(
-                        text=program["details"]
+                        text=program["details"] + ab
                     )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "2":
             print("here 1")
@@ -1156,10 +1161,9 @@ class ActionSubmitSearchProgramConForm(Action):
             for program in school_codes:
                 if program["code"].lower() == progm_code.lower():
                     dispatcher.utter_message(
-                        text=program["details"]
+                        text=program["details"] + ab
                     )
-            return [AllSlotsReset()]
-
+            return [AllSlotsReset(), Restarted()]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "1":
@@ -1188,9 +1192,9 @@ class ActionSubmitSearchProgramConForm(Action):
             for program in school_codes:
                 if program["code"].lower() == exact_program.lower():
                     dispatcher.utter_message(
-                        text=program["details"]
+                        text=program["details"] + ab
                     )
-                    return [AllSlotsReset()]
+                    return [AllSlotsReset(), Restarted()]
 
         if tracker.get_slot("select_country") == "1" and tracker.get_slot("select_oman_category") == "1" \
                 and tracker.get_slot("select_oman_institute_type") == "2":
@@ -1219,11 +1223,11 @@ class ActionSubmitSearchProgramConForm(Action):
             for program in school_codes:
                 if program["code"].lower() == exact_program.lower():
                     dispatcher.utter_message(
-                        text=program["details"]
+                        text=program["details"] + ab
                     )
-                    return [AllSlotsReset()]
+                    return [AllSlotsReset(), Restarted()]
 
-        return [AllSlotsReset()]
+        return [AllSlotsReset(), Restarted()]
 
 
 class ActionSelectProgramBy(Action):
@@ -1310,7 +1314,7 @@ class ValidateMainMenuForm(FormValidationAction):
 
         main_menu_option = tracker.get_slot("main_menu")
         main_sub = {
-            "1": 6,
+            "1": 11,
             "2": 5,
             "3": 3,
             "4": 5,
@@ -1331,9 +1335,9 @@ class AskForDesiredService(Action):
     def name(self) -> Text:
         return "action_ask_desired_service"
 
-    def run (self, dispatcher: CollectingDispatcher,
-             tracker: Tracker,
-             domain: Dict[Text, Any]) -> list:
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> list:
         dispatcher.utter_message(
             text="""اختر الخدمة المطلوبة
 1. التظلمات 
@@ -1354,15 +1358,20 @@ class AskForSubMenu(Action):
         main_menu_option = tracker.get_slot("main_menu")
         if main_menu_option == "1":
             dispatcher.utter_message(
-                text="""الرجاء الاختيار من القائمة الفرعية أدناه
-1. مواعيد التسجيل
-2. البرامج المقدمة
-3. جامعات القبول المباشر
-4. مدارس التوطين / الامتياز التجاري
-5. التواصل مع المؤسسات
-6. أسئلة حول التسجيل
-الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
-                """
+                text="""اختر واحد من ما يلي
+    1. مواعيد التسجيل 
+    2. البرامج المطروحة 
+    3. جامعات القبول المباشر
+    4. مدارس التوطين / الامتياز
+    5. التواصل مع المؤسسات 
+    6. طلبة الدور الثاني 
+    7. طلبة الاعاقة
+    8. خريجي الشهادات الاجنبية 
+    9. خريجي الشهادات السعودية
+    10. خريجي الشهادات الامريكية
+    11. اسئلة عن التسجيل
+    الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة"""
+
             )
         elif main_menu_option == "2":
             dispatcher.utter_message(
@@ -1372,7 +1381,7 @@ class AskForSubMenu(Action):
 3. جامعات القبول المباشر
 4. مدارس التوطين / الامتياز التجاري
 5. أسئلة حول تعديل الرغبات
-الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
                 """
             )
         elif main_menu_option == "3":
@@ -1381,7 +1390,7 @@ class AskForSubMenu(Action):
 1. مواعيد الامتحانات والمقابلات
 2. التواصل مع المؤسسات
 3. أسئلة حول الامتحانات والمقابلات
-الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
                 """
             )
         elif main_menu_option == "4":
@@ -1392,7 +1401,7 @@ class AskForSubMenu(Action):
 3. البرامج الدراسية وبأسعار تنافسية
 4. أكمل عملية التسجيل
 5. أسئلة حول الفحص
-الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
                 """
             )
         elif main_menu_option == "5":
@@ -1403,7 +1412,7 @@ class AskForSubMenu(Action):
 3. البرامج الدراسية وبأسعار تنافسية
 4. أكمل عملية التسجيل
 5. أسئلة حول الفحص
-الرجاء كتابة "0" للعودة إلى القائمة الرئيسية
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
                 """
             )
         elif main_menu_option == "6":
@@ -1433,12 +1442,118 @@ class ActionSubmitMainMenuForm(Action):
         print(20 * "-")
 
         # Others
-        if main_menu_option == "7":
+        if main_menu_option == "8":
             dispatcher.utter_message(
                 text="""أدخل شروط البحث الخاصة بك
                 """
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
+
+        # 1 new options
+        # Option 1.6
+        if main_menu_option == "1" and sub_menu_option == "6":
+            dispatcher.utter_message(
+                text="""1.      علــى جميــع الطلبــة ضــرورة التســجيل واختيــار البرامــج فــي الفتــرات المحــددة 
+                للتسجيل - مهمــا كانــت نتيجــة الطالــب فــي الامتحانــات- 2.      لــن تكــون هنــاك فرصــة لطلبــة 
+                الــدور الثانــي للتســجيل أو تعديــل برامجهــم بعــد ظهــور نتائــج الــدور الثانــي لطلبــة دبلــوم 
+                التعليــم العــام. 
+
+3.      علــى الطالــب الــذي لــم ينجــح فــي امتحــان الــدور الاول فــي مــادة أو أكثــر اختيــار البرامــج 
+وتعديــل رغباتــه فــي نفــس الفتــرات المحــددة 4.      ينصــح الطالــب أن يختــار مــن البرامــج الدراســية بنــاء 
+علــى رغباتــه ونتائجــه المتوقعــة والتــي تعكــس مســتواه الدراســي الحقيقــي. 
+
+5.      طلبــة الــدور الثانــي لا يمكنهــم التقــدم للبرامــج التــي تتطلــب مقابــلات شــخصية أو اختبــارات قبــول أو فحوصــات طبيــة
+
+6.      يقــوم المركــز بتحديــد البرامــج التــي يمكــن أن يُقبــل بهــا الطلبــة الذيــن تظهــر نتائجهــم 
+الدراســية بعــد الفــرز الاول حســب اختياراتهــم للبرامــج وترتيبهــا ، بشــرط أن تكــون معدلاتهــم التنافســية 
+أعلــى أو مســاوٍ لاخــر معــدل تنافســي تــم قبولــه فــي تلــك البرامــج بالفــرز الســابق. 
+
+7.      يحــق للطالــب المطالبــة بالمقعــد المســتحق لــه إذا كان مــن البرامــج الحكوميــة فــي العــام التالــي 
+إذا اســتنفذت أعــداد المقاعــد المحــددة فــي الفــرز الاول لذلــك البرنامــج أو بــدأت الدراســة ونظــام المؤسســة 
+لا يســمح بقبــول طلبــة جــدد بعــد تاريــخ معيــن تحــدده تلــك المؤسســة وذلــك بعــد موافقــة المؤسســة علــى 
+ذلــك، وفــي حــال الرفــض يعــوض الطالــب ببرنامــج آخــر ضمــن قائمــة اختياراتــه. 
+
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+            )
+            return [AllSlotsReset(), Restarted()]
+
+        # Option 1.7
+        if main_menu_option == "1" and sub_menu_option == "7":
+            dispatcher.utter_message(
+                text="""على الطلبة من  ذوي الاعاقة اختيار البرامج التي تتناسب مع نوع إعاقتهم. علــى ســبيل المثــال: 
+                الطالــب المصــاب بإعاقــة جســدية كشــللٍ فــي بعــض الاطــراف عليــه عــدم التقــدم للبرامــج 
+                التــي تتطلــب أن يكــون المتقــدم خــالٍ مــن جميــع أنــواع الاعاقــات الجســدية ، لانــه يتعــارض 
+                مــع متطلبــات تلــك البرامــج. """
+            )
+            return [AllSlotsReset(), Restarted()]
+
+        # Option 1.8
+        if main_menu_option == "1" and sub_menu_option == "8":
+            dispatcher.utter_message(
+                text="""1        الطلبــة العمانيــون الحاصلــون علــى مــا يعــادل دبلــوم التعليــم العــام مــن 
+                خــارج الســلطنة، والطلبــة الدارســون فــي مــدارس الجاليــات داخــل الســلطنة عليهــم إدخــال 
+                بياناتهــم الشــخصية فــي نظــام القبــول الالكترونــي عــن طريــق الشاشــة المخصصــة لذلــك وهي: 
+                طلبــة عمانيــون خــارج أو داخــل الســلطنة: حملــة الشــهادات المعادلــة لدبلــوم التعليــم 2        
+                عــدم الدقــة فــي إدخــال البيانــات مــن شــأنه أن يحــرم الطالــب مــن الحصــول علــى المقعــد 
+                المســتحق 3        لا يحــق لهــؤلاء الطلبــة التنافــس علــى المقاعــد المعروضــة ويعتبــر تســجيلهم 
+                لاغيا إذا لــم يحملوا نســخة مــن كشــف العلامــات والبطاقــة الشــخصية ومعادلــة وزارة التربيــة 
+                والتعليــم بنظــام القبــول الموحــد فــي الوقــت المحــدد لذلــك. 4        تحمل الوثائق بصيغــة PDF 
+                فقــط ولا يزيــد حجم الملف الواحد عــن KB 512 5        اذا حصل على معادلة مؤقته عليه احضار المعادلة 
+                النهائية بعد صدورها مباشرة، وسوف يعاد النظر في المقعد الحاصل عليه في حالة كانت المعادلة النهائية 
+                مختلفة 6        علــى الطلبــة الدارســين لمناهــج أجنبيــة تصــدر نتائجهــا بالحــروف الابجديــة، 
+                إرفــاق مفتــاح أو دليــل إحتســاب الدرجــات والــذي يكــون عــادة فــي الجهــة الخلفيــة مــن كشــف 
+                الدرجــات أو مــا يــدل علــى ذلــك مــن الجهــة المصــدرة للشــهادة، وإلا ســيتم معالجــة نتائجهــم 
+                بالمقارنــة مــع شــهادة دبلــوم التعليــم العــام، ويؤخــذ بالمتوســط الحســابي فــي كل تقديــر 
+                حســب الــوارد مــن الجهــة المصــدرة للشــهادة. رابط التسجيل   
+                https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx 
+
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+            )
+            return [AllSlotsReset(), Restarted()]
+
+        # Option 1.9
+        if main_menu_option == "1" and sub_menu_option == "9":
+            dispatcher.utter_message(
+                text="""[00:37, 16/06/2021] Ali: 9 [00:37, 16/06/2021] Higher Education Admission Center: 1.      
+                علــى الطلبــة العمانييــن الدارســين لشــهادة الثانويــة الســعودية الحصــول علــى معادلــة من  
+                وزارة التربية والتعليم بســلطنة عمــان، والتــي تشــترط خضــوع الطالــب إلختبــارات المركــز الوطنــي 
+                للقيــاس ) اختبــار القــدرات العامــة واختبــار التحصيــل الدراســي للتخصصــات العلميــة(. ومــن 
+                ثــم موافــاة مركــز القبــول الموحــد بنتيجــة االختباريــن حتــى يتمكنــوا مــن المنافســة علــى 
+                برامــج مؤسســات التعليــم العالــي والبعثــات والمنــح الداخليــة والخارجيــة. 2.      ســوف يتــم 
+                الاخــذ بنتائــج اختبــار القــدرات العامــة(30%) واختبــار التحصيــل الدراســي للتخصصــات العلميــة 
+                (40%) عنــد احتســاب المعــدل التنافســي، بالاضافة إلى مجموع درجات المواد الدراسية (12%)، و مجموع 
+                درجات المواد المطلوبة للتخصص (18%). 3.       على الطلبة ضرورة تحميل  الوثائق  التالية في نظام القبول 
+                اإللكتروني في الوصلة المخصصة لذلك. ·         نسخة من الشهادة أو كشف الدرجات. ·         نسخة من نتيجة 
+                اختبار التحصيل الدراسي للتخصصات العلمية. ·         نسخة من نتيجة اختبار القدرات العامة. ·         
+                معادلة وزارة التربية والتعليم بسلطنة عمان ·         نسخة من  البطاقة الشخصية ) أو جواز السفر. رابط 
+                التسجيل https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx """
+            )
+            return [AllSlotsReset(), Restarted()]
+
+        # Option 1.10
+        if main_menu_option == "1" and sub_menu_option == "10":
+            dispatcher.utter_message(
+                text="""1     عليهــم إدخــال بياناتهــم فــي نظــام القبــول الالكترونــي عــن طريــق الشاشــة 
+                المخصصــة 2        عــدم الدقــة فــي إدخــال البيانــات مــن شــأنه أن يحــرم الطالــب مــن الحصــول 
+                علــى المقعــد المســتحق 3        لا يحــق لهــؤلاء الطلبــة التنافــس علــى المقاعــد المعروضــة 
+                ويعتبــر تســجيلهم لاغيا إذا لــم يحملوا نســخة مــن كشــف العلامــات والبطاقــة الشــخصية ومعادلــة 
+                وزارة التربيــة والتعليــم بنظــام القبــول الموحــد فــي الوقــت المحــدد لذلــك. 4        تحمل 
+                الوثائق بصيغــة PDF فقــط ولا يزيــد حجم الملف الواحد عــن KB 512 5        اذا حصل على معادلة مؤقته 
+                عليه احضار المعادلة النهائية بعد صدورها مباشرة، وسوف يعاد النظر في المقعد الحاصل عليه في حالة كانت 
+                المعادلة النهائية مختلفة 6        إذا تعــذر علــى الطالــب دراســة إحــدى المــواد العلميــة فــي 
+                الصــف الثانــي عشــر، فيحــق لــه طلــب احتســابها مــن الصفــوف ألادنــى وذلــك بإرفاقهــا فــي 
+                الخانــات الخاصــة بهــا فــي وصلــة إرفــاق المســتندات ( شــهادة الصفيــن العاشــر والحــادي عشــر) 
+                وإدراج المــادة الدراســية والدرجــة المتحصــل عليهــا فــي وصلــة إدخــال المــواد والدرجــات، وإال 
+                ســيتم إحتســاب درجــات الصــف الثانــي عشــر فقــط. 
+
+7        إذا كان نظــام التقييــم فــي المدرســة غيــر مئــوي، فيجــب علــى الطالــب أن يرفــق مقيــاس الدرجــات مــن 
+المدرســة أو مــن األكاديميــة أو نظــام الدراســة الخــاص بــه الــذي يحــول الدرجــة أو التقديــر إلــى درجــة 
+مئويــة، وإن تعــذر ذلــك فســيتم اســتخدام نمــاذج لبعــض المقاييــس الامريكية المتداولــة. 8        يحــق للمركــز 
+عــدم احتســاب جميــع المــواد الــواردة فــي الشــهادة إذا لــم تكــن مطلوبــة مــنِقبــل مؤسســات التعليــم 
+العالــي، كمــا يمكــن عــدم احتســاب أكثــر عــن 10 مــواد دراســية. رابط التسجيل 
+https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx """
+            )
+            return [AllSlotsReset(), Restarted()]
 
         # Simple Messages
         if sub_menu_option == "1":
@@ -1466,7 +1581,7 @@ class ActionSubmitMainMenuForm(Action):
                 dispatcher.utter_message(
                     text="سيتم تحديد تواريخ الفرز في وقت لاحق"
                 )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
 
         # Linking SEARCH programs CON
         if main_menu_option in ["1", "2"] and sub_menu_option == "2":
@@ -1481,46 +1596,46 @@ class ActionSubmitMainMenuForm(Action):
             dispatcher.utter_message(
                 text="سوف يتم عرض النتائج لاحقا بعد ظهور نتائج الفرز"
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
 
         # faq
-        if main_menu_option == "1" and sub_menu_option == "6":
+        if main_menu_option == "1" and sub_menu_option == "11":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمة " تسجيل " من بينها)"""
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if main_menu_option == "2" and sub_menu_option == "5":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " تعديل الرغبات " من بينها)"""
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if main_menu_option == "3" and sub_menu_option == "3":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " المقابلات والاختبارات " من بينها)"""
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if main_menu_option in ["4", "5"] and sub_menu_option == "5":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " الفرز " من بينها)"""
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if main_menu_option == "6" and sub_menu_option == "3":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " الخدمات المساندة " من بينها)"""
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if main_menu_option in ["4", "5"] and sub_menu_option == "2":
             dispatcher.utter_message(
                 text="""سوف يتم لاحقا عرض نتائج الفرز"""
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
 
         # institute Search
         if main_menu_option in ["1", "3"] and sub_menu_option in ["5", "2"]:
             dispatcher.utter_message(
                 text=""" اكتب اسم المؤسسة التعليمية"""
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         # Direct Entry program
         if main_menu_option in ["1", "2"] and sub_menu_option == "3":
             dispatcher.utter_message(
@@ -1528,7 +1643,7 @@ class ActionSubmitMainMenuForm(Action):
                      "البرنامج: بعثة خارجية :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول مختلفة "
                      ":فئة الطلبة : غير اعاقة "
             )
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
         if main_menu_option in ["1", "2"] and sub_menu_option == "4":
             return [AllSlotsReset(), FollowupAction("local_school_form")]
 
@@ -1548,11 +1663,11 @@ class ActionSubmitMainMenuForm(Action):
                     text="النظام : يرسل مقطع فيديو عن طريقة التسجيل "
                 )
 
-            return [AllSlotsReset()]
+            return [AllSlotsReset(), Restarted()]
 
         dispatcher.utter_message(text="End Of main_menu")
 
-        return [AllSlotsReset()]
+        return [AllSlotsReset(), Restarted()]
 
 
 class ActionDefaultFallback(Action):
@@ -1588,9 +1703,29 @@ public.services@mohe.gov.om
 
                 """
             )
+            return [UserUtteranceReverted(), Restarted()]
         else:
             dispatcher.utter_message(
                 text="أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟"
             )
 
-        return [UserUtteranceReverted()]
+            return [UserUtteranceReverted()]
+
+
+class ActionExit(Action):
+    def name(self) -> Text:
+        return "action_exit"
+
+    def run(
+            self,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message(
+            text="""شكرا على تواصلك مع مركز القبول الموحد(HEAC).
+يومك سعيد"""
+        )
+        return [Restarted()]
+

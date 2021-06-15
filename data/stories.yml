@@ -143,3 +143,82 @@ stories:
     - choice: '1'
   - action: main_menu_form
   - active_loop: main_menu_form
+
+- story: Search Program by code happy path
+  steps:
+  - intent: program_search
+    user: |-
+      Search Program
+  - action: utter_select_program_by
+  - intent: choose_option
+    user: |-
+      [1](choice)
+  - slot_was_set:
+    - choice: '1'
+  - action: search_program_code_form
+  - active_loop: search_program_code_form
+  - slot_was_set:
+    - requested_slot: code_number
+  - slot_was_set:
+    - code_number: DS010
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_search_program_code_form
+
+
+- story: Search Program by choise happy path
+  steps:
+  - intent: program_search
+    user: |-
+      Search Program
+  - action: utter_select_program_by
+  - intent: choose_option
+    user: |-
+      [2](choice)
+  - slot_was_set:
+    - choice: '2'
+  - action: search_program_con_form
+  - active_loop: search_program_con_form
+  - slot_was_set:
+    - requested_slot: select_country
+  - slot_was_set:
+    - choice: '1'
+  - slot_was_set:
+    - select_country: '1'
+  - slot_was_set:
+    - requested_slot: select_oman_category
+  - slot_was_set:
+    - choice: '1'
+  - slot_was_set:
+    - select_oman_category: '1'
+  - slot_was_set:
+    - requested_slot: select_oman_institute_type
+  - slot_was_set:
+    - choice: '1'
+  - slot_was_set:
+    - select_oman_institute_type: '1'
+  - slot_was_set:
+    - requested_slot: select_oman_public_college
+  - slot_was_set:
+    - choice: '2'
+  - slot_was_set:
+    - select_oman_public_college: '2'
+  - slot_was_set:
+    - requested_slot: select_oman_stream
+  - slot_was_set:
+    - choice: '1'
+  - slot_was_set:
+    - select_oman_stream: '1'
+  - slot_was_set:
+    - requested_slot: select_program_code
+  - slot_was_set:
+    - choice: '1'
+  - slot_was_set:
+    - select_program_code: '1'
+  - slot_was_set:
+    - requested_slot: null
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_submit_search_program_con_form

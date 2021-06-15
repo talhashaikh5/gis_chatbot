@@ -147,3 +147,20 @@ nlu:
     - المدارس المحلية
     - المدرسة المحلية
     - مدارس التعريب
+- intent: exit
+  examples: |
+    - exit
+    - i want to exit
+    - take me to to home
+    - exit
+    - home
+    - exiit
+    - ext
+    - exit
+    - خروج
+    - اريد الخروج
+    - خذني إلى المنزل
+    - خروج
+    - الصفحة الرئيسية
+    - خروج
+
