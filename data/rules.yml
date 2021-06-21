@@ -105,3 +105,35 @@ rules:
       - requested_slot: null
       # The actions we want to run when the form is submitted.
   - action: action_submit_main_menu_form
+
+- rule: seventh_menu_form form
+  steps:
+  - action: seventh_menu_form
+  - active_loop: seventh_menu_form
+
+- rule: deactivate Seventh Menu form
+  condition:
+  - active_loop: seventh_menu_form
+  steps:
+  - action: seventh_menu_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_seventh_menu_form
+
+- rule: select_program_by_form form
+  steps:
+  - action: select_program_by_form
+  - active_loop: select_program_by_form
+
+- rule: deactivate select_program_by_form form
+  condition:
+  - active_loop: select_program_by_form
+  steps:
+  - action: select_program_by_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_select_program_by_form

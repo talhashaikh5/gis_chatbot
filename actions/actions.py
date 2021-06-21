@@ -1092,7 +1092,9 @@ class ActionSubmitSearchProgramConForm(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         a = """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي واسم 
-                المؤسسة ورمز البرنامج لعرض الوصف https://apps.heac.gov.om:888/Sear """
+                المؤسسة ورمز البرنامج لعرض الوصف
+                https://apps.heac.gov.om:888/SearchEngine/faces/programsearchengine.jsf\n
+                """
         b = """اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
         ab = f"\n \n{a}\n \n{b}"
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "2":
@@ -1320,7 +1322,7 @@ class ValidateMainMenuForm(FormValidationAction):
             "3": 3,
             "4": 5,
             "5": 5,
-            "6": 2,
+            "6": 3,
         }
         options_list = [str(i) for i in list(range(1, main_sub[main_menu_option] + 1))]
         if slot_value in options_list:
@@ -1450,6 +1452,9 @@ class ActionSubmitMainMenuForm(Action):
             )
             return [AllSlotsReset(), Restarted()]
 
+        if main_menu_option == "7":
+            return [AllSlotsReset(), Restarted(), FollowupAction("seventh_menu_form")]
+
         # 1 new options
         # Option 1.6
         if main_menu_option == "1" and sub_menu_option == "6":
@@ -1513,7 +1518,19 @@ class ActionSubmitMainMenuForm(Action):
         # Option 1.9
         if main_menu_option == "1" and sub_menu_option == "9":
             dispatcher.utter_message(
-                text=""""""
+                text="""1.      علــى الطلبــة العمانييــن الدارســين لشــهادة الثانويــة الســعودية الحصــول علــى معادلــة من  وزارة التربية والتعليم بســلطنة عمــان، والتــي تشــترط خضــوع الطالــب إلختبــارات المركــز الوطنــي للقيــاس ) اختبــار القــدرات العامــة واختبــار التحصيــل الدراســي للتخصصــات العلميــة(. ومــن ثــم موافــاة مركــز القبــول الموحــد بنتيجــة االختباريــن حتــى يتمكنــوا مــن المنافســة علــى برامــج مؤسســات التعليــم العالــي والبعثــات والمنــح الداخليــة والخارجيــة.
+2.      ســوف يتــم الاخــذ بنتائــج اختبــار القــدرات العامــة(30%) واختبــار التحصيــل الدراســي للتخصصــات العلميــة (40%) عنــد احتســاب المعــدل التنافســي، بالاضافة إلى مجموع درجات المواد الدراسية (12%)، و مجموع درجات المواد المطلوبة للتخصص (18%). 
+3.       على الطلبة ضرورة تحميل  الوثائق  التالية في نظام القبول اإللكتروني في الوصلة المخصصة لذلك.
+·         نسخة من الشهادة أو كشف الدرجات.
+·         نسخة من نتيجة اختبار التحصيل الدراسي للتخصصات العلمية.
+·         نسخة من نتيجة اختبار القدرات العامة.
+·         معادلة وزارة التربية والتعليم بسلطنة عمان
+·         نسخة من  البطاقة الشخصية ) أو جواز السفر.
+رابط التسجيل 
+https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
+
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة.
+"""
             )
             return [AllSlotsReset(), Restarted()]
 
@@ -1566,7 +1583,7 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx """
 
         # Linking SEARCH programs CON
         if main_menu_option in ["1", "2"] and sub_menu_option == "2":
-            return [AllSlotsReset(), FollowupAction("utter_select_program_by")]
+            return [AllSlotsReset(), FollowupAction("select_program_by_form")]
 
         # Linking SEARCH programs COde
         if main_menu_option in ["4", "5"] and sub_menu_option == "3":
@@ -1708,3 +1725,405 @@ class ActionExit(Action):
 يومك سعيد"""
         )
         return [Restarted()]
+
+
+class AskForSeventhYear(Action):
+    def name(self) -> Text:
+        return "action_ask_seventh_year"
+
+    def run(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        if tracker.get_slot("seventh_main_menu") in ["1", "2"]:
+            dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n:"
+                                          f"1. 20/21 \n \n"
+                                          f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
+                                     )
+        else:
+            dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n:"
+                                          f"1. 20/21 \n2. 19/20 \n \n"
+                                          f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
+                                     )
+        return []
+
+
+class ValidateSeventhMenuForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_seventh_menu_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+
+        if tracker.get_slot("seventh_main_menu") == "3" and tracker.get_slot("seventh_year") == "2":
+            return ["seventh_main_menu", "seventh_year"]
+        return ["seventh_main_menu", "seventh_year", "seventh_sub_menu"]
+
+
+    async def validate_seventh_main_menu(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        if slot_value in ["1", "2", "3"]:
+            return {
+                "seventh_main_menu": slot_value
+            }
+        return {
+            "seventh_main_menu": None
+        }
+
+    async def validate_seventh_year(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        if tracker.get_slot("seventh_main_menu") in ["1","2"]:
+            if slot_value in ["1"]:
+                return {
+                    "seventh_year": slot_value
+                }
+        else:
+            if slot_value in ["1", "2"]:
+                return {
+                    "seventh_year": slot_value
+                }
+
+        return {
+            "seventh_year": None
+        }
+
+    async def validate_seventh_sub_menu(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        if tracker.get_slot("seventh_main_menu") in ["1","3"]:
+            if slot_value in ["1", "2", "3"]:
+                return {
+                    "seventh_sub_menu": slot_value
+                }
+            else:
+                return {
+                    "seventh_sub_menu": None
+                }
+        if tracker.get_slot("seventh_main_menu") == "2":
+            if slot_value in ["1", "2", "3", "4"]:
+                return {
+                    "seventh_sub_menu": slot_value
+                }
+            else:
+                return {
+                    "seventh_sub_menu": None
+                }
+
+        return {
+            "seventh_sub_menu": None
+        }
+
+    class AskForSeventhSubMenu(Action):
+        def name(self) -> Text:
+            return "action_ask_seventh_sub_menu"
+
+        def run(
+                self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+        ) -> List[EventType]:
+            if tracker.get_slot("seventh_main_menu") in ["1"]:
+                dispatcher.utter_message(text=f"الرجاء تحديد نوع البيان\n:"
+                                              f"1. عرضت المقاعد\n"
+                                              f"2. الطلاب المقبولين حسب المؤهل الأكاديمي\n"
+                                              f"""3. قبول الطلاب حسب التخصص\n"""
+                                              f"\n"
+                                              f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
+                                         )
+            elif tracker.get_slot("seventh_main_menu") in ["2"]:
+                dispatcher.utter_message(text=f"الرجاء تحديد نوع البيان\n"
+                                              f"1. حسب مكان الدراسة\n"
+                                              f"2. حسب فئة المنظمة\n"
+                                              f"3. حسب المؤهل العلمي\n"
+                                              f"4. حسب التخصص\n"
+                                              f"\n"
+                                              f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
+                                         )
+            elif tracker.get_slot("seventh_main_menu") in ["3"] and tracker.get_slot("seventh_year") in ["1"]:
+                dispatcher.utter_message(
+                    text="""الرجاء تحديد نوع البيان
+1. حسب مكان الدراسة
+2. حسب المؤهل الأكاديمي
+3. حسب التخصص
+
+اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
+                )
+            else:
+                dispatcher.utter_message(
+                    text="end"
+                )
+            return []
+
+
+class ActionSubmitSeventhMenuForm(Action):
+
+    def name(self) -> Text:
+        return "action_submit_seventh_menu_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        main_menu_option = tracker.get_slot("seventh_main_menu")
+        year_option = tracker.get_slot("seventh_year")
+        sub_menu_option = tracker.get_slot("seventh_sub_menu")
+
+        # main_menu: 3 seventh_year: 2
+        if main_menu_option == "3" and year_option == "2":
+            dispatcher.utter_message(
+                text="""سيتم عرض المعلومات في وقت لاحق
+                
+اكتب "1" للعودة إلى القائمة الرئيسية"""
+            )
+        if main_menu_option == "3" and year_option == "1" and sub_menu_option == "1":
+            dispatcher.utter_message(text="""داخل السلطنة - المجموع (21870)
+
+ذكور (8383) (38.3)٪
+أنثى (13487) (61.7)٪
+المجموع (21870)
+عمانيون (21392) (97.8)٪
+غير العمانيين (478) (2.2)٪
+خارج السلطنة (العمانيون) المجموع (1946)
+ذكر (1211) (62.2)٪
+أنثى (735) (37.8)٪
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي:
+https://www.heac.gov.om/index.php/annual-statistical-reports-en
+
+اكتب "1" للعودة إلى القائمة الرئيسية
+""")
+            return [AllSlotsReset(), Restarted()]
+        if main_menu_option == "3" and year_option == "1" and sub_menu_option == "2":
+            dispatcher.utter_message(text="""داخل السلطنة - المجموع (21870) 
+بكالوريوس/ليسانس (13630)  (62.3)%
+دبلوم (5234)  (23.9)%
+ماجستير (1440)  (6.6)%
+دبلوم متقدم/تخصصي (922)  (4.2)%
+دبلوم التأهيل التربوي (389)  (1.8)%
+شهادة مهنية/دبلوم مهني (220)  (1.0)%
+دكتوراه (34)  (0.2)%
+شهادة تخصصية بعد البكالوريوس (1)  (0.0)%
+
+خارج السلطنة -المجموع  (1946)   
+بكالوريوس/ليسانس (1392)  (71.5)%
+ماجستير (266)  (13.7)%
+دكتوراه (198)  (10.2)%
+دبلوم متقدم/تخصصي (22)  (1.1)%
+دبلوم التأهيل التربوي (20)  (1.0)%
+شهادة تخصصية بعد البكالوريوس (19)  (1.0)%
+دبلوم عالي/دبلوم الدراسات العليا (14)  (0.7)%
+شهادة مهنية/دبلوم مهني (8)  (0.4)%
+دبلوم (7)  (0.4)%
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar
+
+اكتب "1" للعودة إلى القائمة الرئيسية
+""")
+            return [AllSlotsReset(), Restarted()]
+        if main_menu_option == "3" and year_option == "1" and sub_menu_option == "3":
+            dispatcher.utter_message(text="""داخل السلطنة - المجموع (21870) 
+الإدارة والمعاملات التجارية (30.8)%
+الهندسة والتقنيات ذات الصلة (22.0)%
+المجتمع والثقافة (15.8)%
+تكنولوجيا المعلومات (10.6)%
+العلوم الطبيعية والفيزيائية (4.8)%
+التربية (5.8)%
+الدين والفلسفة (3.6)%
+الفنون الإبداعية (2.3)%
+الصحة (2.1)%
+العمارة والإنشاء (1.8)%
+الزراعة والبيئة والعلوم المرتبطة بها (1.3)%
+الخدمات الشخصية (0.1)%
+
+خارج السلطنة - المجموع  (1946) 
+الإدارة والمعاملات التجارية (22.4)%
+الهندسة والتقنيات ذات الصلة (30.0)%
+المجتمع والثقافة (13.7)%
+تكنولوجيا المعلومات (4.1)%
+العلوم الطبيعية والفيزيائية (5.9)%
+التربية (9.4)%
+الدين والفلسفة (0.7)%
+الفنون الإبداعية (2.2)%
+الصحة (8.2)%
+العمارة والإنشاء (3.1)%
+الزراعة والبيئة والعلوم المرتبطة بها (0.2)%
+الخدمات الشخصية (0.1)%
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar
+
+اكتب "1" للعودة إلى القائمة الرئيسية
+""")
+            return [AllSlotsReset(), Restarted()]
+
+
+        if main_menu_option == "2" and sub_menu_option == "1":
+            dispatcher.utter_message(
+                text="""داخل السلطنة: المجموع (121284) 
+ذكور  (51754)   (42.7)%
+اناث (69530)    (57.3)%
+عماني (117791) (97.1)%
+غير عماني (3493) (2.9)%
+
+خارج السلطنة (العمانيين) المجموع (8335)  
+ذكور (5053)   (60.6)%
+اناث (3282)   (39.4)%
+اجمالي الدراسين (129619) 
+ذكور: (56807)
+اناث : (72812)
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar 
+
+اكتب "1" للعودة إلى القائمة الرئيسية
+"""
+            )
+            return [AllSlotsReset(), Restarted()]
+        if main_menu_option == "2" and sub_menu_option == "2":
+            dispatcher.utter_message(
+                text="""المؤسسات الحكومية (65457)  (54)%
+المؤسسات الخاصة (55827)  (46)%
+المجموع  (121284)  
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar
+
+اكتب "1" للعودة إلى القائمة الرئيسية
+"""
+            )
+            return [AllSlotsReset(), Restarted()]
+        if main_menu_option == "2" and sub_menu_option == "3":
+            dispatcher.utter_message(
+                text="""داخل السلطنة
+بكالوريوس/ليسانس (103972)  (85.7)%
+دبلوم (7486)  (6.2)%
+ماجستير (4044)  (3.3)%
+دبلوم متقدم/تخصصي (2601)  (2.1)%
+شهادة مهنية/دبلوم مهني (2191)  (1.8)%
+شهادة تخصصية بعد البكالوريوس (431)  (0.4)%
+دبلوم التأهيل التربوي (347)  (0.3)%
+دبلوم عالي/دبلوم الدراسات العليا (23)  (0.0)%
+دكتوراه (189)  (0.2)%
+المجموع  (121284)  
+
+خارج السلطنة   (8335)  
+بكالوريوس/ليسانس (5945)  (71.3)%
+دكتوراه (1456)  (17.5)%
+ماجستير (641)  (7.7)%
+شهادة تخصصية بعد البكالوريوس (244)  (2.9)%
+دبلوم عالي/دبلوم الدراسات العليا (28)  (0.3)%
+دبلوم (13)  (0.2)%
+شهادة مهنية/دبلوم مهني (4)  (0.0)%
+دبلوم التأهيل التربوي (3)  (0.0)%
+دبلوم متقدم/تخصصي (1)  (0.0)%
+
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar
+
+اكتب "1" للعودة إلى القائمة الرئيسية
+"""
+            )
+            return [AllSlotsReset(), Restarted()]
+        if main_menu_option == "2" and sub_menu_option == "4":
+            dispatcher.utter_message(
+                text="""داخل السلطنة 
+الإدارة والمعاملات التجارية (23.2)%
+الهندسة والتقنيات ذات الصلة (13.5)%
+المجتمع والثقافة (10.8)%
+تكنولوجيا المعلومات (8.1)%
+الصحة (4.8)%
+التربية (4.6)%
+العلوم الطبيعية والفيزيائية (3.5)%
+الدين والفلسفة (2.7)%
+العمارة والإنشاء (1.9)%
+الفنون الإبداعية (1.7)%
+الزراعة والبيئة والعلوم المرتبطة بها (0.3)%
+لا ينطبق (24.8)%
+خارج السلطنة- المجموع  (8335)  
+الهندسة والتقنيات ذات الصلة (23.6)%
+الإدارة والمعاملات التجارية (22.0)%
+المجتمع والثقافة (14.2)%
+الصحة (12.6)%
+التربية (9.4)%
+العلوم الطبيعية والفيزيائية (7.7)%
+تكنولوجيا المعلومات (5.3)%
+الفنون الإبداعية (2.1)%
+العمارة والإنشاء (1.7)%
+الزراعة والبيئة والعلوم المرتبطة بها (0.6)%
+الدين والفلسفة (0.5)%
+لا ينطبق (0.2)%
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar
+
+اكتب "1" للعودة إلى القائمة الرئيسية
+"""
+            )
+            return [AllSlotsReset(), Restarted()]
+
+        if main_menu_option == "1":
+            dispatcher.utter_message(
+                text="""سيتم عرض المعلومات في وقت لاحق.
+
+اكتب "1" للعودة إلى القائمة الرئيسية"""
+            )
+            return [AllSlotsReset(), Restarted()]
+
+        return [AllSlotsReset(), Restarted()]
+
+
+class ValidateSelectProgramByForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_select_program_by_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+
+        return ["program_by"]
+
+    def validate_program_by(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+
+        if slot_value in ["1","2"]:
+            return {
+                "program_by": slot_value
+            }
+        return {
+            "program_by": None
+        }
+
+
+class ActionSubmitSelectProgramByFrom(Action):
+
+    def name(self) -> Text:
+        return "action_submit_select_program_by_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        if tracker.get_slot("program_by") == "1":
+            return [AllSlotsReset(), FollowupAction("search_program_code_form")]
+        else:
+            return [AllSlotsReset(),FollowupAction("search_program_con_form")]
