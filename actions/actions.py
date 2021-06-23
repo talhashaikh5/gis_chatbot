@@ -932,7 +932,7 @@ class AskForSelectOmanStream(Action):
             options_list += "{}. {}\n".format(strm[0], strm[1])
         dispatcher.utter_message(text=f"يرجى الاختيار من بين التدفقات المتاحة أدناه: \n"
                                       f"{options_list} \n"
-                                      f"اضغط '0' للعودة")
+                                      f"اكتب '0' للعودة إلى الخيار الثمين واكتب 'خروج' للخروج من المحادثة")
         return []
 
 
@@ -1046,7 +1046,7 @@ class AskForSelectStudyStream(Action):
             options_list += "{}. {}\n".format(item[0], item[1])
         dispatcher.utter_message(text=f"يرجى الاختيار من بين التدفقات المتاحة أدناه: \n"
                                       f"{options_list} \n"
-                                      f"اضغط '0' للعودة")
+                                      f"اكتب '0' للعودة إلى الخيار الثمين واكتب 'خروج' للخروج من المحادثة")
 
         return []
 
@@ -1771,6 +1771,16 @@ class ValidateSeventhMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        if slot_value.lower() == "0":
+            current_slot = "seventh_main_men"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         if slot_value in ["1", "2", "3"]:
             return {
                 "seventh_main_menu": slot_value
@@ -1786,7 +1796,17 @@ class ValidateSeventhMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict
     ) -> Dict[Text, Any]:
-        if tracker.get_slot("seventh_main_menu") in ["1","2"]:
+        if slot_value.lower() == "0":
+            current_slot = "seventh_year"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
+        if tracker.get_slot("seventh_main_menu") in ["1", "2"]:
             if slot_value in ["1"]:
                 return {
                     "seventh_year": slot_value
@@ -1808,7 +1828,17 @@ class ValidateSeventhMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict
     ) -> Dict[Text, Any]:
-        if tracker.get_slot("seventh_main_menu") in ["1","3"]:
+        if slot_value.lower() == "0":
+            current_slot = "seventh_sub_menu"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
+        if tracker.get_slot("seventh_main_menu") in ["1", "3"]:
             if slot_value in ["1", "2", "3"]:
                 return {
                     "seventh_sub_menu": slot_value
@@ -2105,7 +2135,7 @@ class ValidateSelectProgramByForm(FormValidationAction):
             domain: DomainDict
     ) -> Dict[Text, Any]:
 
-        if slot_value in ["1","2"]:
+        if slot_value in ["1", f"2"]:
             return {
                 "program_by": slot_value
             }

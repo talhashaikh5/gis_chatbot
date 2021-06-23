@@ -637,14 +637,12 @@ responses:
       1. الطلاب المقبولين
       2. الطلاب الذين يدرسون
       3. طلاب الدراسات العليا
-
       اكتب "خروج" للخروج من المحادثة
   utter_ask_program_by:
   - text: |-
       حدد نوع البحث
       1. ابحث عن البرامج الدراسية حسب كود البرنامج
       2. البحث عن البرامج الدراسية حسب الدولة / المؤسسة التعليمية / التخصص
-
       اكتب "خروج" للخروج من المحادثة
 
 actions:
@@ -762,12 +760,16 @@ forms:
     required_slots:
       seventh_main_menu:
       - type: from_text
+        not_intent: exit
       seventh_sub_menu:
       - type: from_text
+        not_intent: exit
       seventh_year:
       - type: from_text
+        not_intent: exit
   select_program_by_form:
     required_slots:
       program_by:
       - type: from_text
+        not_intent: exit
 e2e_actions: []
