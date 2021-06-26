@@ -4,16 +4,11 @@ from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.events import EventType, FollowupAction, AllSlotsReset, Restarted, UserUtteranceReverted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
-import requests
-import json
 
 from . import private_college, public_college, omandisable, abroad_college
-from .college_data import college_data
 from .local_schools import *
 from .school_code import *
-from .country_code import *
-from .load_df import get_abroad_general_codes, get_oman_disability_codes, get_public_oman_gen_codes, \
-    get_private_oman_gen_codes
+from .utils import convert_number
 
 senders_maintain = {}
 
@@ -66,6 +61,7 @@ class ValidateScholarshipAvailabilityForm(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate region value."""
+        slot_value = convert_number(slot_value)
         text_of_last_user_message = tracker.latest_message.get("text").lower()
 
         local = ['محلي', 'local', '1', '١']
@@ -86,6 +82,7 @@ class ValidateScholarshipAvailabilityForm(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate graduate value."""
+        slot_value = convert_number(slot_value)
         text_of_last_user_message = tracker.latest_message.get("text").lower()
         ug = ['حت التخرج', 'الجامعية', 'under graduate', '1', 'undergraduate', '١']
         g = ['خريج', 'يتخرج', 'graduate', '2', '٢']
@@ -114,6 +111,7 @@ class ValidateSearchProgramCode(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate region value."""
+        slot_value = convert_number(slot_value)
 
         return {"code_number": slot_value}
 
@@ -154,6 +152,7 @@ class ValidateLocalSchoo(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate region value."""
+        slot_value = convert_number(slot_value)
         if slot_value in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
             print(slot_value)
             wilaya = wilaya_list[int(slot_value) - 1]
@@ -180,6 +179,7 @@ class ValidateLocalSchoo(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         """Validate region value."""
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "back":
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
@@ -262,6 +262,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
@@ -314,6 +315,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
@@ -374,6 +376,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
@@ -403,6 +406,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_private_college"
             req_s = await self.required_slots(
@@ -430,6 +434,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_category"
             req_s = await self.required_slots(
@@ -456,6 +461,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_abroad_category"
             req_s = await self.required_slots(
@@ -482,6 +488,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_abroad_category"
             req_s = await self.required_slots(
@@ -512,6 +519,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_category"
             req_s = await self.required_slots(
@@ -538,6 +546,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_study_stream"
             req_s = await self.required_slots(
@@ -573,6 +582,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_institute_type"
             req_s = await self.required_slots(
@@ -599,6 +609,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_disability_institute"
             req_s = await self.required_slots(
@@ -638,6 +649,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_disability_program"
             req_s = await self.required_slots(
@@ -664,6 +676,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_disability_program_code"
             req_s = await self.required_slots(
@@ -708,6 +721,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
 
         # Back Code
         if slot_value.lower() == "0":
@@ -749,6 +763,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "select_oman_general_program"
             req_s = await self.required_slots(
@@ -775,6 +790,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         """Validate region value."""
         if slot_value.lower() in ["1", "2", "abroad", "oman"]:
             print("Slot select_country", slot_value)
@@ -1271,6 +1287,7 @@ class ValidateMainMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         options_list = [str(i) for i in list(range(1, 8))]
         if slot_value in options_list:
             return {
@@ -1287,6 +1304,7 @@ class ValidateMainMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         options_list = [str(i) for i in list(range(1, 4))]
         if slot_value in options_list:
             return {
@@ -1303,6 +1321,7 @@ class ValidateMainMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         # Back Code
         if slot_value.lower() == "0":
             current_slot = "sub_menu"
@@ -1771,6 +1790,7 @@ class ValidateSeventhMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "seventh_main_men"
             req_s = await self.required_slots(
@@ -1796,6 +1816,7 @@ class ValidateSeventhMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "seventh_year"
             req_s = await self.required_slots(
@@ -1828,6 +1849,7 @@ class ValidateSeventhMenuForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict
     ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
             current_slot = "seventh_sub_menu"
             req_s = await self.required_slots(
@@ -2134,7 +2156,7 @@ class ValidateSelectProgramByForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict
     ) -> Dict[Text, Any]:
-
+        slot_value = convert_number(slot_value)
         if slot_value in ["1", f"2"]:
             return {
                 "program_by": slot_value
