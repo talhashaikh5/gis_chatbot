@@ -1273,7 +1273,7 @@ class ValidateMainMenuForm(FormValidationAction):
             tracker: "Tracker",
             domain: "DomainDict",
     ) -> List[Text]:
-        if tracker.get_slot("main_menu") == "7":
+        if tracker.get_slot("main_menu") in ["8", "7"]:
             return ["main_menu"]
         if tracker.get_slot("main_menu") == "6" and tracker.get_slot("sub_menu_option") == "2":
             return ["main_menu", "sub_menu", "desired_service"]
