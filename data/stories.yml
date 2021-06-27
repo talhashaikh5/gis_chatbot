@@ -17,10 +17,12 @@ stories:
   - slot_was_set:
     - graduate: g
   - action: action_submit_scholarship_availability_form
+
 - story: Search Program by
   steps:
   - intent: program_search
   - action: utter_select_program_by
+
 - story: Search Program by Code
   steps:
   - intent: program_search
@@ -32,6 +34,7 @@ stories:
     - choice: '1'
   - action: search_program_code_form
   - active_loop: search_program_code_form
+
 - story: Search Program by Country/institute
   steps:
   - intent: program_search
@@ -43,6 +46,31 @@ stories:
     - choice: '2'
   - action: search_program_con_form
   - active_loop: search_program_con_form
+
+- story: Search Program by Code
+  steps:
+  - intent: program_search
+  - action: utter_select_program_by
+  - intent: choose_option
+    entities:
+    - choice: '١'
+  - slot_was_set:
+    - choice: '١'
+  - action: search_program_code_form
+  - active_loop: search_program_code_form
+
+- story: Search Program by Country/institute
+  steps:
+  - intent: program_search
+  - action: utter_select_program_by
+  - intent: choose_option
+    entities:
+    - choice: '٢'
+  - slot_was_set:
+    - choice: '٢'
+  - action: search_program_con_form
+  - active_loop: search_program_con_form
+
 - story: Search Program General
   steps:
   - intent: program_search

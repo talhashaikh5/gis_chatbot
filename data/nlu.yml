@@ -138,6 +138,8 @@ nlu:
     - [4](choice)
     - [5](choice)
     - [6](choice)
+    - [١](choice)
+    - [٢](choice)
 - intent: local_school
   examples: |
     - ما هي مدارس التعريب؟

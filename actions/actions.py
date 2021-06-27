@@ -133,7 +133,7 @@ class ActionSubmitSearchProgramCode(Action):
                 dispatcher.utter_message(
                     text=program["details"] + "\n \n " + a + " \n \n" + b
                 )
-                return [AllSlotsReset()]
+                return [AllSlotsReset(),Restarted()]
         dispatcher.utter_message(
             text=f"تم إدخال الرمز بشكل غير صحيح ، الرجاء إدخال الرمز الصحيح."
         )
@@ -165,7 +165,7 @@ class ValidateLocalSchoo(FormValidationAction):
                     pass
 
             dispatcher.utter_message(
-                text=text
+                text=text + "\n \n" + """اكتب "0" للرجوع أو اكتب "خروج" للخروج من المحادثة """
             )
 
             return {"city_list": slot_value}
@@ -180,7 +180,7 @@ class ValidateLocalSchoo(FormValidationAction):
     ) -> Dict[Text, Any]:
         """Validate region value."""
         slot_value = convert_number(slot_value)
-        if slot_value.lower() == "back":
+        if slot_value.lower() == "0":
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
             )
@@ -205,8 +205,7 @@ class ActionSubmitLocalSchoolForm(Action):
                      int(tracker.get_slot("city_list")) - 1
                      ][
                      int(tracker.get_slot("wilaya_list"))
-                 ][1] + """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي 
-            واسم المؤسسة ورمز البرنامج لعرض الوصف """
+                 ][1] + """اكتب 1 للذهاب إلى القائمة الرئيسية """
         )
         return [AllSlotsReset(), Restarted()]
 
