@@ -205,7 +205,7 @@ class ActionSubmitLocalSchoolForm(Action):
                      int(tracker.get_slot("city_list")) - 1
                      ][
                      int(tracker.get_slot("wilaya_list"))
-                 ][1] + """اكتب 1 للذهاب إلى القائمة الرئيسية """
+                 ][1] + """اكتب "1 للرجوع إلى القائمة الرئيسية أو اكتب" خروج للخروج من المحادثة"""
         )
         return [AllSlotsReset(), Restarted()]
 
