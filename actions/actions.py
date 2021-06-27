@@ -1287,7 +1287,7 @@ class ValidateMainMenuForm(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         slot_value = convert_number(slot_value)
-        options_list = [str(i) for i in list(range(1, 8))]
+        options_list = [str(i) for i in list(range(1, 9))]
         if slot_value in options_list:
             return {
                 "main_menu": slot_value
