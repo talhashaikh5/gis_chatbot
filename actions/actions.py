@@ -1663,11 +1663,11 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx """
                 )
             elif opt == "2":
                 dispatcher.utter_message(
-                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل "
+                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل " + "\nhttps://youtu.be/JG6NskPaDZk"
                 )
             else:
                 dispatcher.utter_message(
-                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل "
+                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل " + "\nhttps://youtu.be/JG6NskPaDZk"
                 )
 
             return [AllSlotsReset(), Restarted()]
