@@ -32,7 +32,33 @@ intents:
 - program_search:
     use_entities: true
 - local_school:
-    use_entities: []
+    use_entities: true
+- pdf1:
+    use_entities: false
+- pdf2:
+    use_entities: false
+- pdf3:
+    use_entities: false
+- pdf4:
+    use_entities: false
+- pdf5:
+    use_entities: false
+- pdf6:
+    use_entities: false
+- pdf7:
+    use_entities: false
+- pdf8:
+    use_entities: false
+- pdf9:
+    use_entities: false
+- pdf10:
+    use_entities: false
+- pdf11:
+    use_entities: false
+- pdf12:
+    use_entities: false
+- pdf13:
+    use_entities: false
 entities:
 - choice
 slots:
@@ -504,133 +530,448 @@ responses:
   utter_faq/faq_71:
   - text: هو احد برامج الابتعاث الخارجي للمرحلة الجامعية الاولى
   utter_faq/faq_72:
-  - text: 'Fax  24413861/   Phone  24141807 Email /www.squ.edu.om   / الموقع: الخوض'
+  - text: |-
+      جامعة السلطان قابوس
+      Fax  24413861
+      Phone  24141807
+      Email www.squ.edu.om
+      الموقع: الخوض
   utter_faq/faq_73:
-  - text: 'Fax  22091370/   Phone  22091111 Email /www.mtc.edu.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      الكلية العسكرية التقنية
+      Fax  22091370
+      Phone  22091111
+      Email www.mtc.edu.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_74:
-  - text: 'Fax  24393801/   Phone  24393888, 24393824 Email /www.css.edu.om   / الموقع: الخوير'
+  - text: |-
+      كلية العلوم الشرعية
+      Fax  24393801
+      Phone  24393888, 24393824
+      Email www.css.edu.om
+      الموقع: الخوير
   utter_faq/faq_75:
-  - text: 'Fax  24340774/   Phone  24340900 Email /www.mohe.gov.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      البعثات الخارجية
+      Fax  24340774
+      Phone  24340900
+      Email www.mohe.gov.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_76:
-  - text: 'Fax  24340815/   Phone  24340900 Email /www.mohe.gov.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      دائرة البعثات الداخلية
+      Fax  24340815
+      Phone  24340900
+      Email www.mohe.gov.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_77:
-  - text: 'Fax  24540964 (2435722)/   Phone  24556511 (24556509) Email /Dos@seebvc.edu.om   / الموقع: الحيل الشمالية'
+  - text: |-
+      الكلية المهنية بالسيب
+      Fax  24540964 (2435722)
+      Phone  24556511 (24556509)
+      Email Dos@seebvc.edu.om
+      الموقع: الحيل الشمالية
   utter_faq/faq_78:
-  - text: 'Fax  26854163 (26959668)/   Phone  26959666 (26959767) Email /Info@sahamvtc.edu.om   / الموقع: بطحاء األشخر'
+  - text: |-
+      الكلية المهنية بصحم
+      Fax  26854163 (26959668)
+      Phone  26959666 (26959767)
+      Email Info@sahamvtc.edu.om
+      الموقع: بطحاء األشخر
   utter_faq/faq_79:
-  - text: 'Fax  25783799/   Phone  25783703 (25783725) Email /ibrivtc@ibrivtc.edu.om   / الموقع: الرايبة'
+  - text: |-
+      الكلية المهنية بعبري
+      Fax  25783799
+      Phone  25783703 (25783725)
+      Email ibrivtc@ibrivtc.edu.om
+      الموقع: الرايبة
   utter_faq/faq_80:
-  - text: 'Fax  25540162/   Phone  25530003 (25530068) Email /survc@survc.edu.om   / الموقع: المرتفعة'
+  - text: |-
+      الكلية المهنية بصور
+      Fax  25540162
+      Phone  25530003 (25530068)
+      Email survc@survc.edu.om
+      الموقع: المرتفعة
   utter_faq/faq_81:
-  - text: 'Fax  26747725/   Phone  26747691 Email /scv_doc@shinasvc.edu.om   / الموقع: العقر'
+  - text: |-
+      الكلية المهنية بشناص
+      Fax  26747725
+      Phone  26747691
+      Email scv_doc@shinasvc.edu.om
+      الموقع: العقر
   utter_faq/faq_82:
-  - text: 'Fax  25657305/   Phone  25661134(25661115) Email /Doc@brm-vtc.edu.om   / الموقع: العقد'
+  - text: |-
+      الكلية المهنية بالبريمي
+      Fax  25657305
+      Phone  25661134(25661115)
+      Email Doc@brm-vtc.edu.om
+      الموقع: العقد
   utter_faq/faq_83:
-  - text: 'Fax  26801939/   Phone  26801937 Email /Info@ftik.edu.om   / الموقع: عباسة'
+  - text: |-
+      الكلية المهنية للعلوم البحرية بالخابورة
+      Fax  26801939
+      Phone  26801937
+      Email Info@ftik.edu.om
+      الموقع: عباسة
   utter_faq/faq_84:
-  - text: 'Fax  23221016/   Phone  23219615 (23219614) Email /Info@svc.edu.om   / الموقع: ريسوت'
+  - text: |-
+      الكلية المهنية بصاللة
+      Fax  23221016
+      Phone  23219615 (23219614)
+      Email Info@svc.edu.om
+      الموقع: ريسوت
   utter_faq/faq_85:
-  - text: 'Fax  26877026/   Phone  26774977 (26774857) Email /reg.rus@cas.edu.om   / الموقع: فرع الرستاق'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية- فرع الرستاق
+      Fax  26877026
+      Phone  26774977 (26774857)
+      Email reg.rus@cas.edu.om
+      الموقع: فرع الرستاق
   utter_faq/faq_86:
-  - text: 'Fax  22057001/   Phone  22057133 Email /reg.sal@cas.edu.om   / الموقع: فرع صحار'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية فرع صحار
+      Fax  22057001
+      Phone  22057133
+      Email reg.sal@cas.edu.om
+      الموقع: فرع صحار
   utter_faq/faq_87:
-  - text: 'Fax  25431102/   Phone  25433760 Email /reg.niz@cas.edu.om   / الموقع:'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية فرع نزوى
+      Fax  25431102
+      Phone  25433760
+      Email reg.niz@cas.edu.om
+      الموقع:
   utter_faq/faq_88:
-  - text: 'Fax  25431020/   Phone  25446555 Email /www.nct.edu.om   / الموقع: فرعي نزوى'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية
+      Fax  25431020
+      Phone  25446555
+      Email www.nct.edu.om
+      الموقع: فرعي نزوى'
   utter_faq/faq_89:
-  - text: 'Fax  25544751/   Phone  25543055 Email /reg.sur@cas.edu.om    / الموقع: فرع صور'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية فرع صور
+      Fax  25544751
+      Phone  25543055
+      Email reg.sur@cas.edu.om
+      الموقع: فرع صور
   utter_faq/faq_90:
-  - text: 'Fax  24478401/   Phone  24473622 Email /www.hct.edu.om   / الموقع: مسقط'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية فرع مسقط
+      Fax  24478401
+      Phone  24473622
+      Email www.hct.edu.om
+      الموقع: مسقط
   utter_faq/faq_91:
-  - text: 'Fax  26869257/   Phone  26871333 Email /www.act.edu.om   / الموقع: المصنعة'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية فرع المصنعة
+      Fax  26869257
+      Phone  26871333
+      Email www.act.edu.om
+      الموقع: المصنعة
   utter_faq/faq_92:
-  - text: 'Fax  26747426/   Phone  26852811 Email /www.ctshinas.edu.om   / الموقع: فرع شناص'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية فرع شناص
+      Fax  26747426
+      Phone  26852811
+      Email www.ctshinas.edu.om
+      الموقع: فرع شناص
   utter_faq/faq_93:
-  - text: 'Fax  23225620/   Phone  23224303 Email /reg.sal@cas.edu.om   / الموقع: صلالة'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية فرع صلالة
+      Fax  23225620
+      Phone  23224303
+      Email reg.sal@cas.edu.om
+      الموقع: صلالة
   utter_faq/faq_94:
-  - text: 'Fax  25689723/   Phone  25690664 Email /www.ibrict.edu.om   / الموقع: فرعي عبري'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية
+      Fax  25689723
+      Phone  25690664
+      Email www.ibrict.edu.om
+      الموقع: فرعي عبري'
   utter_faq/faq_95:
-  - text: 'Fax  25689723/   Phone  25690664 Email /www.ibrict.edu.om   / الموقع: فرعي عبري'
+  - text: |-
+      جامعة التقنية والعلوم التطبيقية
+      Fax  25689723
+      Phone  25690664
+      Email www.ibrict.edu.om
+      الموقع: فرعي عبري
   utter_faq/faq_96:
-  - text: 'Fax  24560384/   Phone  24560085 Email /www.moh.gov.om   / الموقع: الوطية'
+  - text: |-
+      كلية العلوم الصحية
+      Fax  24560384
+      Phone  24560085
+      Email www.moh.gov.om
+      الموقع: الوطية
   utter_faq/faq_97:
-  - text: 'Fax  24564042/   Phone  24560990 Email /www.moh.gov.om   / الموقع: الوطية'
+  - text: |-
+      الصيدلة
+      Fax  24564042
+      Phone  24560990
+      Email www.moh.gov.om
+      الموقع: الوطية'
   utter_faq/faq_98:
-  - text: 'Fax  24565879/   Phone  24564112 Email /www.moh.gov.om   / الموقع: الوطية'
+  - text: |-
+      كلية عمان للعلوم الصحية - فرع مسقط
+      Fax  24565879
+      Phone  24564112
+      Email www.moh.gov.om
+      الموقع: الوطية
   utter_faq/faq_99:
-  - text: 'Fax  26772557/   Phone  26877181 Email /www.moh.gov.om   / الموقع: الرستاق'
+  - text: |-
+      كلية عمان للعلوم الصحية - فرع الرستاق
+      Fax  26772557
+      Phone  26877181
+      Email www.moh.gov.om
+      الموقع: الرستاق
   utter_faq/faq_100:
-  - text: 'Fax  26841811/   Phone  26840592 Email /www.moh.gov.om   / الموقع: صحار'
+  - text: |-
+      كلية عمان للعلوم الصحية- فرع شمال الباطنة
+      Fax  26841811
+      Phone  26840592
+      Email www.moh.gov.om
+      الموقع: صحار
   utter_faq/faq_101:
-  - text: 'Fax  25211910/   Phone  25211853 Email /www.moh.gov.om   / الموقع: نزوى'
+  - text: |-
+      كلية عمان للعلوم الصحية- فرع الداخلية
+      Fax  25211910
+      Phone  25211853
+      Email www.moh.gov.om
+      الموقع: نزوى
   utter_faq/faq_102:
-  - text: 'Fax  25696154/   Phone  25881602 Email /www.moh.gov.om   / الموقع: الظاهرة'
+  - text: |-
+      كلية عمان للعلوم الصحية - فرع الظاهرة
+      Fax  25696154
+      Phone  25881602
+      Email www.moh.gov.om
+      الموقع: الظاهرة
   utter_faq/faq_103:
-  - text: 'Fax  25570076/   Phone  25570075(25570073) Email /www.moh.gov.om   / الموقع: إبراء'
+  - text: |-
+      كلية عمان للعلوم الصحية - فرع شمال الشرقية
+      Fax  25570076
+      Phone  25570075(25570073)
+      Email www.moh.gov.om
+      الموقع: إبراء
   utter_faq/faq_104:
-  - text: 'Fax  25544263/   Phone  25543902 (25543901) Email /www.moh.gov.om   / الموقع: صور'
+  - text: |-
+      كلية عمان للعلوم الصحية- فرع جنوب الشرقية
+      Fax  25544263
+      Phone  25543902 (25543901)
+      Email www.moh.gov.om
+      الموقع: صور
   utter_faq/faq_105:
-  - text: 'Fax  23216049/   Phone  23216783 Email /www.moh.gov.om   / الموقع: صاللة'
+  - text: |-
+      كلية عمان للعلوم الصحية - فرع ظفار
+      Fax  23216049
+      Phone  23216783
+      Email www.moh.gov.om
+      الموقع: صاللة
   utter_faq/faq_106:
-  - text: 'Fax  24561747/   Phone  24563957 Email /www.moh.gov.om   / الموقع: مسقط'
+  - text: |-
+      كلية عمان للعلوم الصحية فرع مسقط
+      Fax  24561747
+      Phone  24563957
+      Email www.moh.gov.om
+      الموقع: مسقط
   utter_faq/faq_107:
-  - text: 'Fax  /   Phone  22059716 ()22059718 (22059725) Email /www.cbfs.edu.om   / الموقع: بوشر'
+  - text: |-
+      كلية الدراسات المصرفية والمالية
+      Fax
+      Phone  22059716 (22059718) (22059725)
+      Email www.cbfs.edu.om
+      الموقع: بوشر
   utter_faq/faq_108:
-  - text: 'Fax  26720102/   Phone  26850100 (2430400) Email /www.su.edu.om   / الموقع: صحار'
+  - text: |-
+      جامعة صحار
+      Fax  26720102
+      Phone  26850100 (2430400)
+      Email www.su.edu.om
+      الموقع: صحار
   utter_faq/faq_109:
-  - text: 'Fax  24730490/   Phone  24730423 (24730424) Email /www.majancollege.edu.om   / الموقع: دارسيت'
+  - text: |-
+      الجامعة الوطنية للعلوم والتكنولوجيا
+      Fax  24730490
+      Phone  24730423 (24730424)
+      Email www.majancollege.edu.om
+      الموقع: دارسيت
   utter_faq/faq_110:
-  - text: 'Fax  24504820/   Phone  24250416 (24250417) (24250419)  Email /www.nu.edu.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      الجامعة الوطنية للعلوم والتكنولوجيا
+      Fax  24504820
+      Phone  24250416 (24250417) (24250419)
+      Email www.nu.edu.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_111:
-  - text: 'Fax  24511193/   Phone  24512888 (24513300) Email /www.zcw.edu.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      كلية الزهراء للبنات
+      Fax  24511193
+      Phone  24512888 (24513300)
+      Email www.zcw.edu.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_112:
-  - text: 'Fax  25565561 (25565551)/   Phone  25565558 (25565556) Email /www.suc.edu.om   / الموقع: صور'
+  - text: |-
+      كلية مزون
+      Fax  25565561 (25565551)
+      Phone  25565558 (25565556)
+      Email www.suc.edu.om
+      الموقع: صور
   utter_faq/faq_113:
   - text: No Input
   utter_faq/faq_114:
-  - text: 'Fax  24446028/   Phone  24531444 Email /www.mec.edu.om   / الموقع: واحة المعرفة'
+  - text: |-
+      كلية الشرق األوسط
+      Fax  24446028
+      Phone  24531444
+      Email www.mec.edu.om
+      الموقع: واحة المعرفة
   utter_faq/faq_115:
-  - text: 'Fax  25657600/   Phone  25657666 Email /www.buc.edu.om   / الموقع: البريمي'
+  - text: |-
+      كلية البريمي الجامعية
+      Fax  25657600
+      Phone  25657666
+      Email www.buc.edu.om
+      الموقع: البريمي
   utter_faq/faq_116:
-  - text: 'Fax  24513213/   Phone  24513232 (24513252) Email /www.scd.edu.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      الكلية العلمية للتصميم
+      Fax  24513213
+      Phone  24513232 (24513252)
+      Email www.scd.edu.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_117:
-  - text: 'Fax  -/   Phone  24583525 (24583524) Email /www.mcbs.edu.om   / الموقع: بوشر'
+  - text: |-
+      الكلية الحديثة للتجارة والعلوم
+      Fax  -
+      Phone  24583525 (24583524)
+      Email www.mcbs.edu.om
+      الموقع: بوشر
   utter_faq/faq_118:
-  - text: 'Fax  24512349/   Phone  24512346 (24512345) Email /www.otc.edu.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      كلية عمان للسياحة
+      Fax  24512349
+      Phone  24512346 (24512345)
+      Email www.otc.edu.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_119:
-  - text: 'Fax  24051099/   Phone  24051000 (24051002) Email /www.omancollege.edu.om   / الموقع: حلبان'
+  - text: |-
+      كلية عمان لإلدارة والتكنولوجيا
+      Fax  24051099
+      Phone  24051000 (24051002)
+      Email www.omancollege.edu.om
+      الموقع: حلبان
   utter_faq/faq_120:
-  - text: 'Fax  24504954/   Phone  24501181 Email /www.muscatcollege.edu.om   / الموقع: بوشر'
+  - text: |-
+      كلية مسقط
+      Fax  24504954
+      Phone  24501181
+      Email www.muscatcollege.edu.om
+      الموقع: بوشر
   utter_faq/faq_121:
-  - text: 'Fax  24521355/   Phone  24512000 Email /www.icem.edu.om   / الموقع: مرتفعات المطار'
+  - text: |-
+      الكلية الدولية للهندسة واإلدارة
+      Fax  24521355
+      Phone  24512000
+      Email www.icem.edu.om
+      الموقع: مرتفعات المطار
   utter_faq/faq_122:
-  - text: 'Fax  23237777/   Phone  80018001 Email /www.du.edu.om   / الموقع: صاللة'
+  - text: |-
+      جامعة ظفار
+      Fax  23237777
+      Phone  80018001
+      Email www.du.edu.om
+      الموقع: صاللة
   utter_faq/faq_123:
-  - text: 'Fax  24600226/   Phone  24468686 Email /www.gulfcollege.edu.om   / الموقع: المعبيلة الجنوبية'
+  - text: |-
+      كلية الخليج
+      Fax  24600226
+      Phone  24468686
+      Email www.gulfcollege.edu.om
+      الموقع: المعبيلة الجنوبية
   utter_faq/faq_124:
-  - text: 'Fax  26827744/   Phone  26827777 Email /www.imco.edu.om   / الموقع: صحار'
+  - text: |-
+      كلية عمان البحرية الدولية
+      Fax  26827744
+      Phone  26827777
+      Email www.imco.edu.om
+      الموقع: صحار
   utter_faq/faq_125:
-  - text: 'Fax  24263667/   Phone  24263665 Email /www.bayancollege.edu.om   / الموقع: حلبان'
+  - text: |-
+      كلية البيان
+      Fax  24263667
+      Phone  24263665
+      Email www.bayancollege.edu.om
+      الموقع: حلبان
   utter_faq/faq_126:
-  - text: 'Fax  24699669/   Phone  24597300 Email /www.aou.edu.om   / الموقع: مدينة السلطان'
+  - text: |-
+      الجامعة العربية المفتوحة
+      Fax  24699669
+      Phone  24597300
+      Email www.aou.edu.om
+      الموقع: مدينة السلطان
   utter_faq/faq_127:
-  - text: 'Fax  25401002/   Phone  25401000 Email /www.asu.edu.om   / الموقع: ابراء'
+  - text: |-
+      جامعة الشرقية
+      Fax  25401002
+      Phone  25401000
+      Email www.asu.edu.om
+      الموقع: ابراء
   utter_faq/faq_128:
-  - text: 'Fax  -/   Phone  25648300 Email /www.uob.edu.om   / الموقع: البريمي'
+  - text: |-
+      جامعة البريمي
+      Fax  -
+      Phone  25648300
+      Email www.uob.edu.om
+      الموقع: البريمي
   utter_faq/faq_129:
-  - text: 'Fax  24227901/   Phone  24227960 Email /www.gcet.edu.om   / الموقع: بوشر'
+  - text: |-
+      الكلية العالمية للهندسة والتكنولوجيا
+      Fax  24227901
+      Phone  24227960
+      Email www.gcet.edu.om
+      الموقع: بوشر
   utter_faq/faq_130:
-  - text: 'Fax  25446338/   Phone  25446234 Email /www.unizwa.edu.om   / الموقع: نزوى'
+  - text: |-
+      جامعة نزوى
+      Fax  25446338
+      Phone  25446234
+      Email www.unizwa.edu.om
+      الموقع: نزوى
   utter_faq/faq_131:
-  - text: 'Fax  22061000/   Phone  22061111 (80082222) Email /www.gutech.edu.om   / الموقع: حلبان'
+  - text: |-
+      الجامعة األلمانية للتكنولوجيا في عمان
+      Fax  22061000
+      Phone  22061111 (80082222)
+      Email www.gutech.edu.om
+      الموقع: حلبان
   utter_faq/faq_132:
-  - text: 'Fax  24665566/   Phone  24665555 Email /www.omandentalcollege.org   / الموقع: الوطية'
+  - text: |-
+      كلية عمان لطب األسنان
+      Fax  24665566
+      Phone  24665555
+      Email www.omandentalcollege.org
+      الموقع: الوطية
   utter_faq/faq_133:
-  - text: 'Fax  -/   Phone  24645444 Email /www.muscatuniversity.edu.om   / الموقع: الغبرة الشمالية'
+  - text: |-
+      جامعة مسقط
+      Fax  -
+      Phone  24645444
+      Email www.muscatuniversity.edu.om
+      الموقع: الغبرة الشمالية
   utter_faq/faq_134:
-  - text: 'Fax  24312443/   Phone  24312261 Email /www.ogc.edu.om   / الموقع: روي'
+  - text: |-
+      معهد العلوم الطوبوغرافية
+      Fax  24312443
+      Phone  24312261
+      Email www.ogc.edu.om
+      الموقع: روي
   utter_faq/faq_135:
-  - text: 'Fax  24453272/   Phone  24260500 Email /www.ncat.edu.om   / الموقع: المعبيلة الجنوبية'
+  - text: |-
+      الكلية الوطنية لتقنية السيارات
+      Fax  24453272
+      Phone  24260500
+      Email www.ncat.edu.om
+      الموقع: المعبيلة الجنوبية
   utter_ask_seventh_main_menu:
   - text: |-
       الرجاء الاختيار من الخيارات أدناه:
@@ -676,6 +1017,7 @@ actions:
 - action_ask_seventh_sub_menu
 - action_submit_seventh_menu_form
 - utter_faq
+- action_pdf
 forms:
   main_menu_form:
     required_slots:

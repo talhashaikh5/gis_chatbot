@@ -2169,3 +2169,37 @@ class ActionSubmitSelectProgramByFrom(Action):
             return [AllSlotsReset(), FollowupAction("search_program_code_form")]
         else:
             return [AllSlotsReset(),FollowupAction("search_program_con_form")]
+
+
+class ActionPDF(Action):
+
+    def name(self) -> Text:
+        return "action_pdf"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        intent = tracker.latest_message["intent"].get("name")
+        pdf_link = {
+            "1": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621921866/reunlmrmmsqhjllgj4fo.pdf",
+            "2": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621921866/reunlmrmmsqhjllgj4fo.pdf",
+            "3": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922181/lcwgzsekf5j3tcyyezle.pdf",
+            "4": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922221/e6fsh5nwvhgy4m1vnsw9.pdf",
+            "5": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922258/dw6dyheo9pxrhokn7bgb.pdf",
+            "6": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922308/ijzjyncmxsrlcbydzyz8.pdf",
+            "7": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922344/lo2smetpj2ls0pe1mnsk.pdf",
+            "8": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922374/qrfzib0bc1ecsj7aevss.pdf",
+            "9": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922440/zxwlu9b0okunawrmnefv.pdf",
+            "10": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922469/jvvxdsncacmn6oo2hf0b.pdf",
+            "11": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922507/mmqil5akqkjwnojcixvf.pdf",
+            "12": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922536/sgviromu79wjyw2lod1b.pdf",
+            "13": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922570/qret2nkxckjfjgqlgbrg.pdf"
+        }
+        dispatcher.utter_message(
+            json_message={
+                "pdf": pdf_link[intent[3:]]
+            }
+        )
+
+        return [AllSlotsReset(), Restarted()]

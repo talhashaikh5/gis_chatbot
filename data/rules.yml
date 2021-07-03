@@ -137,3 +137,21 @@ rules:
       - requested_slot: null
       # The actions we want to run when the form is submitted.
   - action: action_submit_select_program_by_form
+
+- rule: pdf
+  steps:
+  - or:
+    - intent: pdf2
+    - intent: pdf1
+    - intent: pdf3
+    - intent: pdf4
+    - intent: pdf5
+    - intent: pdf6
+    - intent: pdf7
+    - intent: pdf8
+    - intent: pdf9
+    - intent: pdf10
+    - intent: pdf11
+    - intent: pdf12
+    - intent: pdf13
+  - action: action_pdf
