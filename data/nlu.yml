@@ -26,14 +26,9 @@ nlu:
     - hi
     - hiiiiiiii
     - hiii
-    - 1
     - one
-    - 1
     - main menu
     - take me to main menu
-    - 1
-    - 1
-    - 1
     - 1
     - one
     - واحد
@@ -137,12 +132,6 @@ nlu:
     - Search Program
     - search program
     - Search Programs
-- intent: choose_option
-  examples: |
-    - [1](choice)
-    - [2](choice)
-    - [١](choice)
-    - [٢](choice)
 - intent: local_school
   examples: |
     - ما هي مدارس التعريب؟
@@ -264,5 +253,4 @@ nlu:
     - أرقام التواصل للمؤسسات التعليمية
     - رقم التواصل لجامعة
     - رقم التواصل لكلية
-
 

@@ -27,8 +27,6 @@ intents:
     use_entities: true
 - nlu_fallback:
     use_entities: true
-- choose_option:
-    use_entities: true
 - program_search:
     use_entities: true
 - local_school:
@@ -59,8 +57,7 @@ intents:
     use_entities: false
 - pdf13:
     use_entities: false
-entities:
-- choice
+
 slots:
   program_by:
     type: rasa.shared.core.slots.TextSlot
