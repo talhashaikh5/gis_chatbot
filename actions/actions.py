@@ -165,7 +165,7 @@ class ValidateLocalSchoo(FormValidationAction):
                     pass
 
             dispatcher.utter_message(
-                text=text + """\nاكتب "0" للرجوع أو اكتب "خروج" للخروج من المحادثة"""
+                text=text + """اكتب "0" للرجوع أو اكتب "خروج" للخروج من المحادثة"""
             )
 
             return {"city_list": slot_value}
