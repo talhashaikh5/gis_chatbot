@@ -165,7 +165,7 @@ class ValidateLocalSchoo(FormValidationAction):
                     pass
 
             dispatcher.utter_message(
-                text=text + "\n" + """اكتب "0" للرجوع أو اكتب "خروج" للخروج من المحادثة """
+                text=text + """\nاكتب "0" للرجوع أو اكتب "خروج" للخروج من المحادثة"""
             )
 
             return {"city_list": slot_value}
@@ -205,7 +205,7 @@ class ActionSubmitLocalSchoolForm(Action):
                      int(tracker.get_slot("city_list")) - 1
                      ][
                      int(tracker.get_slot("wilaya_list"))
-                 ][1] + """اكتب "1 للرجوع إلى القائمة الرئيسية أو اكتب" خروج للخروج من المحادثة"""
+                 ][1] + """\nاكتب "1 للرجوع إلى القائمة الرئيسية أو اكتب" خروج للخروج من المحادثة"""
         )
         return [AllSlotsReset(), Restarted()]
 
@@ -466,7 +466,9 @@ class ValidateSearchProgramCon(FormValidationAction):
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
             )
+            print("req_s: ",req_s)
             last_slot = req_s[req_s.index(current_slot) - 1]
+            print()
             return {
                 last_slot: None,
                 current_slot: None
@@ -489,11 +491,13 @@ class ValidateSearchProgramCon(FormValidationAction):
     ) -> Dict[Text, Any]:
         slot_value = convert_number(slot_value)
         if slot_value.lower() == "0":
-            current_slot = "select_abroad_category"
+            current_slot = "select_abroad_country"
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
             )
+            print("req_s: " ,req_s)
             last_slot = req_s[req_s.index(current_slot) - 1]
+            print("last_slot: ",last_slot)
             return {
                 last_slot: None,
                 current_slot: None
@@ -1108,7 +1112,7 @@ class ActionSubmitSearchProgramConForm(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         a = """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي واسم 
                 المؤسسة ورمز البرنامج لعرض الوصف
-                https://apps.heac.gov.om:888/SearchEngine/faces/programsearchengine.jsf\n
+                https://apps.heac.gov.om:888/SearchEngine/faces/programsearchengine.jsf
                 """
         b = """اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
         ab = f"\n \n{a}\n{b}"
