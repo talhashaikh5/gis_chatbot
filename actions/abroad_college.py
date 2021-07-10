@@ -1,91 +1,7 @@
 abroad_country = [
     {
-        "country": "استراليا",
-        "country_option": 1,
-        "streams_available": [
-            {
-                "stream_name": " العلوم الطبيعية والفيزيائية ",
-                "stream_option": 1,
-                "program_code": [
-                    {
-                        "program_code": "SE560",
-                        "program_option": 1
-                    }
-                ]
-            },
-            {
-                "stream_name": "الإدارة والمعاملات التجارية",
-                "stream_option": 2,
-                "program_code": [
-                    {
-                        "program_code": "SE644",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE662",
-                        "program_option": 2
-                    }
-                ]
-            },
-            {
-                "stream_name": "التربية",
-                "stream_option": 3,
-                "program_code": [
-                    {
-                        "program_code": "ED012",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "ED014",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "ED011",
-                        "program_option": 3
-                    },
-                    {
-                        "program_code": "ED013",
-                        "program_option": 4
-                    }
-                ]
-            },
-            {
-                "stream_name": "المجتمع والثقافة",
-                "stream_option": 4,
-                "program_code": [
-                    {
-                        "program_code": "SE683",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE809",
-                        "program_option": 2
-                    }
-                ]
-            },
-            {
-                "stream_name": "الهندسة والتقنيات ذات الصلة",
-                "stream_option": 5,
-                "program_code": [
-                    {
-                        "program_code": "SE500",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE496",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "SE487",
-                        "program_option": 3
-                    }
-                ]
-            }
-        ]
-    },
-    {
         "country": "الامارات العربية المتحدة",
-        "country_option": 2,
+        "country_option": 1,
         "streams_available": [
             {
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
@@ -151,7 +67,7 @@ abroad_country = [
     },
     {
         "country": "البحرين",
-        "country_option": 3,
+        "country_option": 2,
         "streams_available": [
             {
                 "stream_name": "الصحة",
@@ -171,7 +87,7 @@ abroad_country = [
     },
     {
         "country": "المانيا",
-        "country_option": 4,
+        "country_option": 3,
         "streams_available": [
             {
                 "stream_name": "الزراعة والبيئة والعلوم المرتبطة به",
@@ -197,7 +113,7 @@ abroad_country = [
     },
     {
         "country": "المملكة المتحدة",
-        "country_option": 5,
+        "country_option": 4,
         "streams_available": [
             {
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
@@ -377,7 +293,7 @@ abroad_country = [
     },
     {
         "country": "الولايات المتحدة",
-        "country_option": 6,
+        "country_option": 5,
         "streams_available": [
             {
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
@@ -469,7 +385,7 @@ abroad_country = [
     },
     {
         "country": "جمهورية ايرلنده",
-        "country_option": 7,
+        "country_option": 6,
         "streams_available": [
             {
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
@@ -498,7 +414,7 @@ abroad_country = [
             {
                 "stream_name": "الصحة",
                 "stream_option": 3,
-                "program_code": [
+                "programaction_ask_select_abroad_country_code": [
                     {
                         "program_code": "SE017",
                         "program_option": 1
@@ -541,7 +457,7 @@ abroad_country = [
     },
     {
         "country": "دول مختلفة",
-        "country_option": 8,
+        "country_option": 7,
         "streams_available": [
             {
                 "stream_name": "غير محدد",
@@ -561,7 +477,7 @@ abroad_country = [
     },
     {
         "country": "فرنسا",
-        "country_option": 9,
+        "country_option": 8,
         "streams_available": [
             {
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
@@ -597,7 +513,7 @@ abroad_country = [
     },
     {
         "country": "قبرص",
-        "country_option": 10,
+        "country_option": 9,
         "streams_available": [
             {
                 "stream_name": "الصحة",
@@ -613,7 +529,7 @@ abroad_country = [
     },
     {
         "country": "كندا",
-        "country_option": 11,
+        "country_option": 10,
         "streams_available": [
             {
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
@@ -659,7 +575,7 @@ abroad_country = [
     },
     {
         "country": "ماليزيا",
-        "country_option": 12,
+        "country_option": 11,
         "streams_available": [
             {
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
@@ -684,72 +600,8 @@ abroad_country = [
         ]
     },
     {
-        "country": "نيوزلندا",
-        "country_option": 13,
-        "streams_available": [
-            {
-                "stream_name": " العلوم الطبيعية والفيزيائية ",
-                "stream_option": 1,
-                "program_code": [
-                    {
-                        "program_code": "SE575",
-                        "program_option": 1
-                    }
-                ]
-            },
-            {
-                "stream_name": "التربية",
-                "stream_option": 2,
-                "program_code": [
-                    {
-                        "program_code": "ED017",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "ED020",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "ED019",
-                        "program_option": 3
-                    }
-                ]
-            },
-            {
-                "stream_name": "الصحة",
-                "stream_option": 3,
-                "program_code": [
-                    {
-                        "program_code": "SE062",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE801",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "SE004",
-                        "program_option": 3
-                    },
-                    {
-                        "program_code": "SE419",
-                        "program_option": 4
-                    },
-                    {
-                        "program_code": "SE423",
-                        "program_option": 5
-                    },
-                    {
-                        "program_code": "SE011",
-                        "program_option": 6
-                    }
-                ]
-            }
-        ]
-    },
-    {
         "country": "هولندا",
-        "country_option": 14,
+        "country_option": 12,
         "streams_available": [
             {
                 "stream_name": "الإدارة والمعاملات التجارية",

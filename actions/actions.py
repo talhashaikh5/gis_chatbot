@@ -1637,11 +1637,16 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx """
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمتي " الخدمات المساندة " من بينها)"""
             )
             return [AllSlotsReset(), Restarted()]
-        if main_menu_option in ["4", "5"] and sub_menu_option == "2":
+        if main_menu_option in ["4"] and sub_menu_option == "2":
             # dispatcher.utter_message(
             #     text="""سوف يتم لاحقا عرض نتائج الفرز"""
             # )
             return [AllSlotsReset(), Restarted(), FollowupAction('offer_form')]
+        if main_menu_option in ["5"] and sub_menu_option == "2":
+            dispatcher.utter_message(
+                text="""سوف يتم لاحقا عرض نتائج الفرز"""
+            )
+            return [AllSlotsReset(), Restarted()]
 
         # institute Search
         if main_menu_option in ["1", "3"] and sub_menu_option in ["5", "2"]:
