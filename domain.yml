@@ -5,6 +5,8 @@ session_config:
   session_expiration_time: 10
   carry_over_slots_to_new_session: false
 intents:
+- direct_entry_program:
+    use_entities: false
 - exit:
     use_entities: []
 - greet:
@@ -59,6 +61,31 @@ intents:
     use_entities: false
 
 slots:
+  name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
+  civil_number:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
+  phone_number:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
+  offer_yesno:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
+  select_direct_country:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   program_by:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -216,6 +243,50 @@ slots:
     auto_fill: true
     influence_conversation: false
 responses:
+  utter_ask_civil_number:
+  - text: |-
+      الرجاء إدخال رقمك المدني
+      اكتب "خروج" للخروج من المحادثة
+  utter_ask_phone_number:
+  - text: |-
+      يرجى إدخال رقم الهاتف الخاص بك
+      اكتب "خروج" للخروج من المحادثة
+  utter_ask_offer_yesno:
+  - text: |-
+      هل ترغب في الحصول على عرض؟
+      اكتب "1" نعم
+      اكتب "2" للا
+      اكتب "خروج للخروج من المحادثة
+  utter_ask_select_direct_country:
+  - text: |-
+      الرجاء الاختيار من بين الدول التالية:
+      1. استراليا
+      2. النمسا
+      3. بلجيكا
+      4. كندا
+      5. الصين
+      6. الدنمارك
+      7. فنلندا
+      8. فرنسا
+      9. ألمانيا
+      10. هونج كونج
+      11. أيرلندا
+      12. إيطاليا
+      13. اليابان
+      14. ماليزيا
+      15. هولندا
+      16. نيوزيلندا
+      17. النرويج
+      18. سنغافورة
+      19. كوريا الجنوبية
+      20. أسبانيا
+      21. السويد
+      22- سويسرا
+      23- المملكة المتحدة
+      24- أيرلندا الشمالية
+      25. اسكتلندا
+      26. الولايات المتحدة
+      الرجاء كتابة "خروج" للخروج من المحادثة
   utter_restart:
   - text: طيب دعونا نبدأ من البداية.
   utter_ask_main_menu:
@@ -1011,6 +1082,12 @@ actions:
 - action_ask_seventh_year
 - action_ask_seventh_sub_menu
 - action_submit_seventh_menu_form
+- action_submit_direct_entry_program_form
+- validate_direct_entry_program_form
+- action_submit_offer_form
+- action_submit_offer_yesno_form
+- validate_offer_form
+- validate_offer_yesno_form
 - utter_faq
 - action_pdf
 forms:
@@ -1107,6 +1184,21 @@ forms:
   select_program_by_form:
     required_slots:
       program_by:
+      - type: from_text
+        not_intent: exit
+  direct_entry_program_form:
+    required_slots:
+      select_direct_country:
+      - type: from_text
+        not_intent: exit
+  offer_form:
+    required_slots:
+      civil_number:
+      - type: from_text
+        not_intent: exit
+  offer_yesno_form:
+    required_slots:
+      offer_yesno:
       - type: from_text
         not_intent: exit
 e2e_actions: []

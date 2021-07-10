@@ -153,3 +153,52 @@ rules:
     - intent: pdf12
     - intent: pdf13
   - action: action_pdf
+
+- rule: direct_entry_program_form form
+  steps:
+  - intent: direct_entry_program
+  - action: direct_entry_program_form
+  - active_loop: direct_entry_program_form
+
+- rule: deactivate direct_entry_program_form form
+  condition:
+  - active_loop: direct_entry_program_form
+  steps:
+  - action: direct_entry_program_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_direct_entry_program_form
+
+- rule: offer_form form
+  steps:
+  - action: offer_form
+  - active_loop: offer_form
+
+- rule: deactivate offer_form form
+  condition:
+  - active_loop: offer_form
+  steps:
+  - action: offer_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_offer_form
+
+- rule: offer_yesno_form form
+  steps:
+  - action: offer_yesno_form
+  - active_loop: offer_yesno_form
+
+- rule: deactivate offer_yesno_form form
+  condition:
+  - active_loop: offer_yesno_form
+  steps:
+  - action: offer_yesno_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_offer_yesno_form

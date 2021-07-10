@@ -1,11 +1,13 @@
 from typing import Any, Text, Dict, List
 
+import requests
 from rasa_sdk import Action, Tracker, FormValidationAction
-from rasa_sdk.events import EventType, FollowupAction, AllSlotsReset, Restarted, UserUtteranceReverted
+from rasa_sdk.events import EventType, FollowupAction, AllSlotsReset, Restarted, UserUtteranceReverted, SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
 from . import private_college, public_college, omandisable, abroad_college
+from .direct_country import institute
 from .local_schools import *
 from .school_code import *
 from .utils import convert_number
@@ -133,7 +135,7 @@ class ActionSubmitSearchProgramCode(Action):
                 dispatcher.utter_message(
                     text=program["details"] + "\n \n " + a + " \n \n" + b
                 )
-                return [AllSlotsReset(),Restarted()]
+                return [AllSlotsReset(), Restarted()]
         dispatcher.utter_message(
             text=f"تم إدخال الرمز بشكل غير صحيح ، الرجاء إدخال الرمز الصحيح."
         )
@@ -466,7 +468,7 @@ class ValidateSearchProgramCon(FormValidationAction):
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
             )
-            print("req_s: ",req_s)
+            print("req_s: ", req_s)
             last_slot = req_s[req_s.index(current_slot) - 1]
             print()
             return {
@@ -495,9 +497,9 @@ class ValidateSearchProgramCon(FormValidationAction):
             req_s = await self.required_slots(
                 self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
             )
-            print("req_s: " ,req_s)
+            print("req_s: ", req_s)
             last_slot = req_s[req_s.index(current_slot) - 1]
-            print("last_slot: ",last_slot)
+            print("last_slot: ", last_slot)
             return {
                 last_slot: None,
                 current_slot: None
@@ -1117,12 +1119,12 @@ class ActionSubmitSearchProgramConForm(Action):
         b = """اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
         ab = f"\n \n{a}\n{b}"
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "2":
-            dispatcher.utter_message(
-                text="رمز البرنامج DE001    :اسم البرنامج:  Direct Entry Scholarship :المجال المعرفي: غير محدد :نوع "
-                     "البرنامج: بعثة خارجية   :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول "
-                     "مختلفة :فئة الطلبة : غير اعاقة " + ab
-            )
-            return [AllSlotsReset(), Restarted()]
+            # dispatcher.utter_message(
+            #     text="رمز البرنامج DE001    :اسم البرنامج:  Direct Entry Scholarship :المجال المعرفي: غير محدد :نوع "
+            #          "البرنامج: بعثة خارجية   :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول "
+            #          "مختلفة :فئة الطلبة : غير اعاقة " + ab
+            # )
+            return [AllSlotsReset(), Restarted(), FollowupAction("direct_entry_program_form")]
         if tracker.get_slot("select_country") == "2" and tracker.get_slot("select_abroad_category") == "3":
             dispatcher.utter_message(
                 text="لدينا فقط برنامج الإعاقة في الأردن.:\n رمز البرنامج SE890    :اسم البرنامج:  البرنامج مخصص "
@@ -1636,10 +1638,10 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx """
             )
             return [AllSlotsReset(), Restarted()]
         if main_menu_option in ["4", "5"] and sub_menu_option == "2":
-            dispatcher.utter_message(
-                text="""سوف يتم لاحقا عرض نتائج الفرز"""
-            )
-            return [AllSlotsReset(), Restarted()]
+            # dispatcher.utter_message(
+            #     text="""سوف يتم لاحقا عرض نتائج الفرز"""
+            # )
+            return [AllSlotsReset(), Restarted(), FollowupAction('offer_form')]
 
         # institute Search
         if main_menu_option in ["1", "3"] and sub_menu_option in ["5", "2"]:
@@ -1649,12 +1651,12 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx """
             return [AllSlotsReset(), Restarted()]
         # Direct Entry program
         if main_menu_option in ["1", "2"] and sub_menu_option == "3":
-            dispatcher.utter_message(
-                text="رمز البرنامج DE001 :اسم البرنامج: Direct Entry Scholarship :المجال المعرفي: غير محدد :نوع "
-                     "البرنامج: بعثة خارجية :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول مختلفة "
-                     ":فئة الطلبة : غير اعاقة "
-            )
-            return [AllSlotsReset(), Restarted()]
+            # dispatcher.utter_message(
+            #     text="رمز البرنامج DE001 :اسم البرنامج: Direct Entry Scholarship :المجال المعرفي: غير محدد :نوع "
+            #          "البرنامج: بعثة خارجية :اسم المؤسسة التعليمية : دائرة البعثات الخارجية :بلد الدراسة : دول مختلفة "
+            #          ":فئة الطلبة : غير اعاقة "
+            # )
+            return [AllSlotsReset(), Restarted(), FollowupAction("direct_entry_program_form")]
         if main_menu_option in ["1", "2"] and sub_menu_option == "4":
             return [AllSlotsReset(), FollowupAction("local_school_form")]
 
@@ -1775,7 +1777,6 @@ class ValidateSeventhMenuForm(FormValidationAction):
         if tracker.get_slot("seventh_main_menu") == "3" and tracker.get_slot("seventh_year") == "2":
             return ["seventh_main_menu", "seventh_year"]
         return ["seventh_main_menu", "seventh_year", "seventh_sub_menu"]
-
 
     async def validate_seventh_main_menu(
             self,
@@ -2016,7 +2017,6 @@ https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 """)
             return [AllSlotsReset(), Restarted()]
 
-
         if main_menu_option == "2" and sub_menu_option == "1":
             dispatcher.utter_message(
                 text="""داخل السلطنة: المجموع (121284) 
@@ -2140,7 +2140,6 @@ class ValidateSelectProgramByForm(FormValidationAction):
             tracker: "Tracker",
             domain: "DomainDict",
     ) -> List[Text]:
-
         return ["program_by"]
 
     def validate_program_by(
@@ -2172,7 +2171,7 @@ class ActionSubmitSelectProgramByFrom(Action):
         if tracker.get_slot("program_by") == "1":
             return [AllSlotsReset(), FollowupAction("search_program_code_form")]
         else:
-            return [AllSlotsReset(),FollowupAction("search_program_con_form")]
+            return [AllSlotsReset(), FollowupAction("search_program_con_form")]
 
 
 class ActionPDF(Action):
@@ -2183,7 +2182,6 @@ class ActionPDF(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
         intent = tracker.latest_message["intent"].get("name")
         pdf_link = {
             "1": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621921866/reunlmrmmsqhjllgj4fo.pdf",
@@ -2207,3 +2205,179 @@ class ActionPDF(Action):
         )
 
         return [AllSlotsReset(), Restarted()]
+
+
+class ValidateDirectEntryForm(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_direct_entry_program_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["select_direct_country"]
+
+    async def validate_select_direct_country(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        options_list = [str(i) for i in list(range(1, 27))]
+        if str(slot_value) in options_list:
+            return {
+                "select_direct_country": slot_value
+            }
+        return {
+            "select_direct_country": None
+        }
+
+
+class ActionSubmitDirectEntryForm(Action):
+    def name(self) -> Text:
+        return "action_submit_direct_entry_program_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        country_option = tracker.get_slot("select_direct_country")
+        start = "هذه المعاهد متاحة للكلية المختارة:"
+        end = """اكتب "خروج" للخروج من المحادثة أو اكتب "1" للعودة إلى القائمة الرئيسية"""
+        colleges = ""
+        for item in institute[country_option]:
+            colleges = colleges + item + "\n"
+        dispatcher.utter_message(
+            text=start + "\n" + colleges + end
+        )
+
+        return [AllSlotsReset(), Restarted()]
+
+
+class OfferForm(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_offer_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["civil_number"]
+
+    async def validate_civil_number(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        phone_number = tracker.sender_id
+        return {
+            "civil_number": slot_value
+        }
+
+
+class ActionSubmitOfferForm(Action):
+    def name(self) -> Text:
+        return "action_submit_offer_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        civil_number = tracker.get_slot("civil_number")
+        phone_number = tracker.sender_id[2:]
+
+        url = "https://mohe.omantel.om/moheapp/api/student/checkAvailability"
+
+        querystring = {"civil": civil_number, "mobileNumber": phone_number}
+
+        payload = ""
+        response = requests.request("GET", url, data=payload, params=querystring)
+        if not response.json()['success']:
+            dispatcher.utter_message(
+                text="لم يتم العثور على أي سجل في بياناتنا ، شكرًا على تواصلك معنا."
+            )
+            return [AllSlotsReset(), Restarted(), FollowupAction('action_exit')]
+        else:
+            return [
+                AllSlotsReset(), Restarted(),
+                SlotSet(key="name", value=response.json()['ArabicName']),
+                SlotSet(key="civil_number", value=civil_number),
+                FollowupAction('offer_yesno_form')
+            ]
+
+
+class OfferYesNoForm(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_offer_yesno_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["offer_yesno"]
+
+    async def validate_offer_yesno(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        options_list = ["1", "2"]
+        if slot_value in options_list:
+            return {
+                "offer_yesno": slot_value
+            }
+        return {
+            "offer_yesno": slot_value
+        }
+
+
+
+class ActionSubmitOfferYesNoForm(Action):
+    def name(self) -> Text:
+        return "action_submit_offer_yesno_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        civil_number = tracker.get_slot("civil_number")
+        phone_number = tracker.sender_id[2:]
+        if tracker.get_slot('offer_yesno') == '1':
+            url = "https://mohe.omantel.om/moheapp/api/student/getOffer"
+            querystring = {"civil": civil_number}
+            payload = ""
+            response = requests.request("GET", url, data=payload, params=querystring)
+            if not response.json()['success']:
+                dispatcher.utter_message(
+                    text="لم يتم العثور على أي سجل في بياناتنا ، شكرًا على تواصلك معنا."
+                )
+                return [AllSlotsReset(), Restarted(), FollowupAction('action_exit')]
+            else:
+                dispatcher.utter_message(
+                    text='هذه الكلية متاحة في عرضك:\n' + response.json()["data"]["heiAr"]
+                )
+                return [
+                    AllSlotsReset(), Restarted()
+                ]
+        else:
+            dispatcher.utter_message(
+                text="لم يتم العثور على أي سجل في بياناتنا ، شكرًا على تواصلك معنا."
+            )
+            return [AllSlotsReset(), Restarted(), FollowupAction('action_exit')]

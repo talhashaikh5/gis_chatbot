@@ -254,3 +254,10 @@ nlu:
     - رقم التواصل لجامعة
     - رقم التواصل لكلية
 
+- intent: direct_entry_program
+  examples: |
+    - direct entry program
+    - shoe me direct entry programs
+    - i want to see direct entry program
+    - what direct entry programs are available
+
