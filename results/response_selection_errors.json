@@ -1,18 +1,66 @@
 [
   {
-    "text": "أقل عدد من البرامج",
-    "intent_response_key_target": "faq/more_40",
+    "text": "لماذا لم يكتب الاسم الرابع باللغة العربية والانجليزية في صفحة الطالب؟",
+    "intent_response_key_target": "faq/forth_name",
     "intent_response_key_prediction": {
-      "name": "faq/faq_24",
-      "confidence": 0.4960935115814209
+      "name": "faq/faq_40",
+      "confidence": 0.4867476522922516
+    }
+  },
+  {
+    "text": "الاسم الكامل غير مكتوب",
+    "intent_response_key_target": "faq/forth_name",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_40",
+      "confidence": 0.5688579678535461
+    }
+  },
+  {
+    "text": "هل طلاب الضمان الاجتماعي وطلاب المعاقين يقدمون برامج خاصة في مرحلة التسجيل أم حتى يتم تأكيدها من قبل وزارة التنمية الاجتماعية؟",
+    "intent_response_key_target": "faq/special_program",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_48",
+      "confidence": 0.5620757937431335
     }
   },
   {
     "text": "برامج لذوي الإعاقة والضمان الاجتماعي",
-    "intent_response_key_target": "faq/faq_11",
+    "intent_response_key_target": "faq/special_program",
     "intent_response_key_prediction": {
-      "name": "faq/special_program",
-      "confidence": 0.5692952275276184
+      "name": "faq/faq_11",
+      "confidence": 0.3792983293533325
+    }
+  },
+  {
+    "text": "طلاب الضمان الاجتماعي والطلاب ذوي الإعاقة",
+    "intent_response_key_target": "faq/special_program",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_48",
+      "confidence": 0.45492666959762573
+    }
+  },
+  {
+    "text": "تاريخ التسجيل",
+    "intent_response_key_target": "faq/faq_16",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_54",
+      "confidence": 0.4938836395740509
+    }
+  },
+  {
+    "text": "موعد التسجيل في النظام",
+    "intent_response_key_target": "faq/faq_16",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_54",
+      "confidence": 0.4450276494026184
+    }
+  },
+  {
+    "text": "عدد البرامج المراد إضافتها",
+    "intent_response_key_target": "faq/faq_17",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_55",
+      "confidence": 0.767169177532196
     }
   },
   {
@@ -20,7 +68,247 @@
     "intent_response_key_target": "faq/faq_17",
     "intent_response_key_prediction": {
       "name": "faq/arrange_options",
-      "confidence": 0.5289819240570068
+      "confidence": 0.6601876616477966
+    }
+  },
+  {
+    "text": "لقد فقدت كلمة المرور الخاصة بي ، وكيفية استعادتها",
+    "intent_response_key_target": "faq/faq_20",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_58",
+      "confidence": 0.5007103681564331
+    }
+  },
+  {
+    "text": "فقدت كلمة المرور واستعادتها",
+    "intent_response_key_target": "faq/faq_20",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_58",
+      "confidence": 0.5006628632545471
+    }
+  },
+  {
+    "text": "استعادة كلمة السر",
+    "intent_response_key_target": "faq/faq_20",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_58",
+      "confidence": 0.5338906049728394
+    }
+  },
+  {
+    "text": "ماذا أفعل إذا وجدت خطأ في بياناتي الشخصية",
+    "intent_response_key_target": "faq/faq_21",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_59",
+      "confidence": 0.41880762577056885
+    }
+  },
+  {
+    "text": "خطأ في البيانات الشخصية",
+    "intent_response_key_target": "faq/faq_21",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_59",
+      "confidence": 0.4882355332374573
+    }
+  },
+  {
+    "text": "أقل عدد من البرامج",
+    "intent_response_key_target": "faq/faq_24",
+    "intent_response_key_prediction": {
+      "name": "faq/more_40",
+      "confidence": 0.430087685585022
+    }
+  },
+  {
+    "text": "من هم المستفيدون من نظام القبول الموحد؟",
+    "intent_response_key_target": "faq/faq_31",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_26",
+      "confidence": 0.4943957030773163
+    }
+  },
+  {
+    "text": "التسجيل الهدف",
+    "intent_response_key_target": "faq/faq_31",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_26",
+      "confidence": 0.5699243545532227
+    }
+  },
+  {
+    "text": "المستفيدون من القبول الموحد",
+    "intent_response_key_target": "faq/faq_31",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_26",
+      "confidence": 0.530266284942627
+    }
+  },
+  {
+    "text": "تعطيل تسجيل الطالب",
+    "intent_response_key_target": "faq/faq_34",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_47",
+      "confidence": 0.5322313904762268
+    }
+  },
+  {
+    "text": "هل يمكن للطالب التسجيل في أكثر من 40 برنامج؟",
+    "intent_response_key_target": "faq/faq_42",
+    "intent_response_key_prediction": {
+      "name": "faq/more_40",
+      "confidence": 0.4009336829185486
+    }
+  },
+  {
+    "text": "تسجيل أكثر من 40 برنامج",
+    "intent_response_key_target": "faq/faq_42",
+    "intent_response_key_prediction": {
+      "name": "faq/more_40",
+      "confidence": 0.4029441177845001
+    }
+  },
+  {
+    "text": "كيفية تسجيل المعاقين",
+    "intent_response_key_target": "faq/faq_47",
+    "intent_response_key_prediction": {
+      "name": "faq/diabled_student",
+      "confidence": 0.44825297594070435
+    }
+  },
+  {
+    "text": "هل يتم تنزيل الشخص من فئة الضمان الاجتماعي مباشرة من خلال برامج الضمان الاجتماعي خلال فترة التسجيل الحالية؟",
+    "intent_response_key_target": "faq/faq_49",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_11",
+      "confidence": 0.39173373579978943
+    }
+  },
+  {
+    "text": "برامج فترة التسجيل لذوي الإعاقة والضمان الاجتماعي",
+    "intent_response_key_target": "faq/faq_49",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_11",
+      "confidence": 0.3952309191226959
+    }
+  },
+  {
+    "text": "تحميل برنامج الضمان الاجتماعي",
+    "intent_response_key_target": "faq/faq_49",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_11",
+      "confidence": 0.4171333909034729
+    }
+  },
+  {
+    "text": "تقديم الطلب",
+    "intent_response_key_target": "faq/faq_53",
+    "intent_response_key_prediction": {
+      "name": "faq/how_submit",
+      "confidence": 0.4566807746887207
+    }
+  },
+  {
+    "text": "كيف أتأكد من تسجيل طلبي في النظام؟",
+    "intent_response_key_target": "faq/faq_56",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_18",
+      "confidence": 0.6636648178100586
+    }
+  },
+  {
+    "text": "ماذا أفعل إذا واجهت مشكلة أثناء التسجيل؟",
+    "intent_response_key_target": "faq/faq_61",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_23",
+      "confidence": 0.5576056241989136
+    }
+  },
+  {
+    "text": "مشكلة أثناء التسجيل",
+    "intent_response_key_target": "faq/faq_61",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_23",
+      "confidence": 0.6983031034469604
+    }
+  },
+  {
+    "text": "كيف يمكن للطلاب من خارج السلطنة التسجيل في النظام؟",
+    "intent_response_key_target": "faq/faq_63",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_25",
+      "confidence": 0.8197982311248779
+    }
+  },
+  {
+    "text": "التسجيل خارج السلطنة",
+    "intent_response_key_target": "faq/faq_63",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_25",
+      "confidence": 0.7541703581809998
+    }
+  },
+  {
+    "text": "جامعة التقنية والعلوم التطبيقية",
+    "intent_response_key_target": "faq/faq_94",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_88",
+      "confidence": 0.3735080659389496
+    }
+  },
+  {
+    "text": "التقنية والعلوم التطبيقية",
+    "intent_response_key_target": "faq/faq_94",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_88",
+      "confidence": 0.3772916793823242
+    }
+  },
+  {
+    "text": "جامعة التقنية والعلوم التطبيقية",
+    "intent_response_key_target": "faq/faq_95",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_88",
+      "confidence": 0.3735080659389496
+    }
+  },
+  {
+    "text": "التقنية والعلوم التطبيقية",
+    "intent_response_key_target": "faq/faq_95",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_88",
+      "confidence": 0.3772916793823242
+    }
+  },
+  {
+    "text": "كلية عمان للعلوم الصحية - فرع مسقط",
+    "intent_response_key_target": "faq/faq_98",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_106",
+      "confidence": 0.5255933403968811
+    }
+  },
+  {
+    "text": "ﻊﻣﺎﻧ ﻞﻠﻌﻟﻮﻣ ﺎﻠﺼﺤﻳﺓ - ﻑﺮﻋ ﺎﻟﺮﺴﺗﺎﻗ",
+    "intent_response_key_target": "faq/faq_99",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_98",
+      "confidence": 0.4481535851955414
+    }
+  },
+  {
+    "text": "الجامعة الوطنية للعلوم والتكنولوجيا",
+    "intent_response_key_target": "faq/faq_110",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_109",
+      "confidence": 0.4640480875968933
+    }
+  },
+  {
+    "text": "الوطنية للعلوم والتكنولوجيا",
+    "intent_response_key_target": "faq/faq_110",
+    "intent_response_key_prediction": {
+      "name": "faq/faq_109",
+      "confidence": 0.43987274169921875
     }
   }
 ]

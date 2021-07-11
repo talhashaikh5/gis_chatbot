@@ -1,10 +1,26 @@
 [
   {
     "text": "مهلا",
-    "intent": "faq",
+    "intent": "greet",
     "intent_prediction": {
-      "name": "greet",
-      "confidence": 0.8245455026626587
+      "name": "faq",
+      "confidence": 0.6351751089096069
+    }
+  },
+  {
+    "text": "1",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "choose_option",
+      "confidence": 0.9657518863677979
+    }
+  },
+  {
+    "text": "١",
+    "intent": "greet",
+    "intent_prediction": {
+      "name": "choose_option",
+      "confidence": 0.49395623803138733
     }
   }
 ]

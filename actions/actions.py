@@ -1447,7 +1447,9 @@ class AskForSubMenu(Action):
                 text="""اختر واحد من ما يلي
 1. مواعيد الخدمات المساندة
 2. طريقة التقدم للخدمات المساندة 
-3. اسئلة عن الخدمات المساندة"""
+3. اسئلة عن الخدمات المساندة
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
+"""
             )
         return []
 
@@ -1891,10 +1893,10 @@ class ValidateSeventhMenuForm(FormValidationAction):
                 self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
         ) -> List[EventType]:
             if tracker.get_slot("seventh_main_menu") in ["1"]:
-                dispatcher.utter_message(text=f"الرجاء تحديد نوع البيان\n:"
-                                              f"1. عرضت المقاعد\n"
-                                              f"2. الطلاب المقبولين حسب المؤهل الأكاديمي\n"
-                                              f"""3. قبول الطلاب حسب التخصص\n"""
+                dispatcher.utter_message(text=f"حدد نوع البيان\n"
+                                              f"1. المقاعد المعروضة\n"
+                                              f"2. المقبولين حسب المؤهل الدراسي\n"
+                                              f"""3. المقبولين حسب التخصص الرئيسي\n"""
                                               f"\n"
                                               f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
                                          )
@@ -2310,9 +2312,10 @@ class ActionSubmitOfferForm(Action):
         response = requests.request("GET", url, data=payload, params=querystring)
         if not response.json()['success']:
             dispatcher.utter_message(
-                text="لم يتم العثور على أي سجل في بياناتنا ، شكرًا على تواصلك معنا."
+                text="""الرقم المدني الذي تم إدخاله لا يتطابق مع رقم هاتف المحمول المسجل لدينا\nاكتب "1" للعودة إلى 
+                القائمة الرئيسية """
             )
-            return [AllSlotsReset(), Restarted(), FollowupAction('action_exit')]
+            return [AllSlotsReset(), Restarted()]
         else:
             return [
                 AllSlotsReset(), Restarted(),
