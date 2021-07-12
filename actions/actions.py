@@ -2319,8 +2319,7 @@ class ActionSubmitOfferForm(Action):
         response = requests.request("GET", url, data=payload, params=querystring)
         if not response.json()['success']:
             dispatcher.utter_message(
-                text="""الرقم المدني الذي تم إدخاله لا يتطابق مع رقم هاتف المحمول المسجل لدينا\nاكتب "1" للعودة إلى 
-                القائمة الرئيسية """
+                text= response.json()['message'] + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
             )
             return [AllSlotsReset(), Restarted()]
         else:
@@ -2381,12 +2380,12 @@ class ActionSubmitOfferYesNoForm(Action):
             response = requests.request("GET", url, data=payload, params=querystring)
             if not response.json()['success']:
                 dispatcher.utter_message(
-                    text="لم يتم العثور على أي سجل في بياناتنا ، شكرًا على تواصلك معنا."
+                    text=response.json()['message'] + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
                 )
-                return [AllSlotsReset(), Restarted(), FollowupAction('action_exit')]
+                return [AllSlotsReset(), Restarted()]
             else:
                 dispatcher.utter_message(
-                    text='هذه الكلية متاحة في عرضك:\n' + response.json()["data"]["heiAr"]
+                    text='هذه الكلية متاحة في عرضك:\n' + response.json()['message']
                 )
                 return [
                     AllSlotsReset(), Restarted()
