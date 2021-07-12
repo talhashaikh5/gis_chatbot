@@ -1901,11 +1901,11 @@ class ValidateSeventhMenuForm(FormValidationAction):
                                               f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
                                          )
             elif tracker.get_slot("seventh_main_menu") in ["2"]:
-                dispatcher.utter_message(text=f"الرجاء تحديد نوع البيان\n"
-                                              f"1. حسب مكان الدراسة\n"
-                                              f"2. حسب فئة المنظمة\n"
-                                              f"3. حسب المؤهل العلمي\n"
-                                              f"4. حسب التخصص\n"
+                dispatcher.utter_message(text=f"حدد نوع البيان \n"
+                                              f"1. حسب مكان الدراسة \n"
+                                              f"2. حسب فئة المؤسسة\n"
+                                              f"3. حسب المؤهل الدراسي\n"
+                                              f"4. حسب التخصص الرئيسي\n"
                                               f"\n"
                                               f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
                                          )
@@ -1946,24 +1946,28 @@ class ActionSubmitSeventhMenuForm(Action):
 اكتب "1" للعودة إلى القائمة الرئيسية"""
             )
         if main_menu_option == "3" and year_option == "1" and sub_menu_option == "1":
-            dispatcher.utter_message(text="""داخل السلطنة - المجموع (21870)
+            dispatcher.utter_message(text="""
+داخل السلطنة- المجموع (21870) 
 
-ذكور (8383) (38.3)٪
-أنثى (13487) (61.7)٪
-المجموع (21870)
-عمانيون (21392) (97.8)٪
-غير العمانيين (478) (2.2)٪
-خارج السلطنة (العمانيون) المجموع (1946)
-ذكر (1211) (62.2)٪
-أنثى (735) (37.8)٪
-يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي:
-https://www.heac.gov.om/index.php/annual-statistical-reports-en
+ذكور  (8383)   (38.3)%
+اناث (13487)    (61.7)%
+المجموع (21870)  
+عماني (21392)  (97.8)%
+غير عماني (478)  (2.2)%
+
+خارج السلطنة (العمانيين) المجموع  (1946)  
+ذكور (1211)   (62.2)%
+اناث (735)   (37.8)%
+
+يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 
 اكتب "1" للعودة إلى القائمة الرئيسية
 """)
             return [AllSlotsReset(), Restarted()]
         if main_menu_option == "3" and year_option == "1" and sub_menu_option == "2":
-            dispatcher.utter_message(text="""داخل السلطنة - المجموع (21870) 
+            dispatcher.utter_message(text="""
+داخل السلطنة - المجموع (21870) 
 بكالوريوس/ليسانس (13630)  (62.3)%
 دبلوم (5234)  (23.9)%
 ماجستير (1440)  (6.6)%
@@ -1983,6 +1987,7 @@ https://www.heac.gov.om/index.php/annual-statistical-reports-en
 دبلوم عالي/دبلوم الدراسات العليا (14)  (0.7)%
 شهادة مهنية/دبلوم مهني (8)  (0.4)%
 دبلوم (7)  (0.4)%
+
 يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
 https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 
@@ -1990,7 +1995,7 @@ https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 """)
             return [AllSlotsReset(), Restarted()]
         if main_menu_option == "3" and year_option == "1" and sub_menu_option == "3":
-            dispatcher.utter_message(text="""داخل السلطنة - المجموع (21870) 
+            dispatcher.utter_message(text="""خل السلطنة - المجموع (21870) 
 الإدارة والمعاملات التجارية (30.8)%
 الهندسة والتقنيات ذات الصلة (22.0)%
 المجتمع والثقافة (15.8)%
@@ -2026,7 +2031,8 @@ https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 
         if main_menu_option == "2" and sub_menu_option == "1":
             dispatcher.utter_message(
-                text="""داخل السلطنة: المجموع (121284) 
+                text="""
+داخل السلطنة: المجموع (121284) 
 ذكور  (51754)   (42.7)%
 اناث (69530)    (57.3)%
 عماني (117791) (97.1)%
@@ -2038,8 +2044,9 @@ https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 اجمالي الدراسين (129619) 
 ذكور: (56807)
 اناث : (72812)
+
 يمكن الاطلاع على التقرير السنوي من خلال الرابط التالي: 
-https://www.heac.gov.om/index.php/annual-statistical-reports-ar 
+https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 
 اكتب "1" للعودة إلى القائمة الرئيسية
 """
