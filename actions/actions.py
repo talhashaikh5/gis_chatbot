@@ -2385,7 +2385,7 @@ class ActionSubmitOfferYesNoForm(Action):
                 return [AllSlotsReset(), Restarted()]
             else:
                 dispatcher.utter_message(
-                    text='هذه الكلية متاحة في عرضك:\n' + response.json()['message']
+                    text='هذه الكلية متاحة في عرضك:\n' + response.json()['message'] + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
                 )
                 return [
                     AllSlotsReset(), Restarted()
