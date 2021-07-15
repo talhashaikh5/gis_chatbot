@@ -1,22 +1,10 @@
 institute = {
-    "1": ["Australian National University (ANU)", "James Cook University",
-          "Macquarie University",
-          "Monash University",
-          "RMIT University",
-          "The University of Adelaide",
-          "The University of Melbourne",
-          "The University of New South Wales (UNSW)",
-          "The University of Queensland (UQ)",
-          "The University of Sydney",
-          "The University of Western Australia (UWA)",
-          "University of Newcastle",
-          "University of Technology Sydney (UTS)"],
-    "2": [
+    "1": [
         "Technische Universität Wien",
         "Universität Innsbruck",
         "Universität Wien",
     ],
-    "3": [
+    "2": [
         "Katholieke Universiteit Leuven",
         "Université Catholique de Louvain (UCL)",
         "Université Libre de Bruxelles (ULB)",
@@ -24,7 +12,7 @@ institute = {
         "University of Ghent",
         "Vrije Universiteit Brussel (VUB)",
     ],
-    "4": [
+    "3": [
         "McGill University",
         "McMaster University",
         "University of Alberta",
@@ -33,7 +21,7 @@ institute = {
         "University of Toronto",
         "University of Waterloo",
     ],
-    "5": [
+    "4": [
         "Beihang University",
         "Central South University",
         "China Agricultural University",
@@ -64,18 +52,18 @@ institute = {
         "Xi'an Jiaotong University",
         "Zhejiang University",
     ],
-    "6": [
+    "5": [
         "Aalborg University",
         "Aarhus University",
         "Technical University of Denmark",
         "University of Copenhagen",
         "University of Southern Denmark",
     ],
-    "7": [
+    "6": [
         "Aalto University",
         "University of Helsinki"
     ],
-    "8": [
+    "7": [
         "Ecole Normale Supérieure de Lyon",
         "Ecole Polytechnique",
         "Sorbonne University",
@@ -83,7 +71,7 @@ institute = {
         "Université de Montpellier",
         "Université Grenoble-Alpes (UGA)",
     ],
-    "9": [
+    "8": [
         "Christian-Albrechts-Universität zu Kiel",
         "Johannes Gutenberg Universität Mainz",
         "KIT, Karlsruher Institut für Technologie",
@@ -104,25 +92,25 @@ institute = {
         "Universität Konstanz",
         "Universität Stuttgart",
     ],
-    "10": [
+    "9": [
         "City University of Hong Kong",
         "The Chinese University of Hong Kong (CUHK)",
         "The Hong Kong Polytechnic University",
         "The Hong Kong University of Science and Technology (HKUST)",
         "University of Hong Kong (HKU)",
     ],
-    "11": [
+    "10": [
         "Trinity College Dublin (TCD)",
         "University College Dublin (UCD)"
     ],
-    "12": [
+    "11": [
         "Sapienza - Università di Roma",
         "Università degli Studi di Milano",
         "Università di Bologna (UNIBO)",
         "Università di Pisa",
         "Università Vita-Salute San Raffaele",
     ],
-    "13": [
+    "12": [
         "Hokkaido University"
         "Keio University"
         "Kyoto University"
@@ -135,10 +123,10 @@ institute = {
         "University of Tsukuba"
         "Waseda University"
     ],
-    "14": [
+    "13": [
         "Universiti Malaya (UM)"
     ],
-    "15": [
+    "14": [
         "Delft University of Technology",
         "Eindhoven University of Technology",
         "Erasmus University Rotterdam",
@@ -151,20 +139,16 @@ institute = {
         "Vrije Universiteit Amsterdam",
         "Wageningen University",
     ],
-    "16": [
-        "The University of Auckland",
-        "University of Otago",
-    ],
-    "17": [
+    "15": [
         "University of Bergen",
         "University of Oslo",
         "Norwegian University of Science And Technology",
     ],
-    "18": [
+    "16": [
         "Nanyang Technological University (NTU)",
         "National University of Singapore (NUS)"
     ],
-    "19": [
+    "17": [
         "Hanyang University",
         "KAIST - Korea Advanced Institute of Science and Technology",
         "Korea University",
@@ -175,13 +159,13 @@ institute = {
         "University of Ulsan",
         "Yonsei University",
     ],
-    "20": [
+    "18": [
         "Universidad Complutense de Madrid (UCM)",
         "Universitat Autónoma de Barcelona",
         "Universitat de Barcelona (UB)",
         "Universitat Pompeu Fabra",
     ],
-    "21": [
+    "19": [
         "Chalmers University of Technology",
         "KTH, Royal Institute of Technology",
         "Linköping University",
@@ -190,7 +174,7 @@ institute = {
         "University of Gothenburg",
         "Uppsala University",
     ],
-    "22": [
+    "20": [
         "Ecole Polytechnique Fédérale de Lausanne (EPFL)"
         "University of Basel"
         "University of Bern"
@@ -198,7 +182,7 @@ institute = {
         "University of Lausanne"
         "University of Zurich"
     ],
-    "23": [
+    "21": [
         "Cardiff University",
         "Durham University",
         "Imperial College London",
@@ -225,14 +209,14 @@ institute = {
         "University of St Andrews",
         "University of York",
     ],
-    "24": [
+    "22": [
         "Queen's University of Belfast"
     ],
-    "25": [
+    "23": [
         "University of Edinburgh",
         "University of Glasgow"
     ],
-    "26": [
+    "24": [
         "University of Leeds",
         "University of Leicester",
         "University of Liverpool"

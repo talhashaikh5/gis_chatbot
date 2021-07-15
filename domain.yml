@@ -61,6 +61,11 @@ intents:
     use_entities: false
 
 slots:
+  otp:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   name:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -260,32 +265,30 @@ responses:
   utter_ask_select_direct_country:
   - text: |-
       الرجاء الاختيار من بين الدول التالية:
-      1. استراليا
-      2. النمسا
-      3. بلجيكا
-      4. كندا
-      5. الصين
-      6. الدنمارك
-      7. فنلندا
-      8. فرنسا
-      9. ألمانيا
-      10. هونج كونج
-      11. أيرلندا
-      12. إيطاليا
-      13. اليابان
-      14. ماليزيا
-      15. هولندا
-      16. نيوزيلندا
-      17. النرويج
-      18. سنغافورة
-      19. كوريا الجنوبية
-      20. أسبانيا
-      21. السويد
-      22- سويسرا
-      23- المملكة المتحدة
-      24- أيرلندا الشمالية
-      25. اسكتلندا
-      26. الولايات المتحدة
+      1. النمسا
+      2. بلجيكا
+      3. كندا
+      4. الصين
+      5. الدنمارك
+      6. فنلندا
+      7. فرنسا
+      8. ألمانيا
+      9. هونج كونج
+      10. أيرلندا
+      11. إيطاليا
+      12. اليابان
+      13. ماليزيا
+      14. هولندا
+      15. النرويج
+      16. سنغافورة
+      17. كوريا الجنوبية
+      18. أسبانيا
+      19. السويد
+      20- سويسرا
+      21- المملكة المتحدة
+      22- أيرلندا الشمالية
+      23. اسكتلندا
+      24. الولايات المتحدة
       الرجاء كتابة "خروج" للخروج من المحادثة
   utter_restart:
   - text: طيب دعونا نبدأ من البداية.
@@ -374,8 +377,8 @@ responses:
          5. مسندم
          6. الظاهرة
          7. ظفار
-         8. جنوب الباطنة
-         9. المركزية
+         8. الباطنة جنوب
+         9. الباطنة شمال
       اكتب 'خروج' للخروج من المحادثة
   utter_ask_select_country:
   - text: |-
@@ -1088,6 +1091,7 @@ actions:
 - action_submit_offer_yesno_form
 - validate_offer_form
 - validate_offer_yesno_form
+- action_ask_otp
 - utter_faq
 - action_pdf
 forms:
@@ -1194,6 +1198,12 @@ forms:
   offer_form:
     required_slots:
       civil_number:
+      - type: from_text
+        not_intent: exit
+      phone_number:
+      - type: from_text
+        not_intent: exit
+      otp:
       - type: from_text
         not_intent: exit
   offer_yesno_form:

@@ -9,6 +9,7 @@ from rasa_sdk.types import DomainDict
 from . import private_college, public_college, omandisable, abroad_college
 from .direct_country import institute
 from .local_schools import *
+from .phone_otp import otp_validate
 from .school_code import *
 from .utils import convert_number
 
@@ -1735,6 +1736,10 @@ class ActionExit(Action):
             tracker: Tracker,
             domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
+        print(20*"-")
+        print(tracker.get_latest_input_channel().lower())
+        print(20 * "-")
+
         dispatcher.utter_message(
             text="""شكرا على تواصلك مع مركز القبول الموحد(HEAC).
 يومك سعيد"""
@@ -2236,7 +2241,7 @@ class ValidateDirectEntryForm(FormValidationAction):
             domain: DomainDict,
     ) -> Dict[Text, Any]:
         slot_value = convert_number(slot_value)
-        options_list = [str(i) for i in list(range(1, 27))]
+        options_list = [str(i) for i in list(range(1, 25))]
         if str(slot_value) in options_list:
             return {
                 "select_direct_country": slot_value
@@ -2278,6 +2283,11 @@ class OfferForm(FormValidationAction):
             tracker: "Tracker",
             domain: "DomainDict",
     ) -> List[Text]:
+        try:
+            if tracker.get_latest_input_channel().lower() == 'web':
+                return ["civil_number", "phone_number", "otp"]
+        except:
+            return ["civil_number"]
         return ["civil_number"]
 
     async def validate_civil_number(
@@ -2293,6 +2303,75 @@ class OfferForm(FormValidationAction):
             "civil_number": slot_value
         }
 
+    async def validate_phone_number(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        phone_number = tracker.sender_id
+        return {
+            "phone_number": slot_value
+        }
+
+    async def validate_otp(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        phone_number = tracker.sender_id
+        return {
+            "otp": slot_value
+        }
+
+
+class AskForOtp(Action):
+    def name(self) -> Text:
+        return "action_ask_otp"
+
+    def run(
+            self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
+    ) -> List[EventType]:
+        civil_number = tracker.get_slot("civil_number")
+        if tracker.get_latest_input_channel().lower() == "web":
+            phone_number = tracker.get_slot("phone_number")
+        else:
+            phone_number = tracker.sender_id[2:]
+        main_menu_option = tracker.get_slot("main_menu")
+
+        url = "https://mohe.omantel.om/moheapp/api/student/checkAvailability"
+
+        if tracker.get_latest_input_channel().lower() == "web":
+            querystring = {"civil": civil_number, "mobileNumber": phone_number, "web": "1"}
+        else:
+            querystring = {"civil": civil_number, "mobileNumber": phone_number}
+
+        payload = ""
+        response = requests.request("GET", url, data=payload, params=querystring)
+        if response.json()["success"]:
+            otp_validate[phone_number] = response.json()["otp"]
+            print(20*"==")
+            print("OTP: ", response.json()["otp"])
+            print("phone_number: ", phone_number)
+            print(20 * "==")
+            dispatcher.utter_message(
+                text="""لقد أرسلنا OTP إلى رقمك ، يرجى إدخال OTP للتحقق
+اكتب "خروج" للخروج من المحادثة"""
+            )
+            return []
+        else:
+            dispatcher.utter_message(
+                text=response.json()[
+                         'message'] + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
+            )
+            return [AllSlotsReset(), Restarted()]
+
+
 
 class ActionSubmitOfferForm(Action):
     def name(self) -> Text:
@@ -2301,13 +2380,28 @@ class ActionSubmitOfferForm(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
         civil_number = tracker.get_slot("civil_number")
-        phone_number = tracker.sender_id[2:]
+        if tracker.get_latest_input_channel().lower() == "web":
+            phone_number = tracker.get_slot("phone_number")
+            if tracker.get_slot("otp") == otp_validate[phone_number]:
+                pass
+            else:
+                dispatcher.utter_message(
+                    text="""فشل التحقق من OTP.
+اكتب "خروج" للخروج من المحادثة ، واكتب "1" للعودة إلى القائمة الرئيسية"""
+                )
+                return [AllSlotsReset(), Restarted()]
+        else:
+            phone_number = tracker.sender_id[2:]
         main_menu_option = tracker.get_slot("main_menu")
 
         url = "https://mohe.omantel.om/moheapp/api/student/checkAvailability"
 
-        querystring = {"civil": civil_number, "mobileNumber": phone_number}
+        if tracker.get_latest_input_channel().lower() == "web":
+            querystring = {"civil": civil_number, "mobileNumber": phone_number, "web": "1"}
+        else:
+            querystring = {"civil": civil_number, "mobileNumber": phone_number}
 
         payload = ""
         response = requests.request("GET", url, data=payload, params=querystring)
