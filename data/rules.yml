@@ -202,3 +202,19 @@ rules:
       - requested_slot: null
       # The actions we want to run when the form is submitted.
   - action: action_submit_offer_yesno_form
+
+- rule: humanhandoff_yesno_form form
+  steps:
+  - action: humanhandoff_yesno_form
+  - active_loop: humanhandoff_yesno_form
+
+- rule: deactivate humanhandoff_yesno_form form
+  condition:
+  - active_loop: humanhandoff_yesno_form
+  steps:
+  - action: humanhandoff_yesno_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_humanhandoff_yesno_form

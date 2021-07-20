@@ -1697,20 +1697,7 @@ class ActionDefaultFallback(Action):
 
         if number_of_fallback == 1:
             senders_maintain["sender"] = 0
-            dispatcher.utter_message(
-                text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
-هاتف رقم
-24340900
-البريد الالكتروني
-public.services@mohe.gov.om
-تويتر
-@HEAC_INFO
-                """,
-                json_message={
-                    "handover": True
-                }
-            )
-            return [UserUtteranceReverted(), Restarted(),]
+            return [AllSlotsReset(), FollowupAction('humanhandoff_yesno_form')]
         else:
             dispatcher.utter_message(
                 text="أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟"
@@ -2441,7 +2428,7 @@ class OfferYesNoForm(FormValidationAction):
                 "offer_yesno": slot_value
             }
         return {
-            "offer_yesno": slot_value
+            "offer_yesno": None
         }
 
 
@@ -2478,3 +2465,64 @@ class ActionSubmitOfferYesNoForm(Action):
                 text="لم يتم العثور على أي سجل في بياناتنا ، شكرًا على تواصلك معنا."
             )
             return [AllSlotsReset(), Restarted(), FollowupAction('action_exit')]
+
+
+class HumanhandoffYesNoForm(FormValidationAction):
+
+    def name(self) -> Text:
+        return "validate_humanhandoff_yesno_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["humanhandoff_yesno"]
+
+    async def validate_humanhandoff_yesno(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        options_list = ["1", "2"]
+        if slot_value in options_list:
+            return {
+                "humanhandoff_yesno": slot_value
+            }
+        return {
+            "humanhandoff_yesno": None
+        }
+
+
+class ActionSubmitHumanhandoffYesNoForm(Action):
+    def name(self) -> Text:
+        return "action_submit_humanhandoff_yesno_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if tracker.get_slot("humanhandoff_yesno") == "1":
+            dispatcher.utter_message(
+                text="""من فضلك انتظر شخص ما سوف يرسل لك رسالة قريبا""",
+                json_message={
+                    "handover": True
+                }
+            )
+        else:
+            dispatcher.utter_message(
+                text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
+هاتف رقم
+24340900
+البريد الالكتروني
+public.services@mohe.gov.om
+تويتر
+@HEAC_INFO
+"""
+            )
+
+        return [AllSlotsReset(), Restarted()]
