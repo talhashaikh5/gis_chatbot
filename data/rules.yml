@@ -27,24 +27,6 @@ rules:
   - intent: nlu_fallback
   - action: action_default_fallback
 
-- rule: scholarships Available form
-  steps:
-  - intent: available_university
-  - action: scholarship_availability_form
-  - active_loop: scholarship_availability_form
-
-- rule: deactivate scholarships available form
-  condition:
-  - active_loop: scholarship_availability_form
-  steps:
-  - action: scholarship_availability_form
-  - active_loop: null
-  - slot_was_set:
-      - requested_slot: null
-      # The actions we want to run when the form is submitted.
-  - action: action_submit_scholarship_availability_form
-
-
 - rule: local school form
   steps:
   - intent: local_school

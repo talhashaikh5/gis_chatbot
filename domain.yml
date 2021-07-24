@@ -237,16 +237,6 @@ slots:
     - '8'
     - '9'
     - '10'
-  region:
-    type: rasa.shared.core.slots.AnySlot
-    initial_value: null
-    auto_fill: true
-    influence_conversation: false
-  graduate:
-    type: rasa.shared.core.slots.AnySlot
-    initial_value: null
-    auto_fill: false
-    influence_conversation: false
   requested_slot:
     type: rasa.shared.core.slots.UnfeaturizedSlot
     initial_value: null
@@ -433,10 +423,6 @@ responses:
   - text: مهلا! كيف حالك؟
   utter_please_rephrase:
   - text: أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟
-  utter_ask_region:
-  - text: Where are you looking for? \n 1. Local\n 2. International \n \nNote Type 1 for locally and 2 for internationally
-  utter_ask_graduate:
-  - text: 'What program are you looking for? \n 1. Undergraduate\n 2. Graduate\n 3. Postgraduate \n \nNote: Type 1 for undergraduates, 2 for graduates, and 3 for postgraduate studies'
   utter_ask_code_number:
   - text: |-
       اكتب رمز البرنامج
@@ -1117,14 +1103,6 @@ forms:
       - not_intent: exit
         type: from_text
       sub_menu:
-      - not_intent: exit
-        type: from_text
-  scholarship_availability_form:
-    required_slots:
-      graduate:
-      - not_intent: exit
-        type: from_text
-      region:
       - not_intent: exit
         type: from_text
   search_program_code_form:
