@@ -2421,10 +2421,11 @@ class ActionSubmitHumanhandoffYesNoForm(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         if tracker.get_slot("humanhandoff_yesno") == "1":
             dispatcher.utter_message(
-                text="""من فضلك انتظر شخص ما سوف يرسل لك رسالة قريبا""",
-                json_message={
-                    "handover": True
-                }
+                text="""الرجاء الانتقال إلى الموقع الإلكتروني أدناه:
+http://2.56.215.239:7073/login""",
+                # json_message={
+                #     "handover": True
+                # }
             )
         else:
             dispatcher.utter_message(

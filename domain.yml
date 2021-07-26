@@ -11,18 +11,6 @@ intents:
     use_entities: []
 - greet:
     use_entities: true
-- goodbye:
-    use_entities: true
-- affirm:
-    use_entities: true
-- deny:
-    use_entities: true
-- mood_great:
-    use_entities: true
-- mood_unhappy:
-    use_entities: true
-- bot_challenge:
-    use_entities: true
 - faq:
     use_entities: true
 - available_university:

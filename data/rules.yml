@@ -7,16 +7,6 @@ rules:
   - intent: exit
   - action: action_exit
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
-
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
-
 - rule: respond to FAQs
   steps:
   - intent: faq
