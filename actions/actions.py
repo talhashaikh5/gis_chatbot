@@ -2419,13 +2419,20 @@ class ActionSubmitHumanhandoffYesNoForm(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         if tracker.get_slot("humanhandoff_yesno") == "1":
-            dispatcher.utter_message(
-                text="""الرجاء الانتقال إلى الموقع الإلكتروني أدناه:
-http://2.56.215.239:7073/login""",
-                # json_message={f
-                #     "handover": True
-                # }
-            )
+            if tracker.get_latest_input_channel() == "web":
+                dispatcher.utter_message(
+                    text="""البعض سوف يراسلك قريبا من فضلك انتظر""",
+                    json_message={
+                        "handover": True
+                    }
+                )
+            else:
+                dispatcher.utter_message(
+                    text="""الرجاء الانتقال إلى الموقع الإلكتروني أدناه:
+                    http://2.56.215.239:7073/login""",
+                )
+
+
         else:
             dispatcher.utter_message(
                 text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
