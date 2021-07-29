@@ -248,8 +248,8 @@ responses:
   utter_ask_offer_yesno:
   - text: |-
       مرحبًا {name} هل ترغب في الحصول على عرض؟
-      اكتب "1" نعم
-      اكتب "2" لا
+      1. نعم
+      2. لا  
       اكتب "خروج" للخروج من المحادثة
   utter_ask_select_direct_country:
   - text: |-
