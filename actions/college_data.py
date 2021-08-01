@@ -13,16 +13,12 @@ college_data = [
                         "program_option": "1",
                     },
                     {
-                        "program_code": "MT009",
+                        "program_code": "MT006",
                         "program_option": "2",
                     },
                     {
-                        "program_code": "MT006",
-                        "program_option": "3",
-                    },
-                    {
                         "program_code": "MT002",
-                        "program_option": "4",
+                        "program_option": "3",
                     }
                 ]
             },
@@ -59,10 +55,6 @@ college_data = [
                         "program_code": "MT004",
                         "program_option": "1",
                     },
-                    {
-                        "program_code": "MT009",
-                        "program_option": "2",
-                    }
                 ]
             },
             {
@@ -98,10 +90,6 @@ college_data = [
                         "program_code": "MT004",
                         "program_option": "1",
                     },
-                    {
-                        "program_code": "MT009",
-                        "program_option": "2",
-                    }
                 ]
             },
             {
@@ -137,10 +125,6 @@ college_data = [
                         "program_code": "MT004",
                         "program_option": "1",
                     },
-                    {
-                        "program_code": "MT009",
-                        "program_option": "2",
-                    }
                 ]
             },
             {

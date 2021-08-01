@@ -809,10 +809,6 @@ private_college = [
                 "stream_name": " الفنون الإبداعية",
                 "stream_option": 2,
                 "program_code": [
-                    {
-                        "program_code": "BS286",
-                        "program_option": 1
-                    }
                 ]
             },
             {

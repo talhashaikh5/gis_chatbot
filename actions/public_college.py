@@ -13,24 +13,20 @@ public_college = [
                         "program_option": 1
                     },
                     {
-                        "program_code": "MT009",
+                        "program_code": "MT003",
                         "program_option": 2
                     },
                     {
-                        "program_code": "MT003",
+                        "program_code": "MT001",
                         "program_option": 3
                     },
                     {
-                        "program_code": "MT001",
+                        "program_code": "MT002",
                         "program_option": 4
                     },
                     {
-                        "program_code": "MT002",
-                        "program_option": 5
-                    },
-                    {
                         "program_code": "MT005",
-                        "program_option": 6
+                        "program_option": 5
                     }
                 ]
             }

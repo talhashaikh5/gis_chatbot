@@ -74,12 +74,8 @@ abroad_country = [
                 "stream_option": 1,
                 "program_code": [
                     {
-                        "program_code": "SE006",
-                        "program_option": 1
-                    },
-                    {
                         "program_code": "SE003",
-                        "program_option": 2
+                        "program_option": 1
                     }
                 ]
             }
@@ -93,10 +89,7 @@ abroad_country = [
                 "stream_name": "الزراعة والبيئة والعلوم المرتبطة به",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE774",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
@@ -119,42 +112,18 @@ abroad_country = [
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE590",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE561",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "SE610",
-                        "program_option": 3
-                    },
-                    {
-                        "program_code": "SE762",
-                        "program_option": 4
-                    }
                 ]
             },
             {
                 "stream_name": " الفنون الإبداعية",
                 "stream_option": 2,
                 "program_code": [
-                    {
-                        "program_code": "SE720",
-                        "program_option": 1
-                    }
                 ]
             },
             {
                 "stream_name": "الإدارة والمعاملات التجارية",
                 "stream_option": 3,
                 "program_code": [
-                    {
-                        "program_code": "SE643",
-                        "program_option": 1
-                    }
                 ]
             },
             {
@@ -200,93 +169,38 @@ abroad_country = [
                         "program_option": 3
                     },
                     {
-                        "program_code": "SE014",
+                        "program_code": "SE416",
                         "program_option": 4
                     },
-                    {
-                        "program_code": "SE441",
-                        "program_option": 5
-                    },
-                    {
-                        "program_code": "SE416",
-                        "program_option": 6
-                    },
-                    {
-                        "program_code": "SE417",
-                        "program_option": 7
-                    },
-                    {
-                        "program_code": "SE032",
-                        "program_option": 8
-                    },
-                    {
-                        "program_code": "SE015",
-                        "program_option": 9
-                    }
+
+
                 ]
             },
             {
                 "stream_name": "العمارة والإنشاء",
                 "stream_option": 6,
                 "program_code": [
-                    {
-                        "program_code": "SE509",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE540",
-                        "program_option": 2
-                    }
+
+
                 ]
             },
             {
                 "stream_name": "المجتمع والثقافة",
                 "stream_option": 7,
                 "program_code": [
-                    {
-                        "program_code": "SE700",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE788",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "SE682",
-                        "program_option": 3
-                    },
-                    {
-                        "program_code": "SE810",
-                        "program_option": 4
-                    }
                 ]
             },
             {
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
                 "stream_option": 8,
                 "program_code": [
-                    {
-                        "program_code": "SE502",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE557",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "SE489",
-                        "program_option": 3
-                    }
                 ]
             },
             {
                 "stream_name": "تكنولوجيا المعلومات",
                 "stream_option": 9,
                 "program_code": [
-                    {
-                        "program_code": "SE621",
-                        "program_option": 1
-                    }
+
                 ]
             }
         ]
@@ -299,34 +213,20 @@ abroad_country = [
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE563",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
                 "stream_name": " الفنون الإبداعية",
                 "stream_option": 2,
                 "program_code": [
-                    {
-                        "program_code": "SE721",
-                        "program_option": 1
-                    }
                 ]
             },
             {
                 "stream_name": "الإدارة والمعاملات التجارية",
                 "stream_option": 3,
                 "program_code": [
-                    {
-                        "program_code": "SE639",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE630",
-                        "program_option": 2
-                    }
+
                 ]
             },
             {
@@ -334,12 +234,8 @@ abroad_country = [
                 "stream_option": 4,
                 "program_code": [
                     {
-                        "program_code": "SE400",
-                        "program_option": 1
-                    },
-                    {
                         "program_code": "SE044",
-                        "program_option": 2
+                        "program_option": 1
                     }
                 ]
             },
@@ -347,38 +243,23 @@ abroad_country = [
                 "stream_name": "المجتمع والثقافة",
                 "stream_option": 5,
                 "program_code": [
-                    {
-                        "program_code": "SE680",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
                 "stream_option": 6,
                 "program_code": [
-                    {
-                        "program_code": "SE501",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE494",
-                        "program_option": 2
-                    },
-                    {
-                        "program_code": "SE485",
-                        "program_option": 3
-                    }
+
+
+
                 ]
             },
             {
                 "stream_name": "تكنولوجيا المعلومات",
                 "stream_option": 7,
                 "program_code": [
-                    {
-                        "program_code": "SE620",
-                        "program_option": 1
-                    }
+
                 ]
             }
         ]
@@ -391,24 +272,14 @@ abroad_country = [
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE568",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
                 "stream_name": "الإدارة والمعاملات التجارية",
                 "stream_option": 2,
                 "program_code": [
-                    {
-                        "program_code": "SE663",
-                        "program_option": 1
-                    },
-                    {
-                        "program_code": "SE641",
-                        "program_option": 2
-                    }
+
                 ]
             },
             {
@@ -437,20 +308,12 @@ abroad_country = [
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
                 "stream_option": 4,
                 "program_code": [
-                    {
-                        "program_code": "SE504",
-                        "program_option": 1
-                    }
                 ]
             },
             {
                 "stream_name": "تكنولوجيا المعلومات",
                 "stream_option": 5,
                 "program_code": [
-                    {
-                        "program_code": "SE623",
-                        "program_option": 1
-                    }
                 ]
             }
         ]
@@ -483,10 +346,6 @@ abroad_country = [
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE592",
-                        "program_option": 1
-                    }
                 ]
             },
             {
@@ -503,10 +362,7 @@ abroad_country = [
                 "stream_name": "تكنولوجيا المعلومات",
                 "stream_option": 3,
                 "program_code": [
-                    {
-                        "program_code": "SE820",
-                        "program_option": 1
-                    }
+
                 ]
             }
         ]
@@ -519,10 +375,6 @@ abroad_country = [
                 "stream_name": "الصحة",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE010",
-                        "program_option": 1
-                    }
                 ]
             }
         ]
@@ -535,10 +387,7 @@ abroad_country = [
                 "stream_name": " العلوم الطبيعية والفيزيائية ",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE753",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
@@ -555,20 +404,13 @@ abroad_country = [
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
                 "stream_option": 3,
                 "program_code": [
-                    {
-                        "program_code": "SE756",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
                 "stream_name": "تكنولوجيا المعلومات",
                 "stream_option": 4,
                 "program_code": [
-                    {
-                        "program_code": "SE755",
-                        "program_option": 1
-                    }
                 ]
             }
         ]
@@ -581,20 +423,13 @@ abroad_country = [
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE529",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
                 "stream_name": "تكنولوجيا المعلومات",
                 "stream_option": 2,
                 "program_code": [
-                    {
-                        "program_code": "SE625",
-                        "program_option": 1
-                    }
                 ]
             }
         ]
@@ -607,20 +442,13 @@ abroad_country = [
                 "stream_name": "الإدارة والمعاملات التجارية",
                 "stream_option": 1,
                 "program_code": [
-                    {
-                        "program_code": "SE744",
-                        "program_option": 1
-                    }
+
                 ]
             },
             {
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
                 "stream_option": 2,
                 "program_code": [
-                    {
-                        "program_code": "SE515",
-                        "program_option": 1
-                    }
                 ]
             }
         ]

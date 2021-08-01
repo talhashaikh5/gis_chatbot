@@ -1052,7 +1052,7 @@ class ActionSubmitSearchProgramConForm(Action):
             stream_option = tracker.get_slot("select_study_stream")
             codes = tracker.get_slot("select_abroad_program_code")
 
-            program_code = "SE680"
+            program_code = "BS237"
             for item in abroad_college.abroad_country:
                 if str(item["country_option"]) == country_option:
                     for item1 in item["streams_available"]:
