@@ -33,6 +33,8 @@ nlu:
     - one
     - واحد
     - ١
+    - Hi
+    - Hello
 
 - intent: program_search
   examples: |
