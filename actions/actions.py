@@ -1569,15 +1569,15 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
             opt = tracker.get_slot("desired_service")
             if opt == "1":
                 dispatcher.utter_message(
-                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل\n" + "\nhttps://youtu.be/JG6NskPaDZk"
+                    text="\nhttps://youtu.be/JG6NskPaDZk"
                 )
             elif opt == "2":
                 dispatcher.utter_message(
-                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل " + "\nhttps://youtu.be/JG6NskPaDZk"
+                    text="\nhttps://youtu.be/JG6NskPaDZk"
                 )
             else:
                 dispatcher.utter_message(
-                    text="النظام : يرسل مقطع فيديو عن طريقة التسجيل " + "\nhttps://youtu.be/JG6NskPaDZk"
+                    text="\nhttps://youtu.be/JG6NskPaDZk"
                 )
 
             return [AllSlotsReset(), Restarted()]

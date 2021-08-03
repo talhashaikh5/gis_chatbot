@@ -2,7 +2,6 @@ version: "2.0"
 nlu:
 - intent: greet
   examples: |
-    - مهلا
     - مرحبا
     - أهلا
     - أهلا بك
@@ -18,20 +17,11 @@ nlu:
     - سلام
     - أهلا بك
     - والدى
+    - واحد
     - مرحبا
     - hey
-    - how are you
-    - hello
-    - heloo from oman
-    - hi
-    - hiiiiiiii
-    - hiii
-    - one
-    - main menu
-    - take me to main menu
     - 1
     - one
-    - واحد
     - ١
     - Hi
     - Hello
@@ -174,4 +164,29 @@ nlu:
     - shoe me direct entry programs
     - i want to see direct entry program
     - what direct entry programs are available
+
+- intent: out_of_scope
+  examples: |
+    - sdjisdbg
+    - ksdhkds
+    - skdh
+    - KASJBagcdn
+    - sdf
+    - sadc
+    - ftyj
+    - aserbvadfn
+    - dsfrthv
+    - sthstr
+    - corona
+    - corona virus
+    - out of out_of_scop
+    - garbage
+    - sjdb
+    - sdmajkb
+    - kajsfn
+    - askdj
+    - kaesjfnojlasnkflankflakdlmksd
+    - aoinf allejfoleWMD ewnflE
+    - KASENFPSMC,DSM LEpEM
+
 
