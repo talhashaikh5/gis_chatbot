@@ -1647,12 +1647,12 @@ class AskForSeventhYear(Action):
             self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> List[EventType]:
         if tracker.get_slot("seventh_main_menu") in ["1", "2"]:
-            dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n:"
+            dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n"
                                           f"1. 20/21 \n \n"
                                           f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
                                      )
         else:
-            dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n:"
+            dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n"
                                           f"1. 20/21 \n2. 19/20 \n \n"
                                           f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
                                      )
