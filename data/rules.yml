@@ -17,6 +17,12 @@ rules:
   - intent: nlu_fallback
   - action: action_default_fallback
 
+- rule: out_of_scope
+  steps:
+  - intent: out_of_scope
+  - action: action_default_fallback
+
+
 - rule: local school form
   steps:
   - intent: local_school
