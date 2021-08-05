@@ -1475,7 +1475,7 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
                 )
             elif main_menu_option == "2":
                 dispatcher.utter_message(
-                    text="تبدأ مرحلة ضبط الرغبات في الأول من أغسطس وتستمر حتى"
+                    text="تبدأ مرحلة تعديل  الرغبات: يوم السبت تاريخ 7 أغسطس وتستمر حتى يوم الثلاثاء 17 أغسطس"
                 )
             elif main_menu_option == "3":
                 dispatcher.utter_message(

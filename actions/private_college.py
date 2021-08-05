@@ -806,14 +806,8 @@ private_college = [
                 ]
             },
             {
-                "stream_name": " الفنون الإبداعية",
-                "stream_option": 2,
-                "program_code": [
-                ]
-            },
-            {
                 "stream_name": "الإدارة والمعاملات التجارية",
-                "stream_option": 3,
+                "stream_option": 2,
                 "program_code": [
                     {
                         "program_code": "BS012",
@@ -823,7 +817,7 @@ private_college = [
             },
             {
                 "stream_name": "التربية",
-                "stream_option": 4,
+                "stream_option": 3,
                 "program_code": [
                     {
                         "program_code": "BS029",
@@ -885,7 +879,7 @@ private_college = [
             },
             {
                 "stream_name": "الصحة",
-                "stream_option": 5,
+                "stream_option": 4,
                 "program_code": [
                     {
                         "program_code": "BS017",
@@ -899,7 +893,7 @@ private_college = [
             },
             {
                 "stream_name": "العمارة والإنشاء",
-                "stream_option": 6,
+                "stream_option": 5,
                 "program_code": [
                     {
                         "program_code": "BS015",
@@ -913,7 +907,7 @@ private_college = [
             },
             {
                 "stream_name": "المجتمع والثقافة",
-                "stream_option": 7,
+                "stream_option": 6,
                 "program_code": [
                     {
                         "program_code": "BS011",
@@ -923,7 +917,7 @@ private_college = [
             },
             {
                 "stream_name": "الهندسة والتقنيات ذات الصلة",
-                "stream_option": 8,
+                "stream_option": 7,
                 "program_code": [
                     {
                         "program_code": "BS014",
@@ -937,7 +931,7 @@ private_college = [
             },
             {
                 "stream_name": "تكنولوجيا المعلومات",
-                "stream_option": 9,
+                "stream_option": 8,
                 "program_code": [
                     {
                         "program_code": "BS287",
