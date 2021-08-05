@@ -2204,6 +2204,18 @@ class OfferForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         slot_value = convert_number(slot_value)
         phone_number = tracker.sender_id
+
+        # Back Code
+        if slot_value.lower() == "0":
+            current_slot = "phone_number"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
         return {
             "phone_number": slot_value
         }
@@ -2217,6 +2229,18 @@ class OfferForm(FormValidationAction):
     ) -> Dict[Text, Any]:
         slot_value = convert_number(slot_value)
         phone_number = tracker.sender_id
+        # Back Code
+        if slot_value.lower() == "0":
+            current_slot = "otp"
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index(current_slot) - 1]
+            return {
+                last_slot: None,
+                current_slot: None
+            }
+
         return {
             "otp": slot_value
         }
@@ -2253,7 +2277,7 @@ class AskForOtp(Action):
             print(20 * "==")
             dispatcher.utter_message(
                 text="""لقد أرسلنا OTP إلى رقمك ، يرجى إدخال OTP للتحقق
-اكتب "خروج" للخروج من المحادثة"""
+اكتب '0' للعودة إلى الخيار السابق و 'خروج' للخروج من المحادثة"""
             )
             return []
         else:
