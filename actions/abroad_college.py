@@ -179,7 +179,7 @@ abroad_country = [
             {
                 "stream_name": "الصحة",
                 "stream_option": 1,
-                "programaction_ask_select_abroad_country_code": [
+                "program_code": [
                     {
                         "program_code": "SE017",
                         "program_option": 1
