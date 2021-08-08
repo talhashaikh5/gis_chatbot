@@ -1609,7 +1609,24 @@ class ActionDefaultFallback(Action):
 
         if number_of_fallback == 1:
             senders_maintain["sender"] = 0
-            return [AllSlotsReset(), FollowupAction('humanhandoff_yesno_form')]
+            dispatcher.utter_message(
+                text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
+
+                        هاتف رقم        
+
+                        24340900
+
+                        البريد الالكتروني
+
+                        public.services@mohe.gov.om
+
+                        تويتر
+
+                        @HEAC_INFO"""
+            )
+
+            return [UserUtteranceReverted()]
+            # return [AllSlotsReset(), FollowupAction('humanhandoff_yesno_form')]
         else:
             dispatcher.utter_message(
                 text="أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟"
