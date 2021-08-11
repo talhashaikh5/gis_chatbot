@@ -51,7 +51,8 @@ class ActionSubmitSearchProgramCode(Action):
                 )
                 return [AllSlotsReset(), Restarted()]
         dispatcher.utter_message(
-            text=f"تم إدخال الرمز بشكل غير صحيح ، الرجاء إدخال الرمز الصحيح."
+            text=f"""لقد كتبت رمزا غير صحيح للتأكد من صحة الرمز 
+،كما يمكنك التعرف على البرامج المطروحة بالمؤسسات من خلال العودة إلى قائمة التسجل والبحث بواسطة المؤسسة أو التخصص"""
         )
         return [AllSlotsReset(), Restarted(), FollowupAction('search_program_code_form')]
 
@@ -1474,7 +1475,10 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
         if sub_menu_option == "1":
             if main_menu_option == "1":
                 dispatcher.utter_message(
-                    text="تبدأ فترة التسجيل من الأول من مايو حتى الأول من يوليو 2021"
+                    text="""تبدأ فترة التسجيل من الأول من مايو حتى الأول من يوليو 2021
+                           اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة
+"""
+
                 )
             elif main_menu_option == "2":
                 dispatcher.utter_message(
