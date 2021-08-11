@@ -1616,24 +1616,24 @@ class ActionDefaultFallback(Action):
 
         if number_of_fallback == 1:
             senders_maintain["sender"] = 0
-            # dispatcher.utter_message(
-            #     text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
+            dispatcher.utter_message(
+                text="""للمزيد من المعلومات يمكنك التواصل بإحدى وسائل التواصل التالية
 
-            #             هاتف رقم        
+                        هاتف رقم        
 
-            #             24340900
+                        24340900
 
-            #             البريد الالكتروني
+                        البريد الالكتروني
 
-            #             public.services@mohe.gov.om
+                        public.services@mohe.gov.om
 
-            #             تويتر
+                        تويتر
 
-            #             @HEAC_INFO"""
-            # )
+                        @HEAC_INFO"""
+            )
 
-            # return [UserUtteranceReverted()]
-            return [AllSlotsReset(), FollowupAction('humanhandoff_yesno_form')]
+            return [UserUtteranceReverted()]
+            # return [AllSlotsReset(), FollowupAction('humanhandoff_yesno_form')]
         else:
             dispatcher.utter_message(
                 text="أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟"
