@@ -1303,14 +1303,13 @@ class AskForSubMenu(Action):
     1. مواعيد التسجيل 
     2. البرامج المطروحة 
     3. جامعات القبول المباشر
-    4. مدارس التوطين / الامتياز
-    5. التواصل مع المؤسسات 
-    6. طلبة الدور الثاني 
-    7. طلبة الاعاقة
-    8. خريجي الشهادات الاجنبية 
-    9. خريجي الشهادات السعودية
-    10. خريجي الشهادات الامريكية
-    11. اسئلة عن التسجيل
+    4. التواصل مع المؤسسات 
+    5. طلبة الدور الثاني 
+    6. طلبة الاعاقة
+    7. خريجي الشهادات الاجنبية 
+    8. خريجي الشهادات السعودية
+    9. خريجي الشهادات الامريكية
+    10. اسئلة عن التسجيل
     الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة"""
 
             )
@@ -1320,8 +1319,7 @@ class AskForSubMenu(Action):
 1. مواعيد تعديل الرغبات
 2. البرامج المقدمة
 3. جامعات القبول المباشر
-4. مدارس التوطين / الامتياز
-5. أسئلة حول تعديل الرغبات
+4. أسئلة حول تعديل الرغبات
 الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
                 """
             )
@@ -1397,7 +1395,7 @@ class ActionSubmitMainMenuForm(Action):
 
         # 1 new options
         # Option 1.6
-        if main_menu_option == "1" and sub_menu_option == "6":
+        if main_menu_option == "1" and sub_menu_option == "5":
             dispatcher.utter_message(
                 text="""1:- علــى جميــع الطلبــة ضــرورة التســجيل واختيــار البرامــج فــي الفتــرات المحــددة للتسجيل - مهمــا كانــت نتيجــة الطالــب فــي الامتحانــات 
 2:- لــن تكــون هنــاك فرصــة لطلبــة الــدور الثانــي للتســجيل أو تعديــل برامجهــم بعــد ظهــور نتائــج الــدور الثانــي لطلبــة دبلــوم التعليــم العــام.
@@ -1412,7 +1410,7 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.7
-        if main_menu_option == "1" and sub_menu_option == "7":
+        if main_menu_option == "1" and sub_menu_option == "6":
             dispatcher.utter_message(
                 text="""يجب على الطلاب ذوي الإعاقة اختيار البرامج التي تناسب نوع إعاقتهم. على سبيل المثال:
 لا يجوز للطالب المصاب بإعاقة جسدية مثل الشلل في بعض الأطراف التقدم للبرامج التي تتطلب خلو المتقدم من جميع أنواع الإعاقات الجسدية ، لأنه يتعارض مع متطلبات هذه البرامج."""
@@ -1420,7 +1418,7 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.8
-        if main_menu_option == "1" and sub_menu_option == "8":
+        if main_menu_option == "1" and sub_menu_option == "7":
             dispatcher.utter_message(
                 text="""1:-       الطلبــة العمانيــون الحاصلــون علــى مــا يعــادل دبلــوم التعليــم العــام مــن خــارج الســلطنة، والطلبــة الدارســون فــي مــدارس الجاليــات داخــل الســلطنة عليهــم إدخــال بياناتهــم الشــخصية فــي نظــام القبــول الالكترونــي عــن طريــق الشاشــة المخصصــة لذلــك وهي: طلبــة عمانيــون خــارج أو داخــل الســلطنة: حملــة الشــهادات المعادلــة لدبلــوم التعليــم
 2:-       عــدم الدقــة فــي إدخــال البيانــات مــن شــأنه أن يحــرم الطالــب مــن الحصــول علــى المقعــد المســتحق
@@ -1436,7 +1434,7 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.9
-        if main_menu_option == "1" and sub_menu_option == "9":
+        if main_menu_option == "1" and sub_menu_option == "8":
             dispatcher.utter_message(
                 text="""1:- على الطلاب العمانيين للحصول على شهادة الثانوية السعودية للحصول على معادل وزارة التربية والتعليم في سلطنة عمان مما يتطلب تقديم الطلاب لاختبارات المركز الوطني للتقييم) اختبار القدرات العامة واختبار التحصيل الأكاديمي للتخصصات العلمية ( ومن ثم تزويد المركز بنتائج الاختبارات حتى يتمكنوا من التنافس على برامج مؤسسات التعليم العالي والبعثات والمنح الداخلية والخارجية.
 2:- تؤخذ نتائج اختبار القدرات العامة (30٪) واختبار التحصيل الأكاديمي للتخصصات العلمية (40٪) في الاعتبار عند احتساب المعدل التنافسي ، بالإضافة إلى مجموع الدرجات للمواد الأكاديمية (12٪). وإجمالي درجات المواد المطلوبة للتخصص (18٪).
@@ -1453,7 +1451,7 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.10
-        if main_menu_option == "1" and sub_menu_option == "10":
+        if main_menu_option == "1" and sub_menu_option == "9":
             dispatcher.utter_message(
                 text="""1:-    عليهــم إدخــال بياناتهــم فــي نظــام القبــول الالكترونــي عــن طريــق الشاشــة المخصصــة  
 2:-        عــدم الدقــة فــي إدخــال البيانــات مــن شــأنه أن يحــرم الطالــب مــن الحصــول علــى المقعــد المســتحق
@@ -1511,7 +1509,7 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
             return [AllSlotsReset(), Restarted()]
 
         # faq
-        if main_menu_option == "1" and sub_menu_option == "11":
+        if main_menu_option == "1" and sub_menu_option == "10":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمة " تسجيل " من بينها)"""
             )
@@ -1548,7 +1546,17 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
             return [AllSlotsReset(), Restarted(), FollowupAction('offer_form'), SlotSet("main_menu", "2")]
 
         # institute Search
-        if main_menu_option in ["1", "3"] and sub_menu_option in ["5", "2"]:
+        if main_menu_option in ["1", "3"] and sub_menu_option in ["2"]:
+            dispatcher.utter_message(
+                text=""" اكتب اسم المؤسسة التعليمية"""
+            )
+            return [AllSlotsReset(), Restarted()]
+        if main_menu_option in ["1"] and sub_menu_option in ["4"]:
+            dispatcher.utter_message(
+                text=""" اكتب اسم المؤسسة التعليمية"""
+            )
+            return [AllSlotsReset(), Restarted()]
+        if main_menu_option in ["3"] and sub_menu_option in ["5"]:
             dispatcher.utter_message(
                 text=""" اكتب اسم المؤسسة التعليمية"""
             )
@@ -1561,8 +1569,8 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
             #          ":فئة الطلبة : غير اعاقة "
             # )
             return [AllSlotsReset(), Restarted(), FollowupAction("direct_entry_program_form")]
-        if main_menu_option in ["1", "2"] and sub_menu_option == "4":
-            return [AllSlotsReset(), FollowupAction("local_school_form")]
+        # if main_menu_option in ["1", "2"] and sub_menu_option == "4":
+        #     return [AllSlotsReset(), FollowupAction("local_school_form")]
 
         # Desired Options:
         if main_menu_option == "6" and sub_menu_option == "2":
@@ -1783,6 +1791,7 @@ class ValidateSeventhMenuForm(FormValidationAction):
                 self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
         ) -> List[EventType]:
             if tracker.get_slot("seventh_main_menu") in ["1"]:
+
                 dispatcher.utter_message(text=f"حدد نوع البيان\n"
                                               f"1. المقاعد المعروضة\n"
                                               f"2. المقبولين حسب المؤهل الدراسي\n"

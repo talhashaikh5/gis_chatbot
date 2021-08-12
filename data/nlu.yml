@@ -25,6 +25,7 @@ nlu:
     - ١
     - Hi
     - Hello
+    - hello my name is talha
 
 - intent: program_search
   examples: |
