@@ -1480,19 +1480,25 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
                 )
             elif main_menu_option == "2":
                 dispatcher.utter_message(
-                    text="تبدأ مرحلة تعديل  الرغبات: يوم السبت تاريخ 7 أغسطس وتستمر حتى يوم الثلاثاء 17 أغسطس"
+                    text="""تبدأ مرحلة تعديل  الرغبات: يوم السبت تاريخ 7 أغسطس وتستمر حتى يوم الثلاثاء 17 أغسطس
+                    اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
                 )
             elif main_menu_option == "3":
                 dispatcher.utter_message(
-                    text="سيتم تحديد مواعيد المقابلة في وقت لاحق"
+                    text="""اعلان اسماء المرشحين للمقابلات واختبارات القبول يوم الاحد 22 اغسطس 2021
+تبدأ المقابلات والاختبارات يوم الاثنين 23 اغسطس وتستمر حتى يوم الاحد 29 اغسطس
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة
+"""
                 )
             elif main_menu_option == "4":
                 dispatcher.utter_message(
-                    text="سيتم تحديد تواريخ الفرز في وقت لاحق"
+                    text="""سيتم تحديد تواريخ الفرز في وقت لاحق
+                    اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
                 )
             elif main_menu_option == "5":
                 dispatcher.utter_message(
-                    text="سيتم تحديد تواريخ الفرز في وقت لاحق"
+                    text="""سيتم تحديد تواريخ الفرز في وقت لاحق
+                    اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
                 )
             elif main_menu_option == "6":
                 dispatcher.utter_message(
@@ -1511,7 +1517,8 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
         # result
         if main_menu_option in ["4", "5"] and sub_menu_option == "4":
             dispatcher.utter_message(
-                text="اعتماد المقاعد  واستكمال إجراءات التسجيل يبدأ من  الإثنين 6 سبتمبر وحتى 12 سبتمر 2021"
+                text="""اعتماد المقاعد  واستكمال إجراءات التسجيل يبدأ من  الإثنين 6 سبتمبر وحتى 12 سبتمر 2021
+                اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
             )
             return [AllSlotsReset(), Restarted()]
 
@@ -1555,17 +1562,20 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
         # institute Search
         if main_menu_option in ["1", "3"] and sub_menu_option in ["2"]:
             dispatcher.utter_message(
-                text=""" اكتب اسم المؤسسة التعليمية"""
+                text=""" اكتب اسم المؤسسة التعليمية
+                اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
             )
             return [AllSlotsReset(), Restarted()]
         if main_menu_option in ["1"] and sub_menu_option in ["4"]:
             dispatcher.utter_message(
-                text=""" اكتب اسم المؤسسة التعليمية"""
+                text=""" اكتب اسم المؤسسة التعليمية
+                اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
             )
             return [AllSlotsReset(), Restarted()]
         if main_menu_option in ["3"] and sub_menu_option in ["5"]:
             dispatcher.utter_message(
-                text=""" اكتب اسم المؤسسة التعليمية"""
+                text=""" اكتب اسم المؤسسة التعليمية
+                اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
             )
             return [AllSlotsReset(), Restarted()]
         # Direct Entry program
@@ -1678,7 +1688,12 @@ class AskForSeventhYear(Action):
     def run(
             self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict
     ) -> List[EventType]:
-        if tracker.get_slot("seventh_main_menu") in ["1", "2"]:
+        if tracker.get_slot("seventh_main_menu") in ["1"]:
+            dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n"
+                                          f"1. 22/21 \n \n"
+                                          f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
+                                     )
+        elif tracker.get_slot("seventh_main_menu") in ["2"]:
             dispatcher.utter_message(text=f"الرجاء الاختيار من العام التالي:\n"
                                           f"1. 20/21 \n \n"
                                           f"""اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق"""
@@ -2040,8 +2055,23 @@ https://www.heac.gov.om/index.php/annual-statistical-reports-ar
 
         if main_menu_option == "1":
             dispatcher.utter_message(
-                text="""سيتم عرض المعلومات في وقت لاحق.
-اكتب "1" للعودة إلى القائمة الرئيسية"""
+                text="""اجمالي المقاعد المعروضة (33320) 
+جامعة السلطان قابوس (3085) (9.3%)
+جامعة التقنية والعلوم التطبيقية (12478) (37.4%)
+الكلية العسكرية التقنية (500) (1.5%)
+كلية العلوم الصحية (642) (1.9%)
+كلية العلوم الشرعية (146) (0.4%)
+الكليات المهنية ( 3189) (9.6%)
+البعثات الخارجية (400) (1.2%)
+المنح الخارجية (14) (0.04%)
+البعثات الداخلية الكاملة بكالوريوس (700) (21%)
+البعثات الداخلية الكاملة دبلوم (1100) (3.3%)
+بعثات الضمان الاجتماعي دبلوم (500) (1.5%)
+بعثات الدخل المحدود دبلوم (400) (1.2%)
+البعثات الداخلية الجزئية دبلوم (1635) (4.9%)
+المنح الداخلية الكاملة (977) (2.9%)
+المنح الداخلية الجزئية (1254) (3.8%)
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
             )
             return [AllSlotsReset(), Restarted()]
 

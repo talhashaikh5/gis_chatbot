@@ -236,20 +236,20 @@ abroad_country = [
             },
         ]
     },
-    {
-        "country": "كندا",
-        "country_option": 9,
-        "streams_available": [
-            {
-                "stream_name": "الإدارة والمعاملات التجارية",
-                "stream_option": 1,
-                "program_code": [
-                    {
-                        "program_code": "SE647",
-                        "program_option": 1
-                    }
-                ]
-            },
-        ]
-    },
+    # {
+    #     "country": "كندا",
+    #     "country_option": 9,
+    #     "streams_available": [
+    #         {
+    #             "stream_name": "الإدارة والمعاملات التجارية",
+    #             "stream_option": 1,
+    #             "program_code": [
+    #                 {
+    #                     "program_code": "SE647",
+    #                     "program_option": 1
+    #                 }
+    #             ]
+    #         },
+    #     ]
+    # },
 ]
