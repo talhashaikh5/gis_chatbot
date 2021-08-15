@@ -1487,18 +1487,23 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
                 dispatcher.utter_message(
                     text="""اعلان اسماء المرشحين للمقابلات واختبارات القبول يوم الاحد 22 اغسطس 2021
 تبدأ المقابلات والاختبارات يوم الاثنين 23 اغسطس وتستمر حتى يوم الاحد 29 اغسطس
+
+ويمكن الاطلاع على تفاصيل المواعيد حسب البرنامج من خلال الرابط التالي:
+
+https://www.heac.gov.om/index.php/students-guide-book-2
+
 اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة
 """
                 )
             elif main_menu_option == "4":
                 dispatcher.utter_message(
-                    text="""سيتم تحديد تواريخ الفرز في وقت لاحق
-                    اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+                    text="""اعلان نتائج الفرز الاول يوم الاحد 5 سبتمبر 2021
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
                 )
             elif main_menu_option == "5":
                 dispatcher.utter_message(
                     text="""سيتم تحديد تواريخ الفرز في وقت لاحق
-                    اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
                 )
             elif main_menu_option == "6":
                 dispatcher.utter_message(
@@ -1518,7 +1523,13 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
         if main_menu_option in ["4", "5"] and sub_menu_option == "4":
             dispatcher.utter_message(
                 text="""اعتماد المقاعد  واستكمال إجراءات التسجيل يبدأ من  الإثنين 6 سبتمبر وحتى 12 سبتمر 2021
-                اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+
+يمكن الاطلاع على تفصيل استكمال اجراءات التسجيل حسب المؤسسة 
+من خلال الرابط التالي:
+
+https://www.heac.gov.om/index.php/students-guide-book-2
+              
+اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
             )
             return [AllSlotsReset(), Restarted()]
 
