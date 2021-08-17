@@ -2309,9 +2309,9 @@ class ValidateLocalSchoolForm2(FormValidationAction):
             state = select_prefecture[int(slot_value) - 1]
             text = "اختر الولاية من القائمة" \
                    "\n"
-            for i in range(len(select_state)):
+            for i in range(len(state)):
                 try:
-                    text += f"{str(i + 1)}." + select_state[i + 1][0] + "\n"
+                    text += f"{str(i + 1)}. " + state[i + 1][0] + "\n"
                 except:
                     pass
             print(20*"#")
