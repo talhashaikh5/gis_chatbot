@@ -2314,7 +2314,9 @@ class ValidateLocalSchoolForm2(FormValidationAction):
                     text += f"{str(i + 1)}." + select_state[i + 1][0] + "\n"
                 except:
                     pass
-
+            print(20*"#")
+            print(text)
+            print(20 * "#")
             dispatcher.utter_message(
                 text=text + """اكتب "خروج" للخروج من المحادثة"""
             )
