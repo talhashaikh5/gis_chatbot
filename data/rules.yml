@@ -26,10 +26,27 @@ rules:
 - rule: local school form
   steps:
   - intent: local_school
+  - action: school_middleware_form
+  - active_loop: school_middleware_form
+
+- rule: deactivate school_middleware_form
+  condition:
+  - active_loop: school_middleware_form
+  steps:
+  - action: school_middleware_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_school_middleware_form
+
+
+- rule: local school form
+  steps:
   - action: local_school_form
   - active_loop: local_school_form
 
-- rule: deactivate local school form
+- rule: deactivate local_school_form
   condition:
   - active_loop: local_school_form
   steps:
@@ -40,6 +57,22 @@ rules:
       # The actions we want to run when the form is submitted.
   - action: action_submit_local_school_form
 
+
+- rule: local school form 2
+  steps:
+  - action: local_school_form_2
+  - active_loop: local_school_form_2
+
+- rule: deactivate local_school_form_2
+  condition:
+  - active_loop: local_school_form_2
+  steps:
+  - action: local_school_form_2
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_local_school_form_2
 
 
 - rule: deactivate search programform

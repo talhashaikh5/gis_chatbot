@@ -9,6 +9,7 @@ from rasa_sdk.types import DomainDict
 from . import private_college, public_college, omandisable, abroad_college
 from .direct_country import institute
 from .local_schools import *
+from .local_schools_2 import select_prefecture, select_state
 from .phone_otp import otp_validate
 from .school_code import *
 from .utils import convert_number
@@ -1304,13 +1305,14 @@ class AskForSubMenu(Action):
     1. مواعيد التسجيل 
     2. البرامج المطروحة 
     3. جامعات القبول المباشر
-    4. التواصل مع المؤسسات 
-    5. طلبة الدور الثاني 
-    6. طلبة الاعاقة
-    7. خريجي الشهادات الاجنبية 
-    8. خريجي الشهادات السعودية
-    9. خريجي الشهادات الامريكية
-    10. اسئلة عن التسجيل
+    4. مدارس التوطين / الامتياز
+    5. التواصل مع المؤسسات 
+    6. طلبة الدور الثاني 
+    7. طلبة الاعاقة
+    8. خريجي الشهادات الاجنبية 
+    9. خريجي الشهادات السعودية
+    10. خريجي الشهادات الامريكية
+    11. اسئلة عن التسجيل
     الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة"""
 
             )
@@ -1320,7 +1322,8 @@ class AskForSubMenu(Action):
 1. مواعيد تعديل الرغبات
 2. البرامج المقدمة
 3. جامعات القبول المباشر
-4. أسئلة حول تعديل الرغبات
+4. مدارس التوطين / الامتياز
+5. أسئلة حول تعديل الرغبات
 الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
                 """
             )
@@ -1396,7 +1399,7 @@ class ActionSubmitMainMenuForm(Action):
 
         # 1 new options
         # Option 1.6
-        if main_menu_option == "1" and sub_menu_option == "5":
+        if main_menu_option == "1" and sub_menu_option == "6":
             dispatcher.utter_message(
                 text="""1: - يجب على جميع الطلاب التسجيل واختيار البرامج خلال الفترات المحددة للتسجيل - مهما كانت درجة الطالب في الاختبارات. 
 2: - لن يكون هناك فرصة لطلبة الجولة الثانية للتسجيل أو تعديل برامجهم بعد ظهور نتائج الجولة الثانية لطلبة دبلوم التربية العامة.
@@ -1411,7 +1414,7 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.7
-        if main_menu_option == "1" and sub_menu_option == "6":
+        if main_menu_option == "1" and sub_menu_option == "7":
             dispatcher.utter_message(
                 text="""يجب على الطلاب ذوي الإعاقة اختيار البرامج التي تناسب نوع إعاقتهم. على سبيل المثال:
 لا يجوز للطالب المصاب بإعاقة جسدية مثل الشلل في بعض الأطراف التقدم للبرامج التي تتطلب خلو المتقدم من جميع أنواع الإعاقات الجسدية ، لأنه يتعارض مع متطلبات هذه البرامج.
@@ -1422,7 +1425,7 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.8
-        if main_menu_option == "1" and sub_menu_option == "7":
+        if main_menu_option == "1" and sub_menu_option == "8":
             dispatcher.utter_message(
                 text="""1: - الطلاب العمانيون الحاصلون على معادل دبلوم التعليم العام من خارج السلطنة ، والطلاب الدارسين في مدارس المجتمع بالسلطنة يقومون بإدخال بياناتهم الشخصية في قبول النظام الإلكتروني من خلال الشاشة المخصصة: الطلاب العمانيون في الخارج أو الداخل السلطنة: حملة معادلة الشهادات دبلوم تعليم
 2: - عدم الدقة في إدخال البيانات يحرم الطالب من الحصول على المقعد المناسب
@@ -1437,7 +1440,7 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.9
-        if main_menu_option == "1" and sub_menu_option == "8":
+        if main_menu_option == "1" and sub_menu_option == "9":
             dispatcher.utter_message(
                 text="""1: - يجب على الطلاب العمانيين الحصول على شهادة ثانوية سعودية للحصول على معادلة وزارة التربية والتعليم في سلطنة عمان مما يتطلب من الطلاب الخضوع لاختبارات مركز التقييم الوطني (اختبار القدرات العامة واختبار التحصيل الأكاديمي للتخصصات العلمية) و ثم تزويد المركز بنتائج الاختبارات حتى يتمكن من التنافس على برامج مؤسسات التعليم العالي والمنح والمنح الداخلية والخارجية.
 2: - تؤخذ نتائج اختبار القدرات العامة (30٪) واختبار التحصيل الدراسي للتخصصات العلمية (40٪) في الاعتبار عند احتساب المعدل التنافسي ، بالإضافة إلى مجموع الدرجات للمواد الأكاديمية (12٪). وإجمالي درجات المواد المطلوبة للتخصص (18٪).
@@ -1454,7 +1457,7 @@ https://apps.heac.gov.om/Student/faces/Registration/RegistrationMenu.jspx
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.10
-        if main_menu_option == "1" and sub_menu_option == "9":
+        if main_menu_option == "1" and sub_menu_option == "10":
             dispatcher.utter_message(
                 text="""1: - يتعين عليهم إدخال بياناتهم في نظام القبول الإلكتروني من خلال الشاشة المخصصة.
 2: - عدم دقة إدخال البيانات يحرم الطالب من الحصول على المقعد المناسب.
@@ -1534,7 +1537,7 @@ https://www.heac.gov.om/index.php/students-guide-book-2
             return [AllSlotsReset(), Restarted()]
 
         # faq
-        if main_menu_option == "1" and sub_menu_option == "10":
+        if main_menu_option == "1" and sub_menu_option == "11":
             dispatcher.utter_message(
                 text="""اكتب مفردات البحث  (يجب ان تكون كلمة " تسجيل " من بينها)"""
             )
@@ -1577,7 +1580,7 @@ https://www.heac.gov.om/index.php/students-guide-book-2
                 اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
             )
             return [AllSlotsReset(), Restarted()]
-        if main_menu_option in ["1"] and sub_menu_option in ["4"]:
+        if main_menu_option in ["1"] and sub_menu_option in ["5"]:
             dispatcher.utter_message(
                 text=""" اكتب اسم المؤسسة التعليمية
                 اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
@@ -1597,8 +1600,8 @@ https://www.heac.gov.om/index.php/students-guide-book-2
             #          ":فئة الطلبة : غير اعاقة "
             # )
             return [AllSlotsReset(), Restarted(), FollowupAction("direct_entry_program_form")]
-        # if main_menu_option in ["1", "2"] and sub_menu_option == "4":
-        #     return [AllSlotsReset(), FollowupAction("local_school_form")]
+        if main_menu_option in ["1", "2"] and sub_menu_option == "4":
+            return [AllSlotsReset(), FollowupAction("school_middleware_form")]
 
         # Desired Options:
         if main_menu_option == "6" and sub_menu_option == "2":
@@ -2547,3 +2550,124 @@ class AskForMainMenu(Action):
 7.  مؤشرات واحصاءات
 8. اخرى""")
         return []
+
+
+class ValidateSchoolMiddlewareForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_school_middleware_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["select_school"]
+
+    def validate_select_school(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        if slot_value in ["1", "2"]:
+            return {
+                "select_school": slot_value
+            }
+        return {
+            "select_school": None
+        }
+
+
+class ActionSubmitSchoolMiddlewareForm(Action):
+    def name(self) -> Text:
+        return "action_submit_school_middleware_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if tracker.get_slot("select_country") == "1":
+            return [AllSlotsReset(), Restarted(), FollowupAction("local_school_form")]
+        else:
+            return [AllSlotsReset(), Restarted(), FollowupAction("local_school_form_2")]
+
+
+class ValidateLocalSchoolForm2(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_local_school_form_2"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["select_prefecture", "select_state"]
+
+    def validate_select_prefecture(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        if slot_value in ["1", "2", "3", "4"]:
+            print(slot_value)
+            state = select_prefecture[int(slot_value) - 1]
+            text = "اختر الولاية من القائمة" \
+                   "\n"
+            for i in range(len(select_state)):
+                try:
+                    text += f"{str(i + 1)}." + select_state[i + 1][0] + "\n"
+                except:
+                    pass
+
+            dispatcher.utter_message(
+                text=text + """اكتب "خروج" للخروج من المحادثة"""
+            )
+
+            return {"select_prefecture": slot_value}
+        return {"select_prefecture": None}
+
+
+    async def validate_select_state(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        if slot_value.lower() == "0":
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index('select_state') - 1]
+            return {
+                last_slot: None,
+                "select_state": None
+            }
+        if slot_value in ["1", "2", "3"]:
+            return {"select_state": slot_value}
+
+
+class ActionSubmitLocalSchoolForm2(Action):
+    def name(self) -> Text:
+        return "action_submit_local_school_form_2"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(
+            text=select_state[
+                     int(tracker.get_slot("select_prefecture")) - 1
+                     ][
+                     int(tracker.get_slot("select_state"))
+                 ][1] + """\nاكتب "1 للرجوع إلى القائمة الرئيسية أو اكتب" خروج للخروج من المحادثة"""
+        )
+        return [AllSlotsReset(), Restarted()]
