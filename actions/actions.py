@@ -1451,7 +1451,7 @@ class ActionSubmitMainMenuForm(Action):
                 response="utter_registration_question"
             )
             return [AllSlotsReset(), Restarted()]
-        if main_menu_option == "2" and sub_menu_option == "4":
+        if main_menu_option == "2" and sub_menu_option == "5":
             dispatcher.utter_message(
                 response="utter_modify_desire_question"
             )
