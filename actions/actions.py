@@ -2306,7 +2306,7 @@ class ValidateLocalSchoolForm2(FormValidationAction):
         slot_value = convert_number(slot_value)
         if slot_value in ["1", "2", "3", "4"]:
             print(slot_value)
-            state = select_prefecture[int(slot_value) - 1]
+            state = select_state[int(slot_value) - 1]
             text = "اختر الولاية من القائمة" \
                    "\n"
             for i in range(len(state)):
