@@ -89,6 +89,11 @@ slots:
     initial_value: null
     auto_fill: false
     influence_conversation: false
+  test_by:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   seventh_main_menu:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -205,6 +210,11 @@ slots:
     auto_fill: false
     influence_conversation: false
   code_number:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  test_code_number:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
     auto_fill: true
@@ -402,6 +412,10 @@ responses:
   utter_please_rephrase:
   - text: أنا آسف ، لم أفهم ذلك تمامًا. هل يمكنك إعادة الصياغة؟
   utter_ask_code_number:
+  - text: |-
+      اكتب رمز البرنامج
+      اكتب "خروج" للخروج من المحادثة
+  utter_ask_test_code_number:
   - text: |-
       اكتب رمز البرنامج
       اكتب "خروج" للخروج من المحادثة
@@ -1176,6 +1190,8 @@ responses:
 
       https://www.heac.gov.om/index.php/students-guide-book-2
 
+      1. البحث عن المواعيد بواسطة رمز البرنامج
+
       اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة
   utter_second_screening_date:
   - text: |-
@@ -1487,17 +1503,21 @@ responses:
 actions:
 - validate_scholarship_availability_form
 - validate_search_program_code_form
+- validate_search_test_code_form
 - validate_local_school_form
 - validate_search_program_con_form
 - validate_main_menu_form
 - validate_seventh_menu_form
 - validate_select_program_by_form
+- validate_select_test_by_form
 - validate_humanhandoff_form
 - action_submit_humanhandoff_yesno_form
 - action_submit_select_program_by_form
+- action_submit_select_test_by_form
 - action_submit_search_program_con_form
 - action_submit_scholarship_availability_form
 - action_submit_search_program_code_form
+- action_submit_search_test_code_form
 - action_submit_local_school_form
 - action_ask_select_oman_public_college
 - action_ask_select_oman_private_college
@@ -1541,6 +1561,11 @@ forms:
   search_program_code_form:
     required_slots:
       code_number:
+      - not_intent: exit
+        type: from_text
+  search_test_code_form:
+    required_slots:
+      test_code_number:
       - not_intent: exit
         type: from_text
   search_program_con_form:
@@ -1612,6 +1637,11 @@ forms:
   select_program_by_form:
     required_slots:
       program_by:
+      - type: from_text
+        not_intent: exit
+  select_test_by_form:
+    required_slots:
+      test_by:
       - type: from_text
         not_intent: exit
   direct_entry_program_form:

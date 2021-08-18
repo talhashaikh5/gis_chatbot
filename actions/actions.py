@@ -11,6 +11,8 @@ from .direct_country import institute
 from .local_schools import *
 from .phone_otp import otp_validate
 from .school_code import *
+from .test_code import *
+
 from .utils import convert_number
 
 senders_maintain = {}
@@ -54,6 +56,46 @@ class ActionSubmitSearchProgramCode(Action):
             response="utter_invalid_code"
         )
         return [AllSlotsReset(), Restarted(), FollowupAction('search_program_code_form')]
+
+class ValidateSearchTestCode(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_search_test_code_form"
+
+    def validate_test_code_number(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate region value."""
+        slot_value = convert_number(slot_value)
+
+        return {"test_code_number": slot_value}
+
+
+class ActionSubmitSearchTestCode(Action):
+    def name(self) -> Text:
+        return "action_submit_search_test_code_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        code_from_user = tracker.get_slot('test_code_number').lower()
+        a = """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي واسم 
+        المؤسسة ورمز البرنامج لعرض الوصف 
+        https://apps.heac.gov.om:888/SearchEngine/faces/programsearchengine.jsf """
+        b = """اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+        for program in test_codes:
+            if program["code"].lower() == code_from_user:
+                dispatcher.utter_message(
+                    text=program["details"] + "\n \n " + a + " \n \n" + b
+                )
+                return [AllSlotsReset(), Restarted()]
+        dispatcher.utter_message(
+            response="utter_invalid_code"
+        )
+        return [AllSlotsReset(), Restarted(), FollowupAction('search_test_code_form')]
 
 
 class ValidateLocalSchoo(FormValidationAction):
@@ -1396,6 +1438,7 @@ class ActionSubmitMainMenuForm(Action):
                 dispatcher.utter_message(
                     response="utter_test_date"
                 )
+                return [AllSlotsReset(), Restarted(), FollowupAction('select_test_by_form')]
             elif main_menu_option == "4":
                 dispatcher.utter_message(
                     response="utter_first_screening_date"
@@ -1823,6 +1866,54 @@ class ActionSubmitSelectProgramByFrom(Action):
             return [AllSlotsReset(), FollowupAction("search_program_code_form")]
         else:
             return [AllSlotsReset(), FollowupAction("search_program_con_form")]
+
+class ValidateSelectTestByForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_select_test_by_form"
+
+    # async def required_slots(
+    #         self,
+    #         slots_mapped_in_domain: List[Text],
+    #         dispatcher: "CollectingDispatcher",
+    #         tracker: "Tracker",
+    #         domain: "DomainDict",
+    # ) -> List[Text]:
+    #     return ["test_by"]
+
+    def validate_test_by(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        if slot_value in ["1"]:
+            return {
+                "test_by": slot_value
+            }
+        return {
+            "test_by": None
+        }
+
+
+class ActionSubmitSelectTestByFrom(Action):
+
+    def name(self) -> Text:
+        return "action_submit_select_test_by_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        if tracker.get_slot("test_by") == "1":
+            dispatcher.utter_message(
+           text= "البحث عن المواعيد بواسطة رمز البرنامج")
+            return [AllSlotsReset(), FollowupAction("search_test_code_form")]
+        # else:
+        #     return [AllSlotsReset(), FollowupAction("select_test_by_form")]
+
+
 
 
 class ActionPDF(Action):

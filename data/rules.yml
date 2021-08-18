@@ -53,6 +53,29 @@ rules:
       # The actions we want to run when the form is submitted.
   - action: action_submit_search_program_code_form
 
+- rule: deactivate search testform
+  condition:
+  - active_loop: search_test_code_form
+  steps:
+  - action: search_test_code_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_search_test_code_form
+
+- rule: deactivate search testform
+  condition:
+  - active_loop: select_test_by_form
+  steps:
+  - action: select_test_by_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_select_test_by_form
+
+
 - rule: deactivate search program country form
   condition:
   - active_loop: search_program_con_form
@@ -113,6 +136,7 @@ rules:
       - requested_slot: null
       # The actions we want to run when the form is submitted.
   - action: action_submit_select_program_by_form
+
 
 - rule: pdf
   steps:
