@@ -1927,8 +1927,8 @@ class ActionSubmitSelectTestByFrom(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         if tracker.get_slot("test_by") == "1":
-            dispatcher.utter_message(
-           text= "البحث عن المواعيد بواسطة رمز البرنامج")
+        #     dispatcher.utter_message(
+        #    text= "البحث عن المواعيد بواسطة رمز البرنامج")
             return [AllSlotsReset(), FollowupAction("search_test_code_form")]
         # else:
         #     return [AllSlotsReset(), FollowupAction("select_test_by_form")]

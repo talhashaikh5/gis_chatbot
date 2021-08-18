@@ -438,7 +438,7 @@ responses:
       اكتب "خروج" للخروج من المحادثة
   utter_ask_test_code_number:
   - text: |-
-      اكتب رمز البرنامج
+      البحث عن المواعيد بواسطة رمز البرنامج
       اكتب "خروج" للخروج من المحادثة
   utter_cheer_up:
   - image: https://i.imgur.com/nGF1K8f.jpg
