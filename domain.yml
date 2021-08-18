@@ -49,6 +49,21 @@ intents:
     use_entities: false
 
 slots:
+  select_prefecture:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
+  select_state:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
+  select_school:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: false
+    influence_conversation: false
   humanhandoff_yesno:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -241,6 +256,12 @@ slots:
     auto_fill: true
     influence_conversation: false
 responses:
+  utter_ask_select_school:
+  - text: |-
+      الرجاء التحديد من الخيارات أدناه:
+      1. مدارس التوطين
+      2. مناطق الإمتياز
+      اكتب "خروج" للخروج من المحادثة
   utter_ask_humanhandoff_yesno:
   - text: |-
       هل ترغب في التحدث مع وكيل بشري؟
@@ -1043,6 +1064,14 @@ responses:
         1. ابحث عن البرامج الدراسية حسب كود البرنامج
         2. البحث عن البرامج الدراسية حسب الدولة / المؤسسة التعليمية / التخصص
       اكتب "خروج" للخروج من المحادثة
+  utter_ask_select_prefecture:
+    - text: |-
+        الرجاء التحديد مما يلي
+        1. الداخلية
+        2. الظاهرة
+        3. ظفار
+        4. الوسطى
+        اكتب 'خروج' للخروج من المحادثة
   utter_first_screening_date:
   - text: |-
       علان نتائج الفرز الاول يوم الاحد 5 سبتمبر 2021
@@ -1497,7 +1526,6 @@ responses:
       1. حسب مكان الدراسة
       2. حسب المؤهل الأكاديمي
       3. حسب التخصص
-
       اكتب "خروج" للخروج من المحادثة ، واكتب "0" للعودة إلى الخيار السابق
    
 actions:
@@ -1505,12 +1533,14 @@ actions:
 - validate_search_program_code_form
 - validate_search_test_code_form
 - validate_local_school_form
+- validate_local_school_form_2
 - validate_search_program_con_form
 - validate_main_menu_form
 - validate_seventh_menu_form
 - validate_select_program_by_form
 - validate_select_test_by_form
 - validate_humanhandoff_form
+- validate_school_middleware_form
 - action_submit_humanhandoff_yesno_form
 - action_submit_select_program_by_form
 - action_submit_select_test_by_form
@@ -1519,6 +1549,10 @@ actions:
 - action_submit_search_program_code_form
 - action_submit_search_test_code_form
 - action_submit_local_school_form
+- action_submit_local_school_form_2
+- action_submit_school_middleware_form
+- utter_ask_select_prefecture
+#- action_ask_select_state
 - action_ask_select_oman_public_college
 - action_ask_select_oman_private_college
 - action_ask_select_oman_stream
@@ -1615,6 +1649,11 @@ forms:
       select_study_stream:
       - not_intent: exit
         type: from_text
+  school_middleware_form:
+    required_slots:
+      select_school:
+        - not_intent: exit
+          type: from_text
   local_school_form:
     required_slots:
       city_list:
@@ -1623,6 +1662,14 @@ forms:
       wilaya_list:
       - not_intent: exit
         type: from_text
+  local_school_form_2:
+    required_slots:
+      select_prefecture:
+        - not_intent: exit
+          type: from_text
+      select_state:
+        - not_intent: exit
+          type: from_text
   seventh_menu_form:
     required_slots:
       seventh_main_menu:

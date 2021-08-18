@@ -9,6 +9,7 @@ from rasa_sdk.types import DomainDict
 from . import private_college, public_college, omandisable, abroad_college
 from .direct_country import institute
 from .local_schools import *
+from .local_schools_2 import select_prefecture, select_state
 from .phone_otp import otp_validate
 from .school_code import *
 from .test_code import *
@@ -1335,12 +1336,31 @@ class AskForSubMenu(Action):
         main_menu_option = tracker.get_slot("main_menu")
         if main_menu_option == "1":
             dispatcher.utter_message(
-                response="utter_choose_registration"
+                text="""اختر واحد من ما يلي
+    1. مواعيد التسجيل 
+    2. البرامج المطروحة 
+    3. جامعات القبول المباشر
+    4. مدارس التوطين / الامتياز
+    5. التواصل مع المؤسسات 
+    6. طلبة الدور الثاني 
+    7. طلبة الاعاقة
+    8. خريجي الشهادات الاجنبية 
+    9. خريجي الشهادات السعودية
+    10. خريجي الشهادات الامريكية
+    11. اسئلة عن التسجيل
+    الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة"""
 
             )
         elif main_menu_option == "2":
             dispatcher.utter_message(
-                response="utter_choose_desire_modify"
+                text="""الرجاء الاختيار من القائمة الفرعية أدناه
+1. مواعيد تعديل الرغبات
+2. البرامج المقدمة
+3. جامعات القبول المباشر
+4. مدارس التوطين / الامتياز
+5. أسئلة حول تعديل الرغبات
+الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة
+                """
             )
         elif main_menu_option == "3":
             dispatcher.utter_message(
@@ -1389,14 +1409,14 @@ class ActionSubmitMainMenuForm(Action):
 
         # 1 new options
         # Option 1.6
-        if main_menu_option == "1" and sub_menu_option == "5":
+        if main_menu_option == "1" and sub_menu_option == "6":
             dispatcher.utter_message(
                 response="utter_secound_round_student"
             )
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.7
-        if main_menu_option == "1" and sub_menu_option == "6":
+        if main_menu_option == "1" and sub_menu_option == "7":
             dispatcher.utter_message(
                 response="utter_student_with_disability"
 
@@ -1404,21 +1424,21 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.8
-        if main_menu_option == "1" and sub_menu_option == "7":
+        if main_menu_option == "1" and sub_menu_option == "8":
             dispatcher.utter_message(
                 response="utter_foreign_graduate_certificate"
             )
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.9
-        if main_menu_option == "1" and sub_menu_option == "8":
+        if main_menu_option == "1" and sub_menu_option == "9":
             dispatcher.utter_message(
                 response="utter_saudi_graduate_certificate"
             )
             return [AllSlotsReset(), Restarted()]
 
         # Option 1.10
-        if main_menu_option == "1" and sub_menu_option == "9":
+        if main_menu_option == "1" and sub_menu_option == "10":
             dispatcher.utter_message(
                 response="utter_american_graduate_certificate"            )
             return [AllSlotsReset(), Restarted()]
@@ -1469,12 +1489,12 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
 
         # faq
-        if main_menu_option == "1" and sub_menu_option == "10":
+        if main_menu_option == "1" and sub_menu_option == "11":
             dispatcher.utter_message(
                 response="utter_registration_question"
             )
             return [AllSlotsReset(), Restarted()]
-        if main_menu_option == "2" and sub_menu_option == "4":
+        if main_menu_option == "2" and sub_menu_option == "5":
             dispatcher.utter_message(
                 response="utter_modify_desire_question"
             )
@@ -1511,7 +1531,7 @@ class ActionSubmitMainMenuForm(Action):
                 response="utter_communicate_institue"
             )
             return [AllSlotsReset(), Restarted()]
-        if main_menu_option in ["1"] and sub_menu_option in ["4"]:
+        if main_menu_option in ["1"] and sub_menu_option in ["5"]:
             dispatcher.utter_message(
                 response="utter_communicate_institue"
             )
@@ -1529,8 +1549,8 @@ class ActionSubmitMainMenuForm(Action):
             #          ":فئة الطلبة : غير اعاقة "
             # )
             return [AllSlotsReset(), Restarted(), FollowupAction("direct_entry_program_form")]
-        # if main_menu_option in ["1", "2"] and sub_menu_option == "4":
-        #     return [AllSlotsReset(), FollowupAction("local_school_form")]
+        if main_menu_option in ["1", "2"] and sub_menu_option == "4":
+            return [AllSlotsReset(), FollowupAction("school_middleware_form")]
 
         # Desired Options:
         if main_menu_option == "6" and sub_menu_option == "2":
@@ -2309,3 +2329,126 @@ class AskForMainMenu(Action):
     ) -> List[EventType]:
         dispatcher.utter_message(response="utter_main_menu_greets")
         return []
+
+
+class ValidateSchoolMiddlewareForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_school_middleware_form"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["select_school"]
+
+    def validate_select_school(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        if slot_value in ["1", "2"]:
+            return {
+                "select_school": slot_value
+            }
+        return {
+            "select_school": None
+        }
+
+
+class ActionSubmitSchoolMiddlewareForm(Action):
+    def name(self) -> Text:
+        return "action_submit_school_middleware_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        if tracker.get_slot("select_country") == "1":
+            return [AllSlotsReset(), Restarted(), FollowupAction("local_school_form")]
+        else:
+            return [AllSlotsReset(), Restarted(), FollowupAction("local_school_form_2")]
+
+
+class ValidateLocalSchoolForm2(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_local_school_form_2"
+
+    async def required_slots(
+            self,
+            slots_mapped_in_domain: List[Text],
+            dispatcher: "CollectingDispatcher",
+            tracker: "Tracker",
+            domain: "DomainDict",
+    ) -> List[Text]:
+        return ["select_prefecture", "select_state"]
+
+    def validate_select_prefecture(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        if slot_value in ["1", "2", "3", "4"]:
+            print(slot_value)
+            state = select_state[int(slot_value) - 1]
+            text = "اختر الولاية من القائمة" \
+                   "\n"
+            for i in range(len(state)):
+                try:
+                    text += f"{str(i + 1)}. " + state[i + 1][0] + "\n"
+                except:
+                    pass
+            print(20*"#")
+            print(text)
+            print(20 * "#")
+            dispatcher.utter_message(
+                text=text + """اكتب "خروج" للخروج من المحادثة"""
+            )
+
+            return {"select_prefecture": slot_value}
+        return {"select_prefecture": None}
+
+
+    async def validate_select_state(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict
+    ) -> Dict[Text, Any]:
+        slot_value = convert_number(slot_value)
+        if slot_value.lower() == "0":
+            req_s = await self.required_slots(
+                self.slots_mapped_in_domain(domain), dispatcher, tracker, domain
+            )
+            last_slot = req_s[req_s.index('select_state') - 1]
+            return {
+                last_slot: None,
+                "select_state": None
+            }
+        if slot_value in ["1", "2", "3"]:
+            return {"select_state": slot_value}
+
+
+class ActionSubmitLocalSchoolForm2(Action):
+    def name(self) -> Text:
+        return "action_submit_local_school_form_2"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        dispatcher.utter_message(
+            text=select_state[
+                     int(tracker.get_slot("select_prefecture")) - 1
+                     ][
+                     int(tracker.get_slot("select_state"))
+                 ][1] + """\nاكتب "1 للرجوع إلى القائمة الرئيسية أو اكتب" خروج للخروج من المحادثة"""
+        )
+        return [AllSlotsReset(), Restarted()]
