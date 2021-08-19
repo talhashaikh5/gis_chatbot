@@ -1626,7 +1626,7 @@ class ActionExit(Action):
         print(20 * "-")
 
         dispatcher.utter_message(
-            text="utter_exit"
+            response="utter_exit"
         )
         return [Restarted()]
 
