@@ -2368,7 +2368,7 @@ class ActionSubmitSchoolMiddlewareForm(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        if tracker.get_slot("select_country") == "1":
+        if tracker.get_slot("select_country") == "1" or tracker.get_slot("select_school") == "1":
             return [AllSlotsReset(), Restarted(), FollowupAction("local_school_form")]
         else:
             return [AllSlotsReset(), Restarted(), FollowupAction("local_school_form_2")]
