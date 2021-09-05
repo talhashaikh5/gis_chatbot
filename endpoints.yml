@@ -13,6 +13,21 @@
 action_endpoint:
   url: "http://localhost:5055/webhook"
 
+tracker_store:
+  type: mongod
+  url: mongodb://admin:Zsd#fdc^fgT@10.8.46.185:27017,10.8.46.184:27017,10.8.46.183:27017/rasacentral?replicaSet=happy&authSource=admin
+  db: rasacentral
+  collection: rasa
+  username: admin
+  password: Zsd#fdc^fgT
+
+lock_store:
+  type: "redis"
+  url: redis://10.8.36.166
+  port: 6379
+  db: 80
+  key_prefix: db80
+
 # Tracker store which is used to store the conversations.
 # By default the conversations are stored in memory.
 # https://rasa.com/docs/rasa/tracker-stores
