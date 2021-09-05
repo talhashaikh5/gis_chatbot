@@ -2183,6 +2183,7 @@ class ActionSubmitOfferForm(Action):
             )
             return [AllSlotsReset(), Restarted()]
         else:
+            print("else----",response.json()['ArabicName'])
             return [
                 AllSlotsReset(), Restarted(),
                 SlotSet(key="name", value=response.json()['ArabicName']),
