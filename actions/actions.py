@@ -10,6 +10,7 @@ from . import private_college, public_college, omandisable, abroad_college
 from .direct_country import institute
 from .local_schools import *
 from .local_schools_2 import select_prefecture, select_state
+from .otp_push_pull import push_otp, pull_otp
 from .phone_otp import otp_validate
 from .school_code import *
 from .test_code import *
@@ -2128,7 +2129,8 @@ class AskForOtp(Action):
         payload = ""
         response = requests.request("GET", url, data=payload, params=querystring)
         if response.json()["success"]:
-            otp_validate[phone_number] = response.json()["otp"]
+            # otp_validate[phone_number] = response.json()["otp"]
+            push_otp(phone_number, response.json()["otp"])
             print(20*"==")
             print("OTP: ", response.json()["otp"])
             print("phone_number: ", phone_number)
@@ -2157,7 +2159,12 @@ class ActionSubmitOfferForm(Action):
         civil_number = tracker.get_slot("civil_number")
         if tracker.get_latest_input_channel().lower() == "web":
             phone_number = tracker.get_slot("phone_number")
-            if tracker.get_slot("otp") == otp_validate[phone_number]:
+            try:
+                otp = pull_otp(phone_number)
+            except:
+                otp = "0000"
+            # if tracker.get_slot("otp") == otp_validate[phone_number]:
+            if tracker.get_slot("otp") == otp:
                 pass
             else:
                 dispatcher.utter_message(

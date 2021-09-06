@@ -22,10 +22,10 @@ tracker_store:
   password: Zsd#fdc^fgT
 
 lock_store:
-  type: "redis"
-  url: redis://10.8.36.166
+  type: redis
+  url: 10.8.36.166
   port: 6379
-  db: 80
+  db: 1
   key_prefix: db80
 
 # Tracker store which is used to store the conversations.
