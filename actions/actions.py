@@ -2119,7 +2119,7 @@ class AskForOtp(Action):
             phone_number = tracker.sender_id[2:]
         main_menu_option = tracker.get_slot("main_menu")
 
-        url = "http://2.56.215.239:3010/api/student/checkAvailability"
+        url = "https://mohe.omantel.om/moheapp/api/student/checkAvailability"
 
         if tracker.get_latest_input_channel().lower() == "web":
             querystring = {"civil": civil_number, "mobileNumber": phone_number, "web": "1"}
@@ -2175,7 +2175,7 @@ class ActionSubmitOfferForm(Action):
             phone_number = tracker.sender_id[2:]
         main_menu_option = tracker.get_slot("main_menu")
 
-        url = "http://2.56.215.239:3010/api/student/checkAvailability/duplicate"
+        url = "https://mohe.omantel.om/moheapp/api/student/checkAvailability/duplicate"
 
         if tracker.get_latest_input_channel().lower() == "web":
             querystring = {"civil": civil_number, "mobileNumber": phone_number, "web": "1"}
@@ -2190,7 +2190,7 @@ class ActionSubmitOfferForm(Action):
             )
             return [AllSlotsReset(), Restarted()]
         else:
-            print("else----",response.json()['ArabicName'])
+            print("else----", response.json()['ArabicName'])
             return [
                 AllSlotsReset(), Restarted(),
                 SlotSet(key="name", value=response.json()['ArabicName']),
@@ -2243,8 +2243,14 @@ class ActionSubmitOfferYesNoForm(Action):
         civil_number = tracker.get_slot("civil_number")
         phone_number = tracker.sender_id[2:]
         main_menu_option = tracker.get_slot("main_menu")
+        if main_menu_option == "4":
+            main_menu_option = "1"
+        elif main_menu_option == "5":
+            main_menu_option = "2"
+        else:
+            main_menu_option = tracker.get_slot("main_menu")
         if tracker.get_slot('offer_yesno') == '1':
-            url = "http://2.56.215.239:3010/api/student/getOffer"
+            url = "https://mohe.omantel.om/moheapp/api/student/getOffer"
             querystring = {"civil": civil_number, "type": main_menu_option}
             payload = ""
             response = requests.request("GET", url, data=payload, params=querystring)
