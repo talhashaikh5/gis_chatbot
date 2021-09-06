@@ -8,8 +8,10 @@ def push_otp(phone_number, otp):
     myclient = pymongo.MongoClient(mongo_uri)
     mydb = myclient["rasacentral"]
     mycol = mydb["otp"]
-    mydict = {"phone_number": phone_number, "otp": otp}
-    x = mycol.insert_one(mydict)
+    # mydict = {"phone_number": phone_number, "otp": otp}
+    myquery = {"phone_number": phone_number}
+    newvalues = {"$set": {"otp": otp}}
+    mycol.update_one(myquery, newvalues, upsert=True)
 
 
 def pull_otp(phone_number):
@@ -22,5 +24,5 @@ def pull_otp(phone_number):
 
 
 if __name__ == '__main__':
-    push_otp("9168810003", "00111")
-    print(pull_otp("9168810003"))
+    push_otp("9168810003", "123456")
+    # print(pull_otp("9168810003"))
