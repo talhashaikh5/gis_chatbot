@@ -15,15 +15,13 @@ action_endpoint:
 
 tracker_store:
   type: mongod
-  url: mongodb://admin:Zsd#fdc^fgT@10.8.46.185:27017,10.8.46.184:27017,10.8.46.183:27017/rasacentral?replicaSet=happy&authSource=admin
+  url: mongodb://localhost:27017/rasacentral
   db: rasacentral
   collection: rasa
-  username: admin
-  password: Zsd#fdc^fgT
 
 lock_store:
   type: redis
-  url: 10.8.36.166
+  url: 127.0.0.1
   port: 6379
   db: 1
   key_prefix: db80
