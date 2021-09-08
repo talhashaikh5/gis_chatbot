@@ -44,6 +44,63 @@ class ActionSubmitSearchProgramCode(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         code_from_user = tracker.get_slot('code_number').lower()
+        a = """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي واسم 
+        المؤسسة ورمز البرنامج لعرض الوصف 
+        https://apps.heac.gov.om:888/SearchEngine/faces/programsearchengine.jsf """
+        b = """اكتب 1 للعودة إلى القائمة الرئيسية ، أو اكتب "خروج" للخروج من المحادثة"""
+        for program in school_codes:
+            if program["code"].lower() == code_from_user:
+                dispatcher.utter_message(
+                    text=program["details"] + "\n \n " + a + " \n \n" + b
+                )
+                return [AllSlotsReset(), Restarted()]
+        dispatcher.utter_message(
+            response="utter_invalid_code"
+        )
+
+        # url = "http://2.56.215.239:3010/api/student/getCutOff"
+        # querystring = {"programCode": code_from_user}
+        # payload = ""
+        # response = requests.request("GET", url, data=payload, params=querystring)
+        # if not response.json()['success']:
+        #     dispatcher.utter_message(
+        #     response="utter_invalid_code"
+        #     )
+        #     return [AllSlotsReset(), Restarted(), FollowupAction('search_program_code_form')]
+        # else:
+        #     dispatcher.utter_message(
+        #         text= response.json()['ar_message'] + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
+        #     )
+        #     return [
+        #         AllSlotsReset(), Restarted()
+        #     ]
+        return [AllSlotsReset(), Restarted(), FollowupAction('search_program_code_form')]
+
+class ValidateProgramCutoff(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_programcode_cutoff_form"
+
+    def validate_code_number(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        """Validate region value."""
+        slot_value = convert_number(slot_value)
+
+        return {"code_number": slot_value}
+
+
+class ActionSubmitProgramCutoff(Action):
+    def name(self) -> Text:
+        return "action_submit_programcode_cutoff_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        code_from_user = tracker.get_slot('code_number').lower()
 #        a = """ويمكن الاطلاع على وصف البرنامج من خلال الرابط التالي مع مراعاة الترتيب عن اختيار المجال المعرفي واسم 
 #        المؤسسة ورمز البرنامج لعرض الوصف 
 #        https://apps.heac.gov.om:888/SearchEngine/faces/programsearchengine.jsf """
@@ -66,7 +123,7 @@ class ActionSubmitSearchProgramCode(Action):
             dispatcher.utter_message(
             response="utter_invalid_code"
             )
-            return [AllSlotsReset(), Restarted(), FollowupAction('search_program_code_form')]
+            return [AllSlotsReset(), Restarted(), FollowupAction('programcode_cutoff_form')]
         else:
             dispatcher.utter_message(
                 text= response.json()['ar_message'] + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
@@ -75,6 +132,7 @@ class ActionSubmitSearchProgramCode(Action):
                 AllSlotsReset(), Restarted()
             ]
 #        return [AllSlotsReset(), Restarted(), FollowupAction('search_program_code_form')]
+
 
 class ValidateSearchTestCode(FormValidationAction):
     def name(self) -> Text:
@@ -1465,7 +1523,7 @@ class ActionSubmitMainMenuForm(Action):
         if sub_menu_option == "1":
             if main_menu_option == "1":
                 dispatcher.utter_message(
-                    responsee="utter_registration_date"
+                    response="utter_registration_date"
 
                 )
             elif main_menu_option == "2":
@@ -1496,8 +1554,12 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), FollowupAction("select_program_by_form")]
 
         # Linking SEARCH programs COde
-        if main_menu_option in ["4", "5"] and sub_menu_option == "3":
+        if main_menu_option == "5" and sub_menu_option == "3":
             return [AllSlotsReset(), FollowupAction("search_program_code_form")]
+ 
+        # Linking cutoffmark for first sort
+        if main_menu_option == "4" and sub_menu_option == "3":
+            return [AllSlotsReset(), FollowupAction("programcode_cutoff_form")]
 
         # result
         if main_menu_option in ["4", "5"] and sub_menu_option == "4":
@@ -2133,7 +2195,7 @@ class AskForOtp(Action):
         if tracker.get_latest_input_channel().lower() == "web":
             phone_number = tracker.get_slot("phone_number")
         else:
-            phone_number = tracker.sender_id[2:]
+            phone_number = tracker.sender_id[3:]
         main_menu_option = tracker.get_slot("main_menu")
 
         url = "http://2.56.215.239:3010/api/student/checkAvailability"
@@ -2189,7 +2251,7 @@ class ActionSubmitOfferForm(Action):
                 )
                 return [AllSlotsReset(), Restarted()]
         else:
-            phone_number = tracker.sender_id[2:]
+            phone_number = tracker.sender_id[3:]
         main_menu_option = tracker.get_slot("main_menu")
 
         url = "http://2.56.215.239:3010/api/student/checkAvailability/duplicate"

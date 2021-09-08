@@ -86,6 +86,17 @@ rules:
       # The actions we want to run when the form is submitted.
   - action: action_submit_search_program_code_form
 
+- rule: deactivate programform cutoff
+  condition:
+  - active_loop: programcode_cutoff_form
+  steps:
+  - action: programcode_cutoff_form
+  - active_loop: null
+  - slot_was_set:
+      - requested_slot: null
+      # The actions we want to run when the form is submitted.
+  - action: action_submit_programcode_cutoff_form
+
 - rule: deactivate search testform
   condition:
   - active_loop: search_test_code_form

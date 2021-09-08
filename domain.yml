@@ -278,7 +278,7 @@ responses:
       اكتب '0' للعودة إلى الخيار السابق و 'خروج' للخروج من المحادثة
   utter_ask_offer_yesno:
   - text: |-
-      مرحبًا {name} هل ترغب في الحصول على عرض؟
+      مرحبًا {name} انقر نعم لمعرفة البرنامج المعروض أو انقر لا للخروج من القائمة
       1. نعم
       2. لا  
       اكتب "خروج" للخروج من المحادثة
@@ -1675,6 +1675,7 @@ responses:
 actions:
 - validate_scholarship_availability_form
 - validate_search_program_code_form
+- validate_programcode_cutoff_form
 - validate_search_test_code_form
 - validate_local_school_form
 - validate_local_school_form_2
@@ -1691,6 +1692,7 @@ actions:
 - action_submit_search_program_con_form
 - action_submit_scholarship_availability_form
 - action_submit_search_program_code_form
+- action_submit_programcode_cutoff_form
 - action_submit_search_test_code_form
 - action_submit_local_school_form
 - action_submit_local_school_form_2
@@ -1737,6 +1739,11 @@ forms:
       - not_intent: exit
         type: from_text
   search_program_code_form:
+    required_slots:
+      code_number:
+      - not_intent: exit
+        type: from_text
+  programcode_cutoff_form:
     required_slots:
       code_number:
       - not_intent: exit
