@@ -1591,7 +1591,7 @@ class ActionSubmitMainMenuForm(Action):
             return [AllSlotsReset(), Restarted()]
         if main_menu_option == "6" and sub_menu_option == "3":
             dispatcher.utter_message(
-                text="utter_support_question"
+                response="utter_support_question"
             )
             return [AllSlotsReset(), Restarted()]
         if main_menu_option in ["4"] and sub_menu_option == "2":
