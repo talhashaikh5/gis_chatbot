@@ -126,7 +126,8 @@ class ActionSubmitProgramCutoff(Action):
             return [AllSlotsReset(), Restarted(), FollowupAction('programcode_cutoff_form')]
         else:
             dispatcher.utter_message(
-                text= response.json()['ar_message'] + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
+                text= response.json()['link']
+                #  + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
             )
             return [
                 AllSlotsReset(), Restarted()
