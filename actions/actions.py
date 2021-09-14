@@ -1638,15 +1638,30 @@ class ActionSubmitMainMenuForm(Action):
             opt = tracker.get_slot("desired_service")
             if opt == "1":
                 dispatcher.utter_message(
-                    text="\nhttps://youtu.be/JG6NskPaDZk"
+                    text="""
+تقديم طلب استعادة مقعد دراسي
+https://youtu.be/JG6NskPaDZk
+
+تقديم طلب اساءة ترتيب الاختيار
+https://www.youtube.com/watch?v=AKOLmPZJhR4"""
                 )
             elif opt == "2":
                 dispatcher.utter_message(
-                    text="\nhttps://youtu.be/JG6NskPaDZk"
+                    text="""
+تقديم طلب استعادة مقعد دراسي
+https://youtu.be/JG6NskPaDZk
+
+تقديم طلب اساءة ترتيب الاختيار
+https://www.youtube.com/watch?v=AKOLmPZJhR4"""
                 )
             else:
                 dispatcher.utter_message(
-                    text="\nhttps://youtu.be/JG6NskPaDZk"
+                    text="""
+تقديم طلب استعادة مقعد دراسي
+https://youtu.be/JG6NskPaDZk
+
+تقديم طلب اساءة ترتيب الاختيار
+https://www.youtube.com/watch?v=AKOLmPZJhR4"""
                 )
 
             return [AllSlotsReset(), Restarted()]
