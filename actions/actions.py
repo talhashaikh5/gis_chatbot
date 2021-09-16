@@ -2042,19 +2042,19 @@ class ActionPDF(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         intent = tracker.latest_message["intent"].get("name")
         pdf_link = {
-            "1": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621921866/reunlmrmmsqhjllgj4fo.pdf",
-            "2": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621921866/reunlmrmmsqhjllgj4fo.pdf",
-            "3": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922181/lcwgzsekf5j3tcyyezle.pdf",
-            "4": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922221/e6fsh5nwvhgy4m1vnsw9.pdf",
-            "5": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922258/dw6dyheo9pxrhokn7bgb.pdf",
-            "6": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922308/ijzjyncmxsrlcbydzyz8.pdf",
-            "7": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922344/lo2smetpj2ls0pe1mnsk.pdf",
-            "8": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922374/qrfzib0bc1ecsj7aevss.pdf",
-            "9": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922440/zxwlu9b0okunawrmnefv.pdf",
-            "10": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922469/jvvxdsncacmn6oo2hf0b.pdf",
-            "11": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922507/mmqil5akqkjwnojcixvf.pdf",
-            "12": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922536/sgviromu79wjyw2lod1b.pdf",
-            "13": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922570/qret2nkxckjfjgqlgbrg.pdf"
+            "1": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631772905/mohe-faq/ukdqogvdhtpx0nil2hcc.pdf",
+            "2": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773059/mohe-faq/unazsokdwdbshcbhwajv.pdf",
+            "3": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773179/mohe-faq/i07ophg8pxnke8wgfvqv.pdf",
+            "4": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773354/mohe-faq/bxqfgkpuxxshphmf3xcn.pdf",
+            "5": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773471/mohe-faq/bjsxlucztxf9o2ecd2tw.pdf",
+            "6": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773543/mohe-faq/u9i96mgabn6ev2kofdnb.pdf",
+            "7": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773652/mohe-faq/ggwtxrpm55poorhhe6gq.pdf",
+            "8": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773745/mohe-faq/se37w2lwvozjtfbqeylv.pdf",
+            "9": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631773897/mohe-faq/twqnnwvvgz1its1n4gzp.pdf",
+            "10": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631774160/mohe-faq/v0vjyanrtl4t7mdohvik.pdf",
+            "11": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631774249/mohe-faq/vqxtlbsuj1vgj5enrm4q.pdf",
+            "12": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631774298/mohe-faq/sbk56wcuk4h7rgxdsmmh.pdf",
+            "13": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1631774370/mohe-faq/aphnx9gkeowe18ftgtni.pdf"
         }
         dispatcher.utter_message(
             text= pdf_link[intent[3:]]
