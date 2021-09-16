@@ -126,10 +126,8 @@ class ActionSubmitProgramCutoff(Action):
             return [AllSlotsReset(), Restarted(), FollowupAction('programcode_cutoff_form')]
         else:
             dispatcher.utter_message(
-                json_message={
-                "pdf":response.json()['link']
-            }
-                            #  + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
+                text= response.json()['link']
+                #  + "\n" + """اكتب "خروج" للخروج من المحادثة ، أو اكتب "1" للعودة إلى القائمة الرئيسية"""
             )
             return [
                 AllSlotsReset(), Restarted()
@@ -2059,9 +2057,7 @@ class ActionPDF(Action):
             "13": "http://res.cloudinary.com/dd7uuyovs/image/upload/v1621922570/qret2nkxckjfjgqlgbrg.pdf"
         }
         dispatcher.utter_message(
-            json_message={
-                "pdf": pdf_link[intent[3:]]
-            }
+            text= pdf_link[intent[3:]]
         )
 
         return [AllSlotsReset(), Restarted()]
