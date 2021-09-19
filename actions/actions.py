@@ -1693,12 +1693,12 @@ class ActionDefaultFallback(Action):
 
         if number_of_fallback == 1:
             senders_maintain["sender"] = 0
-            dispatcher.utter_message(
-                response="utter_default_fallback"
-            )
+            # dispatcher.utter_message(
+            #     response="utter_default_fallback"
+            # )
 
-            return [UserUtteranceReverted()]
-            # return [AllSlotsReset(), FollowupAction('humanhandoff_yesno_form')]
+            # return [UserUtteranceReverted()]
+            return [AllSlotsReset(), FollowupAction('humanhandoff_yesno_form')]
         else:
             dispatcher.utter_message(
                 response="utter_unidentified_input"
