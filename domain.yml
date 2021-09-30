@@ -229,6 +229,11 @@ slots:
     initial_value: null
     auto_fill: true
     influence_conversation: false
+  post_keyword:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
   test_code_number:
     type: rasa.shared.core.slots.TextSlot
     initial_value: null
@@ -492,6 +497,8 @@ responses:
   - text: |-
       أدخل رمز البرنامج
       اكتب "خروج" للخروج من المحادثة
+  utter_ask_post_keyword:
+  - text: Please Type Post Keyword
   utter_ask_test_code_number:
   - text: |-
       أدخل رمز البرنامج
@@ -1677,6 +1684,7 @@ responses:
 actions:
 - validate_scholarship_availability_form
 - validate_search_program_code_form
+- validate_post_scrapper_form
 - validate_programcode_cutoff_form
 - validate_search_test_code_form
 - validate_local_school_form
@@ -1694,6 +1702,7 @@ actions:
 - action_submit_search_program_con_form
 - action_submit_scholarship_availability_form
 - action_submit_search_program_code_form
+- action_submit_post_scrapper_form
 - action_submit_programcode_cutoff_form
 - action_submit_search_test_code_form
 - action_submit_local_school_form
@@ -1743,6 +1752,11 @@ forms:
   search_program_code_form:
     required_slots:
       code_number:
+      - not_intent: exit
+        type: from_text
+  post_scrapper_form:
+    required_slots:
+      post_keyword:
       - not_intent: exit
         type: from_text
   programcode_cutoff_form:

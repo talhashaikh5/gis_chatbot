@@ -14,10 +14,75 @@ from .otp_push_pull import push_otp, pull_otp
 from .phone_otp import otp_validate
 from .school_code import *
 from .test_code import *
+import json
 
 from .utils import convert_number
 
 senders_maintain = {}
+
+class ValidatePostScrapperForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_post_scrapper_form"
+
+    def validate_post_keyword(
+            self,
+            slot_value: Any,
+            dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict,
+    ) -> Dict[Text, Any]:
+        
+
+        return {"post_keyword": slot_value}
+
+class ActionSubmitPostScrapperForm(Action):
+    def name(self) -> Text:
+        return "action_submit_post_scrapper_form"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            keyword_from_user = tracker.get_slot('post_keyword')
+            # tweet = find_tweet(keyword_from_user)
+            tweets = []
+            file = json.load(open("/home/adutta/rasa_chatbot/gis_chatbot/actions/tweet.json",))
+            for json_file in file:
+                for key,value in json_file.items():
+                    tweets.append(value)
+            # print(tweets)
+            # with open("/home/adutta/rasa_chatbot/gis_chatbot/actions/tweet.txt") as file:
+            #     for line in file:
+            #         tweets.append(line.rstrip())
+            str_tweet = ""
+            matched_tweet = [tweet for tweet in tweets if keyword_from_user in tweet]
+
+            fbfeeds = []
+            file1 = json.load(open("/home/adutta/rasa_chatbot/gis_chatbot/actions/facebook.json",))
+            for json_file1 in file1:
+                for key,value in json_file1.items():
+                    fbfeeds.append(value)
+            # print(tweets)
+            # with open("/home/adutta/rasa_chatbot/gis_chatbot/actions/tweet.txt") as file:
+            #     for line in file:
+            #         tweets.append(line.rstrip())
+            str_feed = ""
+            matched_feed = [tweet for tweet in fbfeeds if keyword_from_user in tweet]
+
+            if str_tweet.join(matched_tweet) != "" and str_feed.join(matched_feed) == "":
+                dispatcher.utter_message(
+                    text=str_tweet.join(matched_tweet)
+                    )
+                return [AllSlotsReset(), Restarted()]
+            elif str_feed.join(matched_feed) != "" and str_tweet.join(matched_tweet) == "":
+                dispatcher.utter_message(
+                    text=str_feed.join(matched_feed)
+                    )
+                return [AllSlotsReset(), Restarted()]
+            else:
+                dispatcher.utter_message(
+                    text="Keyword donot match"
+                    )
+                return [AllSlotsReset(), Restarted(), FollowupAction('post_scrapper_form')]
 
 class ValidateSearchProgramCode(FormValidationAction):
     def name(self) -> Text:
@@ -1479,7 +1544,7 @@ class ActionSubmitMainMenuForm(Action):
             dispatcher.utter_message(
                 response="utter_other_option"
             )
-            return [AllSlotsReset(), Restarted()]
+            return [AllSlotsReset(), Restarted(), FollowupAction("post_scrapper_form")]
 
         if main_menu_option == "7":
             return [AllSlotsReset(), Restarted(), FollowupAction("seventh_menu_form")]
