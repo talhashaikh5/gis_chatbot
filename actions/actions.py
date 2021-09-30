@@ -45,7 +45,7 @@ class ActionSubmitPostScrapperForm(Action):
             keyword_from_user = tracker.get_slot('post_keyword')
             # tweet = find_tweet(keyword_from_user)
             tweets = []
-            file = json.load(open("/home/adutta/rasa_chatbot/gis_chatbot/actions/tweet.json",))
+            file = json.load(open("tweet.json",))
             for json_file in file:
                 for key,value in json_file.items():
                     tweets.append(value)
@@ -57,7 +57,7 @@ class ActionSubmitPostScrapperForm(Action):
             matched_tweet = [tweet for tweet in tweets if keyword_from_user in tweet]
 
             fbfeeds = []
-            file1 = json.load(open("/home/adutta/rasa_chatbot/gis_chatbot/actions/facebook.json",))
+            file1 = json.load(open("facebook.json",))
             for json_file1 in file1:
                 for key,value in json_file1.items():
                     fbfeeds.append(value)
