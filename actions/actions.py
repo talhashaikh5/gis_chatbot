@@ -45,7 +45,7 @@ class ActionSubmitPostScrapperForm(Action):
             keyword_from_user = tracker.get_slot('post_keyword')
             # tweet = find_tweet(keyword_from_user)
             tweets = []
-            file = json.load(open("tweet.json",))
+            file = json.load(open("/home/adutta/rasa_chatbot/gis_chatbot/actions/tweet.json",))
             for json_file in file:
                 for key,value in json_file.items():
                     tweets.append(value)
@@ -57,7 +57,7 @@ class ActionSubmitPostScrapperForm(Action):
             matched_tweet = [tweet for tweet in tweets if keyword_from_user in tweet]
 
             fbfeeds = []
-            file1 = json.load(open("facebook.json",))
+            file1 = json.load(open("/home/adutta/rasa_chatbot/gis_chatbot/actions/facebook.json",))
             for json_file1 in file1:
                 for key,value in json_file1.items():
                     fbfeeds.append(value)
@@ -1478,19 +1478,7 @@ class AskForSubMenu(Action):
         main_menu_option = tracker.get_slot("main_menu")
         if main_menu_option == "1":
             dispatcher.utter_message(
-                text="""اختر واحد من ما يلي
-    1. مواعيد التسجيل 
-    2. البرامج المطروحة 
-    3. جامعات القبول المباشر
-    4. مدارس التوطين / الامتياز
-    5. التواصل مع المؤسسات 
-    6. طلبة الدور الثاني 
-    7. طلبة الاعاقة
-    8. خريجي الشهادات الاجنبية 
-    9. خريجي الشهادات السعودية
-    10. خريجي الشهادات الامريكية
-    11. اسئلة عن التسجيل
-    الرجاء كتابة "0" للعودة إلى القائمة الرئيسية ، واكتب "خروج" للخروج من المحادثة"""
+                response="utter_choose_registration"
 
             )
         elif main_menu_option == "2":
@@ -1544,7 +1532,8 @@ class ActionSubmitMainMenuForm(Action):
             dispatcher.utter_message(
                 response="utter_other_option"
             )
-            return [AllSlotsReset(), Restarted(), FollowupAction("post_scrapper_form")]
+            return [AllSlotsReset(), Restarted()]
+            # return [AllSlotsReset(), Restarted(), FollowupAction("post_scrapper_form")]
 
         if main_menu_option == "7":
             return [AllSlotsReset(), Restarted(), FollowupAction("seventh_menu_form")]
